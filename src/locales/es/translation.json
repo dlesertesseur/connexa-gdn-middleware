@@ -1,0 +1,96 @@
+{
+  "auth": {
+    "title": "¡Bienvenido!",
+    "forgotPassword": "Olvidé mi contraseña?",
+    "doNotHaveAccount": "¿No tienes una cuenta?",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "createAccount": "Crear una",
+    "label": {
+      "email": "Correo electronico",
+      "password": "Contraseña",
+      "language": "Idioma",
+      "copyright": "Copyright 2023"
+    },
+    "placeholder": {
+      "email": "un correo electronico",
+      "password": "una contraseña"
+    },
+    "button": {
+      "signIn": "Iniciar sesión",
+      "signOut": "Cerrar sesión",
+      "refresh": "Actualizar"
+    },
+    "validation": {
+      "emailFormat": "Correo electronico invalido",
+      "passwordFormat": "Contraseña invalida"
+    },
+    "errors": {
+      "title": "Error",
+      "text": "Error de autenticación"
+    }
+  },
+  "importations": {
+    "columns": [
+      "Referencia",
+      "Producto",
+      "Analista",
+      "Evento",
+      "Pais origen",
+      "Valor",
+      "Moneda",
+      "Incoterm",
+      "FOB",
+      "FEUS",
+      "Proveedor",
+      "Fecha",
+      "Requerido en CD",
+      "Canal"
+    ],
+
+    "items": {
+      "columns": ["Imagen", "Codigo", "Descripcion", "UPC", "FOB", "Unidad", "Cantidad", "Precio", "Fecha"]
+    },
+
+    "button": {
+      "refresh": "Actualizar"
+    },
+
+    "label": {
+      "outOfDate": "Vencidas",
+      "onTime": "A tiempo",
+      "notRegistered": "N/D",
+      "lastUpdate": "Última actualización",
+      "nextUpdate": "Próxima actualización",
+      "businessObjective": "Objetivo de negocio",
+      "analyst": "Analista",
+      "feus": "FEUS",
+      "all": "Todos"
+    },
+
+    "filter": {
+      "title": "Seleccione los filtros"
+    }
+  },
+
+  "taskStatuses": {
+    "inactive": "Inactiva",
+    "active": "Activa",
+    "finished": "Terminada"
+  },
+
+  "general": {
+    "button": {
+      "signOut": "Cerrar sesión",
+      "refresh": "Actualizar",
+      "accept": "Aceptar",
+      "cancel": "Cancelar",
+      "close": "Cerrar",
+      "back": "Volver"
+    },
+    "appTitle": "GDN Middleware",
+    "label": {
+      "loadingData": "Cargando datos ...",
+      "noData": "No asignado"
+    }
+  }
+}

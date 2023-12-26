@@ -1,0 +1,96 @@
+{
+  "auth": {
+    "title": "Welcome!",
+    "forgotPassword": "I forgot my password?",
+    "doNotHaveAccount": "¿No tienes una cuenta?",
+    "haveAccount": "You do not have an account?",
+    "createAccount": "Create one",
+    "label": {
+      "email": "Email",
+      "password": "Password",
+      "language": "Language",
+      "copyright": "Copyright 2023"
+    },
+    "placeholder": {
+      "email": "an email",
+      "password": "a password"
+    },
+    "button": {
+      "signIn": "Sign in",
+      "signOut": "sign out"
+    },
+    "validation": {
+      "emailFormat": "Invalid email",
+      "passwordFormat": "Invalid password"
+    },
+    "errors": {
+      "title": "Error",
+      "text": "Authentication error"
+    }
+  },
+
+  "importations": {
+    "columns": [
+      "Reference",
+      "Product",
+      "Analyst",
+      "Event",
+      "Country of origin",
+      "Value",
+      "Currency",
+      "Incoterm",
+      "FOB",
+      "FEUS",
+      "Provider",
+      "Date",
+      "Required in warehouse",
+      "Channel"
+    ],
+
+    "button": {
+      "refresh": "Refresh"
+    },
+
+    "items": {
+      "columns": ["Image","Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+    },
+
+    "label": {
+      "outOfDate": "Out of date",
+      "onTime": "On time",
+      "notRegistered": "N/A",
+      "lastUpdate": "Last update",
+      "nextUpdate": "Next update",
+      "businessObjective": "Business objective",
+      "analyst": "Analyst",
+      "feus": "FEUS",
+      "all": "All"
+    },
+
+    "filter": {
+      "title": "Select filters"
+    }
+  },
+
+  "taskStatuses": {
+    "inactive": "Inactive",
+    "active": "Active",
+    "finished": "Finished"
+  },
+
+  "general": {
+    "button": {
+      "signOut": "Sign out",
+      "refresh": "Refresh",
+      "accept": "Accept",
+      "cancel": "Cancel",
+      "close": "Close",
+      "back": "Back"
+    },
+    "appTitle": "GDN Middleware",
+    "label": {
+      "loadingData": "Loading data ...",
+      "noData": "Unassigned"
+    }
+  }
+}
