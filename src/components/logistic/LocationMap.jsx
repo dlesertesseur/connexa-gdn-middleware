@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { config } from "../../data/config";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 // Componente funcional del mapa
-const LocationMap = () => {
+const LocationMap = ({h = 600}) => {
   // Define la posición inicial del mapa
   const posicionInicial = [51.505, -0.09];
 
@@ -23,7 +24,7 @@ const LocationMap = () => {
   });
 
   return (
-    <MapContainer center={posicionInicial} zoom={5} style={{ height: "100%", width: "100%" }} scrollWheelZoom={true}>
+    <MapContainer center={posicionInicial} zoom={5} style={{ height: `${h}px`, width: "100%" }} scrollWheelZoom={true}>
       {/* Agrega una capa de mosaicos (tiles) */}
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

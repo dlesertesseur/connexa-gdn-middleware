@@ -10,6 +10,7 @@ import ImportationProductsDetail from "../components/importations/ImportationPro
 import Dashboard from "../components/dashboard/Dashboard";
 import DashboardProvier from "../context/DashboardContext";
 import Logistic from "../components/logistic/Logistic";
+import SidomPortal from "../components/importations/SidomPortal";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -47,15 +48,20 @@ const AppsModules = () => {
               errorElement: <ErrorPage />,
             },
             {
-              path: `${MODULE_APPS_ROOT}/importations/productsDetail`,
+              path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail/productsDetail`,
               element: <ImportationProductsDetail />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail/productsDetail/sidom`,
+              element: <SidomPortal />,
               errorElement: <ErrorPage />,
             },
           ],
         },
         {
           path: `${MODULE_APPS_ROOT}/logistics`,
-          element: <Logistic/>,
+          element: <Logistic />,
           errorElement: <ErrorPage />,
         },
       ],

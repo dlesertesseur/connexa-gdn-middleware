@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 
-import { Group, Image, Text } from "@mantine/core";
+import { Button, Group, Image, Text } from "@mantine/core";
 
 const lpad = function (s, width, char) {
   return s.length >= width ? s : (new Array(width).join(char) + s).slice(-width);
@@ -30,10 +30,10 @@ function convertMilisegToYYYYMMDD(milisegundos) {
 
 function convertStrToFloat(value) {
   const ret = parseFloat(value);
-  return(ret.toFixed(2))
+  return ret.toFixed(2);
 }
 
-const Cell = ({ value, w, align, order, type, lastColumn }) => {
+const Cell = ({ value, w, align, order, type, action, selected, lastColumn }) => {
   const createCellValue = (type, value) => {
     let ret = null;
     switch (type) {
@@ -54,6 +54,17 @@ const Cell = ({ value, w, align, order, type, lastColumn }) => {
           <Text fw={500} truncate="end">
             {convertStrToFloat(value)}
           </Text>
+        );
+        break;
+
+      case "linkButton":
+        ret = (
+          <Button w={"100%"} size="xs" onClick={(e) => {
+            e.stopPropagation();
+            action(value)
+            }}>
+            <Text fw={400} size="sm">{value}</Text>
+          </Button>
         );
         break;
 

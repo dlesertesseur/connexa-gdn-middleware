@@ -110,15 +110,16 @@ const DataTable = ({
   };
 
   const createRows = (r, index) => {
+    const selected = r.id === selectedRowId ? true : false;
     const ret = (
-      <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
-        {createCells(r, index)}
+      <Row key={r.id} id={r.id} order={index} selected={selected} onClick={onRowSelected}>
+        {createCells(r, index, selected)}
       </Row>
     );
     return ret;
   };
 
-  const createCells = (r, rowIndex) => {
+  const createCells = (r, rowIndex, selected) => {
     const fields = Object.entries(r);
     const map = new Map(fields);
 
@@ -137,6 +138,8 @@ const DataTable = ({
           align={c.align}
           order={index}
           type={c.type}
+          action={c.action}
+          selected={selected}
           lastColumn={columns.length - index > 1 ? false : true}
         />
       );

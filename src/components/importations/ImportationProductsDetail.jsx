@@ -90,7 +90,8 @@ const ImportationProductsDetail = () => {
     <>
       <Stack gap={"xs"}>
         <ImportationProductsDetailToolbar
-          title={`${statusSelected} / ${reference}`}
+          statusSelected={statusSelected}
+          reference={reference}
           back={() => {
             navigate(-1);
           }}

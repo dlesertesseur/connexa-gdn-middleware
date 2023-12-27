@@ -16,7 +16,7 @@ const ImportationStatusDetail = () => {
   const cols = t("importations.columns", { returnObjects: true });
 
   const columns = [
-    { label: cols[col++], field: "referencia", align: "left", width: 150, type: "" },
+    { label: cols[col++], field: "referencia", align: "left", width: 150},
     { label: cols[col++], field: "shpProducto", align: "left", width: 200 },
     { label: cols[col++], field: "shpAnalista", align: "left", width: 200 },
     { label: cols[col++], field: "shpEvento", align: "left", width: 200 },
@@ -51,7 +51,7 @@ const ImportationStatusDetail = () => {
         },
         options: { replace: true },
       };
-      navigate("../productsDetail", params);
+      navigate("productsDetail", params);
       setSelectedImportationId(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
