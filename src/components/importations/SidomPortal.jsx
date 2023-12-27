@@ -32,7 +32,7 @@ const SidomPortal = () => {
       </Group>
 
       <Iframe
-        url="https://www.google.com/"
+        url="https://www.google.com"
         frameBorder={0}
         sandbox={["allow-scripts", "allow-forms", "allow-modals", "allow-same-origin"]}
         width="100%"
