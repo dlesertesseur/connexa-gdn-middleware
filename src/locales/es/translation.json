@@ -64,7 +64,8 @@
       "businessObjective": "Objetivo de negocio",
       "analyst": "Analista",
       "feus": "FEUS",
-      "all": "Todos"
+      "all": "Todos",
+      "seeOnMap":"Ver en mapa"
     },
 
     "filter": {

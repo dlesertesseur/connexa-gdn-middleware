@@ -57,12 +57,12 @@ const AppsModules = () => {
               element: <SidomPortal />,
               errorElement: <ErrorPage />,
             },
+            {
+              path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail/logistics`,
+              element: <Logistic />,
+              errorElement: <ErrorPage />,
+            },
           ],
-        },
-        {
-          path: `${MODULE_APPS_ROOT}/logistics`,
-          element: <Logistic />,
-          errorElement: <ErrorPage />,
         },
       ],
     },

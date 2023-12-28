@@ -19,12 +19,12 @@ const AppMenu = () => {
       description: "Monitor del estado actual de las importaciones",
       href: `${MODULE_APPS_ROOT}/importations`,
     },
-    {
-      id: "Logistica",
-      name: "Logistica",
-      description: "Monitor del estado actual de la logistica",
-      href: `${MODULE_APPS_ROOT}/logistics`,
-    },
+    // {
+    //   id: "Logistica",
+    //   name: "Logistica",
+    //   description: "Monitor del estado actual de la logistica",
+    //   href: `${MODULE_APPS_ROOT}/logistics`,
+    // },
   ];
   return (
     <ScrollArea w={"100%"} h={"100%"}>

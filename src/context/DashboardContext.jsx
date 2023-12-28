@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { findAllBusinessObjectives } from "../data/Importations";
 import { useUserContext } from "./UserContext";
-import { findAllChartData } from "../data/Dashboard";
+import { findAllChartData } from "../data/dashboard";
 
 const DashboardContext = createContext();
 

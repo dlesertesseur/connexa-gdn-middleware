@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { HEADER_HIGHT } from "../../data/config";
 import Iframe from "react-iframe";
-import { Helmet } from "react-helmet";
 
 const SidomPortal = () => {
   const location = useLocation();
@@ -32,25 +31,25 @@ const SidomPortal = () => {
         </Button>
       </Group>
 
-      <>
-        <Helmet>
+      {/* <> */}
+      {/* <Helmet>
           <meta charSet="utf-8" />
           <title>Sidom</title>
           <meta httpEquiv="X-Frame-Options" content="sameorigin"></meta>
-        </Helmet>
+        </Helmet> */}
 
-        <Iframe
-          url="https://www.google.com"
-          frameBorder={0}
-          sandbox={["allow-scripts", "allow-forms", "allow-modals", "allow-same-origin"]}
-          width="100%"
-          height={`${height - HEADER_HIGHT} px`}
-          id=""
-          className=""
-          display="block"
-          position="relative"
-        />
-      </>
+      <Iframe
+        url="https://www.google.com"
+        frameBorder={0}
+        sandbox={["allow-scripts", "allow-forms", "allow-modals", "allow-same-origin"]}
+        width="100%"
+        height={`${height - HEADER_HIGHT} px`}
+        id=""
+        className=""
+        display="block"
+        position="relative"
+      />
+      {/* </> */}
     </Stack>
   );
 };

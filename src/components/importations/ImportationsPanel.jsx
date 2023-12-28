@@ -62,7 +62,7 @@ const ImportationsPanel = () => {
       <ScrollArea type="scroll" style={{ width: "100%", height: height - HEADER_HIGHT }}>
         <Flex wrap={"wrap"} gap={"xs"} justify="center">
           {statuses?.map((s) => (
-            <ImportarionCard key={s} status={s} />
+            <ImportarionCard key={s} status={s}/>
           ))}
         </Flex>
       </ScrollArea>
