@@ -1,21 +1,18 @@
 /* eslint-disable react/prop-types */
 import { Button, Group, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { config } from "../../data/config";
 
 const ImportationProductsDetailToolbar = ({ back = null, statusSelected, reference }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const openSidomApp = () => {
-    const params = {
-      state: {
-        reference: reference,
-        status: statusSelected,
-      },
-      options: { replace: true },
-    };
-    navigate("sidom", params);
+    const url = `${config.SIDOM_URL} ${reference}`;
+
+    console.log("openSidomApp url -> ", url);
+    
+    const win = window.open(url, '_blank');
+    win.focus();
   };
 
   return (

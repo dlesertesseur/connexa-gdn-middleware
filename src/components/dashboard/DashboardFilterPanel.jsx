@@ -26,14 +26,13 @@ const DashboardFilterPanel = () => {
     <Group justify="right">
       <Select
         disabled={loadingTotalsData}
-        //label={t("importations.label.businessObjective")}
         searchable
         data={businessObjectives ? businessObjectives : []}
         value={selected}
         onChange={setSelected}
       />
 
-      <Button disabled={loadingTotalsData} onClick={onAccept}>
+      <Button disabled={loadingTotalsData} loading={loadingTotalsData} onClick={onAccept}>
         {t("general.button.accept")}
       </Button>
     </Group>

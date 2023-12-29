@@ -57,10 +57,23 @@ const ImportationStatusDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
+  const activeMap = (status) => {
+    let ret = status.split(" ");
+    ret = ret[0];
+    ret = parseInt(ret);
+    if(ret === 5 ){
+      return(true);
+    }
+    else{
+      return(false);
+    }
+  }
+
   return (
     <Stack spacing={"xs"}>
       <ImportationStatusDetailToolbar
         title={statusSelected}
+        activeMap={activeMap(statusSelected)}
         back={() => {
           navigate("../");
         }}

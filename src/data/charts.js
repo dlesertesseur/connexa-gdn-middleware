@@ -1,4 +1,4 @@
-const chartsData = [
+const chartsData__ = [
 	{
 		"Name": "",
 		"TotalProcess": 206,
@@ -51913,4 +51913,4 @@ const chartsData = [
 	}
 ]
 
-export {chartsData}
+export {chartsData__}

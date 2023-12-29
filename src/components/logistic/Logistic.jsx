@@ -1,6 +1,6 @@
 import { useViewportSize } from "@mantine/hooks";
-import LocationMap from "./LocationMap";
 import { useLayoutEffect, useState } from "react";
+import LocationMap from "./LocationMap";
 
 const Logistic = () => {
   const { height } = useViewportSize();
@@ -8,7 +8,7 @@ const Logistic = () => {
   
   useLayoutEffect(() => {
     if (height > 0) {
-      setMap(<LocationMap h={height - 80} />);
+      setMap(<LocationMap h={height - 140} />);
     }
   }, [height]);
 

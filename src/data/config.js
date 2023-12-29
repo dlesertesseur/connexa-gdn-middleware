@@ -5,6 +5,7 @@ const config = {
   API_ADMIN_BASE: import.meta.env.VITE_API_ADMIN_BASE,
   API_GDNAR_BASE: import.meta.env.VITE_API_GDNAR_BASE,
   APP_PUBLIC_URL: import.meta.env.VITE_PUBLIC_URL,
+  SIDOM_URL: import.meta.env.VITE_SIDOM_URL
 };
 
 const API_ADMIN = `${config.SERVER}:${config.PORT}${config.API_ADMIN_BASE}`;

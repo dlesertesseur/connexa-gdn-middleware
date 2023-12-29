@@ -86,7 +86,8 @@
       "accept": "Aceptar",
       "cancel": "Cancelar",
       "close": "Cerrar",
-      "back": "Volver"
+      "back": "Volver",
+      "moreInfo":"Más información"
     },
     "appTitle": "GDN Middleware",
     "label": {

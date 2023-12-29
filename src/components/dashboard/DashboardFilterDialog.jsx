@@ -9,7 +9,7 @@ import { useDashboardContext } from "../../context/DashboardContext";
 const DashboardFilterDialog = ({ opened, open, close }) => {
   const [selected, setSelected] = useState(null);
 
-  const { businessObjectives, businessObjectiveSelected, setBusinessObjectiveSelected, loadingTotalsData } =
+  const { businessObjectiveSelected, setBusinessObjectiveSelected, loadingTotalsData } =
     useDashboardContext();
 
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ const DashboardFilterDialog = ({ opened, open, close }) => {
           <Select
             label={t("importations.label.businessObjective")}
             searchable
-            data={businessObjectives ? businessObjectives : []}
+            data={[]}
             value={selected}
             onChange={setSelected}
           />

@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react";
-import { findAllBusinessObjectives } from "../data/Importations";
 import { useUserContext } from "./UserContext";
-import { findAllChartData } from "../data/dashboard";
+import { findAllChartData } from "../data/Dashboard";
 
 const DashboardContext = createContext();
 
@@ -22,18 +21,15 @@ const DashboardProvier = ({ children }) => {
   const { user } = useUserContext();
 
   const getData = async () => {
-    const params = {
-      token: user.token,
-    };
     setLoadingData(true);
     try {
-      let events = await findAllBusinessObjectives(params);
-      events = events.filter((e) => e !== "");
-      events = events.filter((e) => e !== null);
-      setBusinessObjectives(events);
-
       let chartsData = await findAllChartData();
       setChartsData(chartsData);
+      
+      let events = chartsData.map( c => c.Name);
+      events.sort();
+      setBusinessObjectives(events);
+
     } catch (error) {
       setError(error.message);
     }

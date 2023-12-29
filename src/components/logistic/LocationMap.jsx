@@ -2,15 +2,16 @@
 /* eslint-disable react/prop-types */
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { config } from "../../data/config";
-import { Image, Stack, Text } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import { useLocation } from "react-router-dom";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import LocationMapToolbar from "./LocationMapToolbar";
 import { useEffect, useState } from "react";
 import { useImportationContext } from "../../context/ImportationContext";
 import { findVesselByCode } from "../../data/vessels";
 import { useUserContext } from "../../context/UserContext";
+import { VesselCard } from "./VesselCard";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import LocationMapToolbar from "./LocationMapToolbar";
 
 const LocationMap = ({ h = 600 }) => {
   const posicionInicial = [51.505, -0.09];
@@ -70,11 +71,8 @@ const LocationMap = ({ h = 600 }) => {
 
         {vessels?.map((v) => (
           <Marker key={v.id} position={[v.latitude, v.longitude]} icon={barcoIcon}>
-            <Popup>
-              <Stack gap={0} bg={"blue"}>
-                <Text size="sm" fw={500}>{v.name}</Text>
-                <Image src={"https://picsum.photos/300/300"} alt={v.name}></Image>
-              </Stack>
+            <Popup closeButton={false}>
+              <VesselCard data={v} />
             </Popup>
           </Marker>
         ))}

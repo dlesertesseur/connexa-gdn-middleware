@@ -3,7 +3,7 @@ import { Button, Group, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-const ImportationStatusDetailToolbar = ({ back = null, title }) => {
+const ImportationStatusDetailToolbar = ({ back = null, title, activeMap }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -14,8 +14,8 @@ const ImportationStatusDetailToolbar = ({ back = null, title }) => {
       },
       options: { replace: false },
     };
-    navigate(`logistics`, params)
-  }
+    navigate(`logistics`, params);
+  };
 
   return (
     <Stack spacing={"xs"}>
@@ -27,9 +27,11 @@ const ImportationStatusDetailToolbar = ({ back = null, title }) => {
         </Group>
 
         <Group>
-          <Button onClick={toLogistics} disabled={back === null ? true : false} size="xs">
-            <Text size="xs">{t("importations.label.seeOnMap")}</Text>
-          </Button>
+          {activeMap ? (
+            <Button onClick={toLogistics} disabled={back === null ? true : false} size="xs">
+              <Text size="xs">{t("importations.label.seeOnMap")}</Text>
+            </Button>
+          ) : null}
 
           <Button onClick={back} disabled={back === null ? true : false} size="xs">
             <Text size="xs">{t("general.button.back")}</Text>
