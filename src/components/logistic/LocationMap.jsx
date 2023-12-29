@@ -51,10 +51,15 @@ const LocationMap = ({ h = 600 }) => {
 
   // Crea un objeto de icono personalizado
   const barcoIcon = new L.Icon({
-    iconUrl: `${config.APP_PUBLIC_URL}/images/vessel.png`,
-    iconSize: [40, 10], // Tamaño del icono
-    iconAnchor: [20, 5], // Punto de anclaje del icono
-    popupAnchor: [0, -5], // Punto de anclaje del globo emergente
+    // iconUrl: `${config.APP_PUBLIC_URL}/images/vessel.png`,
+    // iconSize: [40, 10], // Tamaño del icono
+    // iconAnchor: [20, 5], // Punto de anclaje del icono
+    // popupAnchor: [0, -5], // Punto de anclaje del globo emergente
+
+    iconUrl: `${config.APP_PUBLIC_URL}/images/pin.png`,
+    iconSize: [32, 32],
+    iconAnchor: [16, 32], // Punto de anclaje del icono
+    popupAnchor: [0, -36], // Punto de anclaje del globo emergente
   });
 
   return (

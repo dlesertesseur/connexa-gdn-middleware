@@ -7,7 +7,7 @@ export function VesselCard({ data }) {
   return (
     <Card w={300}>
       <Card.Section>
-        <Image src={data.image ? data.image : "https://picsum.photos/300/300"} alt={data.code} height={200} />
+        <Image src={data.image ? data.image : "https://via.placeholder.com/300x200"} alt={data.code} height={200} />
       </Card.Section>
 
       <Card.Section>
