@@ -140,6 +140,7 @@ const DataTable = ({
           type={c.type}
           action={c.action}
           selected={selected}
+          defaultValue={c.default}
           lastColumn={columns.length - index > 1 ? false : true}
         />
       );

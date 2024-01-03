@@ -15,7 +15,7 @@ async function findVesselByCode(params) {
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();
-  console.log("findVesselByCode data ->", data);
+  // console.log("findVesselByCode data ->", data);
   if (data.error) {
     throw new Error(data.error);
   }

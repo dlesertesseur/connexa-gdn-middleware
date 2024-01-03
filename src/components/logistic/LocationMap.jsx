@@ -14,7 +14,8 @@ import "leaflet/dist/leaflet.css";
 import LocationMapToolbar from "./LocationMapToolbar";
 
 const LocationMap = ({ h = 600 }) => {
-  const posicionInicial = [51.505, -0.09];
+  //const posicionInicial = [51.505, -0.09];
+  const [posicionInicial, setPosicionInicial] = useState([51.505, -0.09]);
   const location = useLocation();
 
   const { title } = location.state;
@@ -38,6 +39,10 @@ const LocationMap = ({ h = 600 }) => {
       } catch (error) {
         console.log(error);
       }
+    }
+
+    if (ret && ret.length > 0) {
+      setPosicionInicial([ret[0].latitude, ret[0].longitude]);
     }
 
     setVessels(ret);
@@ -67,13 +72,15 @@ const LocationMap = ({ h = 600 }) => {
       <LocationMapToolbar title={title} />
       <MapContainer
         center={posicionInicial}
-        zoom={5}
+        zoom={4}
+        minZoom={3}
         style={{ height: `${h}px`, width: "100%" }}
         scrollWheelZoom={true}
       >
-        {/* Agrega una capa de mosaicos (tiles) */}
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
 
+        {/* <TileLayer url="https://www.openstreetmap.in/indic-map/#{z}/{x}/{y}"/> */}
+        
         {vessels?.map((v) => (
           <Marker key={v.id} position={[v.latitude, v.longitude]} icon={barcoIcon}>
             <Popup closeButton={false}>

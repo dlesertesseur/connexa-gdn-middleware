@@ -10,6 +10,10 @@ import ImportationProductsDetail from "../components/importations/ImportationPro
 import Dashboard from "../components/dashboard/Dashboard";
 import DashboardProvier from "../context/DashboardContext";
 import Logistic from "../components/logistic/Logistic";
+import Shipments from "../components/shipments/Shipments";
+import ShipmentsPanel from "../components/shipments/ShipmentsPanel";
+import ShipmentStatusDetail from "../components/shipments/ShipmentStatusDetail";
+import ShipmentProductsDetail from "../components/shipments/ShipmentProductsDetail";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -53,6 +57,33 @@ const AppsModules = () => {
             },
             {
               path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail/logistics`,
+              element: <Logistic />,
+              errorElement: <ErrorPage />,
+            },
+          ],
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/shipments`,
+          element: <Shipments />,
+          errorElement: <ErrorPage />,
+          children: [
+            {
+              path: `${MODULE_APPS_ROOT}/shipments/`,
+              element: <ShipmentsPanel />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/shipments/shipmentStatusDetail`,
+              element: <ShipmentStatusDetail />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/shipments/shipmentStatusDetail/productsDetail`,
+              element: <ShipmentProductsDetail />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/shipments/shipmentStatusDetail/logistics`,
               element: <Logistic />,
               errorElement: <ErrorPage />,
             },

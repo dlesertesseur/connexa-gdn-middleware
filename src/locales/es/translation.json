@@ -29,6 +29,7 @@
       "text": "Error de autenticación"
     }
   },
+
   "importations": {
     "columns": [
       "Referencia",
@@ -93,6 +94,71 @@
     "label": {
       "loadingData": "Cargando datos ...",
       "noData": "No asignado"
+    }
+  },
+
+  "menu": {
+    "options": [
+      {
+        "id": "dashboard",
+        "name": "Dashboard",
+        "description": "Monitorear el estado general de los procesos",
+        "module": "dashboard"
+      },
+      {
+        "id": "imports",
+        "name": "Importaciones",
+        "description": "Monitorear el estado actual de las importaciones",
+        "module": "importations"
+      },
+      {
+        "id": "shipments",
+        "name": "Embarques",
+        "description": "Seguimiento del estado actual de los envíos",
+        "module": "shipments"
+      }
+    ]
+  },
+
+  "shipments": {
+    "columns": [
+      "Referencia",
+      "Producto",
+      "Analista",
+      "Evento",
+      "Pais origen",
+      "Valor",
+      "Moneda",
+      "Incoterm",
+      "FEUS",
+      "Proveedor",
+      "Requerido en CD",
+      "Canal"
+    ],
+
+    "items": {
+      "columns": ["Imagen", "Codigo", "Descripcion", "UPC", "FOB", "Unidad", "Cantidad", "Precio", "Fecha"]
+    },
+
+    "button": {
+      "refresh": "Actualizar"
+    },
+
+    "label": {
+      "outOfDate": "Vencidas",
+      "onTime": "A tiempo",
+      "notRegistered": "N/D",
+      "lastUpdate": "Última actualización",
+      "nextUpdate": "Próxima actualización",
+      "businessObjective": "Objetivo de negocio",
+      "analyst": "Analista",
+      "feus": "FEUS",
+      "all": "Todos",
+      "seeOnMap":"Ver en mapa"
+    },
+
+    "filter": {
+      "title": "Seleccione los filtros"
     }
   }
 }

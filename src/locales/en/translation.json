@@ -52,7 +52,7 @@
     },
 
     "items": {
-      "columns": ["Image","Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
     },
 
     "label": {
@@ -65,7 +65,7 @@
       "analyst": "Analyst",
       "feus": "FEUS",
       "all": "All",
-      "seeOnMap":"See on map"
+      "seeOnMap": "See on map"
     },
 
     "filter": {
@@ -87,12 +87,78 @@
       "cancel": "Cancel",
       "close": "Close",
       "back": "Back",
-      "moreInfo":"More information"
+      "moreInfo": "More information"
     },
     "appTitle": "GDN Middleware",
     "label": {
       "loadingData": "Loading data ...",
       "noData": "Unassigned"
     }
+  },
+
+  "menu": {
+    "options": [
+      {
+        "id": "dashboard",
+        "name": "Dashboard",
+        "description": "Monitor the general status of processes",
+        "module": "dashboard"
+      },
+      {
+        "id": "imports",
+        "name": "Imports",
+        "description": "Monitor current status of imports",
+        "module": "importations"
+      },
+      {
+        "id": "shipments",
+        "name": "Shipments",
+        "description": "Monitoring the current status of shipments",
+        "module": "shipments"
+      }
+    ]
+  },
+
+  "shipments": {
+    "columns": [
+      "Reference",
+      "Product",
+      "Analyst",
+      "Event",
+      "Country of origin",
+      "Value",
+      "Currency",
+      "Incoterm",
+      "FEUS",
+      "Provider",
+      "Required in warehouse",
+      "Channel"
+    ],
+
+    "button": {
+      "refresh": "Refresh"
+    },
+
+    "items": {
+      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+    },
+
+    "label": {
+      "outOfDate": "Out of date",
+      "onTime": "On time",
+      "notRegistered": "N/A",
+      "lastUpdate": "Last update",
+      "nextUpdate": "Next update",
+      "businessObjective": "Business objective",
+      "analyst": "Analyst",
+      "feus": "FEUS",
+      "all": "All",
+      "seeOnMap": "See on map"
+    },
+
+    "filter": {
+      "title": "Select filters"
+    }
   }
+
 }

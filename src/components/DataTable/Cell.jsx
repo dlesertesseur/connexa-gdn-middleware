@@ -33,7 +33,7 @@ function convertStrToFloat(value) {
   return ret.toFixed(2);
 }
 
-const Cell = ({ value, w, align, order, type, action, selected, lastColumn }) => {
+const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defaultValue="" }) => {
   const createCellValue = (type, value) => {
     let ret = null;
     switch (type) {
@@ -71,7 +71,7 @@ const Cell = ({ value, w, align, order, type, action, selected, lastColumn }) =>
       default:
         ret = (
           <Text fw={500} truncate="end">
-            {value}
+            {value ? value : defaultValue}
           </Text>
         );
         break;
