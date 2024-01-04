@@ -49,7 +49,7 @@ const DocumentDetail = () => {
     { label: cols[col++], field: "timestamp", align: "center", type: "timestampToYYYYMMDD" },
   ];
 
-  cols = t("shipments.columns", { returnObjects: true });
+  cols = t("document.shipments.columns", { returnObjects: true });
   col = 0;
   const shipmentColumns = [
     { label: cols[col++], field: "referencia", align: "left", width: 150 },
@@ -62,8 +62,8 @@ const DocumentDetail = () => {
     { label: cols[col++], field: "incoterm", align: "left", width: 200 },
     { label: cols[col++], field: "feus", align: "right", width: 200 },
     { label: cols[col++], field: "proveedor", align: "left", width: 200 },
-    { label: cols[col++], field: "mecesidadEnCd", align: "center", width: 160 },
-    { label: cols[col++], field: "channel", align: "centerleft", width: 160 },
+    { label: cols[col++], field: "necesidadEnCd", align: "center", width: 160 },
+    { label: cols[col++], field: "estado", align: "left", width: 160 },
   ];
 
   const getData = async () => {
@@ -99,8 +99,8 @@ const DocumentDetail = () => {
       }
 
       const shipments = await findAsociateShipmentsByDocument(params);
-      if (items.message) {
-        setError(items.message);
+      if (shipments.message) {
+        setError(shipments.message);
       } else {
         setShipments(shipments);
       }

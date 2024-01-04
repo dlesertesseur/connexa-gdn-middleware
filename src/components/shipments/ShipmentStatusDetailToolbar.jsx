@@ -18,7 +18,7 @@ const ShipmentStatusDetailToolbar = ({ back = null, inspect = null, markAsModifi
     navigate(`logistics`, params);
   };
 
-  const {selectedShipmentId} = useShipmentContext();
+  const { selectedShipmentId } = useShipmentContext();
 
   return (
     <Stack spacing={"xs"}>
@@ -30,6 +30,10 @@ const ShipmentStatusDetailToolbar = ({ back = null, inspect = null, markAsModifi
         </Group>
 
         <Group>
+          <Button onClick={inspect} disabled={selectedShipmentId ? false : true} size="xs">
+            <Text size="xs">{t("general.button.viewDetail")}</Text>
+          </Button>
+          
           {activeMap ? (
             <Button onClick={toLogistics} disabled={back === null ? true : false} size="xs">
               <Text size="xs">{t("shipments.label.seeOnMap")}</Text>
@@ -38,10 +42,6 @@ const ShipmentStatusDetailToolbar = ({ back = null, inspect = null, markAsModifi
 
           <Button onClick={markAsModified} disabled={selectedShipmentId ? false : true} size="xs">
             <Text size="xs">{t("general.button.markAsModified")}</Text>
-          </Button>
-
-          <Button onClick={inspect} disabled={selectedShipmentId ? false : true} size="xs">
-            <Text size="xs">{t("general.button.viewDetail")}</Text>
           </Button>
 
           <Button onClick={back} disabled={back === null ? true : false} size="xs">

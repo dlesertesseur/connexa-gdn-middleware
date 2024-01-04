@@ -129,7 +129,7 @@
       "FEUS",
       "Provider",
       "Required in warehouse",
-      "Channel"
+      "Status"
     ],
 
     "button": {
@@ -234,8 +234,22 @@
       "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
     },
     "shipments": {
-      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+      "columns": [
+        "Reference",
+        "Product",
+        "Analyst",
+        "Event",
+        "Country of origin",
+        "Value",
+        "Currency",
+        "Incoterm",
+        "FEUS",
+        "Provider",
+        "Required in warehouse",
+        "Status"
+      ]
     },
+    
     "detail": {
       "fields": [
         "agente",

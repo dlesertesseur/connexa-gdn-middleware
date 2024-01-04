@@ -89,8 +89,8 @@
       "close": "Cerrar",
       "back": "Volver",
       "moreInfo": "Más información",
-      "markAsModified":"Marcar como modificado",
-      "viewDetail":"Ver detalle"
+      "markAsModified": "Marcar como modificado",
+      "viewDetail": "Ver detalle"
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -233,6 +233,23 @@
 
     "items": {
       "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+    },
+
+    "shipments": {
+      "columns": [
+        "Referencia",
+        "Producto",
+        "Analista",
+        "Evento",
+        "Pais origen",
+        "Valor",
+        "Moneda",
+        "Incoterm",
+        "FEUS",
+        "Proveedor",
+        "Requerido en CD",
+        "Estado"
+      ]
     },
     "detail": {
       "fields": [
