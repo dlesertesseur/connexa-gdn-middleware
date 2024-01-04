@@ -11,6 +11,7 @@ import {
   findShipmentsByStatus,
   findShipmentsIndicatorsByStatus,
   getProcessStatus,
+  markShipmentAsModied,
 } from "../data/shipments";
 
 const ShipmentContext = createContext();
@@ -33,7 +34,7 @@ const ShipmentProvider = ({ children }) => {
   const [businessObjectiveSelected, setBusinessObjectiveSelected] = useState(t("importations.label.all"));
   const [analystSelected, setAnalystSelected] = useState(t("importations.label.all"));
   const [statusSelected, setStatusSelected] = useState(null);
-  const [importationsByStatus, setShipmentsByStatus] = useState(null);
+  const [shipmentsByStatus, setShipmentsByStatus] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const [totalsByStatus, setTotalsByStatus] = useState(null);
   const [loadingTotalsData, setLoadingTotalsData] = useState(false);
@@ -92,7 +93,6 @@ const ShipmentProvider = ({ children }) => {
   };
 
   const getImportatiosByStatus = async () => {
-    console.log("ShipmentContext getImportatiosByStatus() statusSelected -> ", statusSelected);
     const params = {
       token: user.token,
       status: statusSelected,
@@ -183,6 +183,19 @@ const ShipmentProvider = ({ children }) => {
     setLoadingTotalsData(true);
   }
 
+  const markAsModified = (id) => {
+    const shipment = shipmentsByStatus.find(s => s.id === id); 
+    shipment.led = "RED";
+    setShipmentsByStatus([...shipmentsByStatus]);
+
+    const params = {
+      token: user.token,
+      reference: shipment.referencia,
+    };
+    
+    markShipmentAsModied(params);
+  }
+
   return (
     <ShipmentContext.Provider
       value={{
@@ -196,14 +209,17 @@ const ShipmentProvider = ({ children }) => {
         processControl,
         totalsByStatus,
         statusSelected,
-        importationsByStatus,
+        shipmentsByStatus,
         loadingTotalsData,
         getData,
         selectStatus,
         refreshData,
         setFilterData,
-        selectedShipmentId, setSelectedShipmentId,
-        scrollYPos, setScrollYPos,
+        selectedShipmentId,
+        setSelectedShipmentId,
+        scrollYPos,
+        setScrollYPos,
+        markAsModified
       }}
     >
       {children}

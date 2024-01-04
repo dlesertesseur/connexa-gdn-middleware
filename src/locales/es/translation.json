@@ -66,7 +66,7 @@
       "analyst": "Analista",
       "feus": "FEUS",
       "all": "Todos",
-      "seeOnMap":"Ver en mapa"
+      "seeOnMap": "Ver en mapa"
     },
 
     "filter": {
@@ -88,13 +88,16 @@
       "cancel": "Cancelar",
       "close": "Cerrar",
       "back": "Volver",
-      "moreInfo":"Más información"
+      "moreInfo": "Más información",
+      "markAsModified":"Marcar como modificado",
+      "viewDetail":"Ver detalle"
     },
     "appTitle": "GDN Middleware",
     "label": {
       "loadingData": "Cargando datos ...",
       "noData": "No asignado"
-    }
+    },
+    "title": { "error": "Error" }
   },
 
   "menu": {
@@ -104,12 +107,6 @@
         "name": "Dashboard",
         "description": "Monitorear el estado general de los procesos",
         "module": "dashboard"
-      },
-      {
-        "id": "imports",
-        "name": "Importaciones",
-        "description": "Monitorear el estado actual de las importaciones",
-        "module": "importations"
       },
       {
         "id": "shipments",
@@ -141,7 +138,8 @@
     },
 
     "button": {
-      "refresh": "Actualizar"
+      "refresh": "Actualizar",
+      "purchaseOrder": "Orden de compra"
     },
 
     "label": {
@@ -154,11 +152,117 @@
       "analyst": "Analista",
       "feus": "FEUS",
       "all": "Todos",
-      "seeOnMap":"Ver en mapa"
+      "seeOnMap": "Ver en mapa"
     },
 
     "filter": {
       "title": "Seleccione los filtros"
+    }
+  },
+
+  "shipment": {
+    "title": "Información de embarque",
+    "detail": {
+      "fields": [
+        "ordenDeCompra",
+        "referencia",
+        "facturaProforma",
+        "spo",
+        "estado",
+        "division",
+        "departamento",
+        "analista",
+        "proveedor",
+        "producto",
+        "despachante",
+        "tipoDeOperacion",
+        "evento",
+        "necesidadEnCd",
+        "incoterm",
+        "paisOrigen",
+        "puertoOrigen",
+        "etd",
+        "eta",
+        "importationType",
+        "tiempoDeTransito",
+        "canal",
+        "terminoDePago",
+        "paisDestino",
+        "puertoDestino",
+        "moneda",
+        "modoDeTransporte",
+        "feus"
+      ],
+      "label": {
+        "ordenDeCompra": "Orden de compra",
+        "referencia": "Referencia",
+        "facturaProforma": "Factura proforma",
+        "spo": "SPO",
+        "estado": "Estado",
+        "division": "Division",
+        "departamento": "Departamento",
+        "analista": "Analista",
+        "proveedor": "Proveedor",
+        "producto": "Producto",
+        "despachante": "Despachante",
+        "tipoDeOperacion": "Tipo de operacion",
+        "evento": "Evento",
+        "necesidadEnCd": "Necesidad en CD",
+        "incoterm": "Incoterm",
+        "paisOrigen": "Pais origen",
+        "puertoOrigen": "Puerto origen",
+        "etd": "ETD",
+        "eta": "ETA",
+        "importationType": "Tipo de importacion",
+        "tiempoDeTransito": "Tiempo de transito",
+        "canal": "Canal",
+        "terminoDePago": "Termino de pago",
+        "paisDestino": "Pais destino",
+        "puertoDestino": "Puerto destino",
+        "moneda": "Moneda",
+        "modoDeTransporte": "Modo de transporte",
+        "feus": "FEUS"
+      }
+    }
+  },
+
+  "document": {
+    "title": "Información de documento",
+    "itemTitle": "Información de items",
+    "shipmentsTitle": "Embarques asociados",
+
+    "items": {
+      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+    },
+    "detail": {
+      "fields": [
+        "agente",
+        "proveedor",
+        "tipo",
+        "referencia",
+        "fecha",
+        "incoterm",
+        "moneda",
+        "valor",
+        "fob",
+        "codigoDeProveedor",
+        "estado",
+        "embarques"
+      ],
+      "label": {
+        "agente": "Agente",
+        "proveedor": "Proveedor",
+        "tipo": "Tipo",
+        "referencia": "Referencia",
+        "fecha": "Fecha",
+        "incoterm": "Incoterm",
+        "moneda": "Moneda",
+        "valor": "Valor",
+        "fob": "FOB|",
+        "codigoDeProveedor": "Codigo de proveedor",
+        "estado": "Estado",
+        "embarques": "Embarques"
+      }
     }
   }
 }

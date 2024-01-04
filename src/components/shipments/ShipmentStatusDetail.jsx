@@ -16,13 +16,14 @@ const ShipmentStatusDetail = () => {
   const cols = t("shipments.columns", { returnObjects: true });
 
   const columns = [
-    { label: cols[col++], field: "referencia", align: "left", width: 150},
+    { label: "", field: "led", type: "led", width: 30 },
+    { label: cols[col++], field: "referencia", align: "left", width: 150 },
     { label: cols[col++], field: "producto", align: "left", width: 200 },
     { label: cols[col++], field: "analista", align: "left", width: 200 },
     { label: cols[col++], field: "evento", align: "left", width: 200 },
     { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
-    { label: cols[col++], field: "valor", align: "right", width: 200, default:0 },
-    { label: cols[col++], field: "moneda", align: "center", width: 200, default:"---" },
+    { label: cols[col++], field: "valor", align: "right", width: 200, default: 0 },
+    { label: cols[col++], field: "moneda", align: "center", width: 200, default: "---" },
     { label: cols[col++], field: "incoterm", align: "left", width: 200 },
     { label: cols[col++], field: "feus", align: "right", width: 200 },
     { label: cols[col++], field: "proveedor", align: "left", width: 200 },
@@ -31,42 +32,44 @@ const ShipmentStatusDetail = () => {
   ];
 
   const {
-    importationsByStatus,
+    shipmentsByStatus,
     statusSelected,
     loading,
     selectedShipmentId,
     setSelectedShipmentId,
     scrollYPos,
     setScrollYPos,
+    markAsModified
   } = useShipmentContext();
 
   const onRowClick = (id) => {
     if (id) {
-      const found = importationsByStatus.find((r) => r.id === id);
-      const params = {
-        state: {
-          reference: found.referencia,
-          product: found.shpProducto,
-        },
-        options: { replace: true },
-      };
-      navigate("productsDetail", params);
       setSelectedShipmentId(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const onDoubleClick = (id) => {
+    const found = shipmentsByStatus.find((r) => r.id === id);
+    const params = {
+      state: {
+        reference: found.referencia,
+      },
+      options: { replace: true },
+    };
+    navigate("shipmentDetail", params);
   };
 
   const activeMap = (status) => {
     let ret = status.split(" ");
     ret = ret[0];
     ret = parseInt(ret);
-    if(ret === 5 ){
-      return(true);
+    if (ret === 5) {
+      return true;
+    } else {
+      return false;
     }
-    else{
-      return(false);
-    }
-  }
+  };
 
   return (
     <Stack spacing={"xs"}>
@@ -74,11 +77,18 @@ const ShipmentStatusDetail = () => {
         title={statusSelected}
         activeMap={activeMap(statusSelected)}
         back={() => {
+          setSelectedShipmentId(null);
           navigate("../");
+        }}
+        inspect={() => {
+          onDoubleClick(selectedShipmentId);
+        }}
+        markAsModified={() => {
+          markAsModified(selectedShipmentId);
         }}
       />
       <DataTable
-        data={importationsByStatus}
+        data={shipmentsByStatus}
         columns={columns}
         h={wSize.height - HEADER_HIGHT}
         setSelectedRowId={onRowClick}
@@ -86,6 +96,7 @@ const ShipmentStatusDetail = () => {
         loading={loading}
         setScrollYPos={setScrollYPos}
         scrollYPos={scrollYPos}
+        //onDoubleClick={onDoubleClick}
       />
     </Stack>
   );

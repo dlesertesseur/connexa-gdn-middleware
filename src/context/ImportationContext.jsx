@@ -92,7 +92,6 @@ const ImportationProvider = ({ children }) => {
   };
 
   const getImportatiosByStatus = async () => {
-    console.log("ImportationContext getImportatiosByStatus() statusSelected -> ", statusSelected);
     const params = {
       token: user.token,
       status: statusSelected,

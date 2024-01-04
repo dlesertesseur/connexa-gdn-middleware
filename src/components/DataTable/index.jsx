@@ -21,6 +21,7 @@ const DataTable = ({
   setScrollXPos,
   scrollYPos,
   setScrollYPos,
+  onDoubleClick
 }) => {
   const targetRef = useRef();
   const scrollYRef = useRef();
@@ -112,7 +113,7 @@ const DataTable = ({
   const createRows = (r, index) => {
     const selected = r.id === selectedRowId ? true : false;
     const ret = (
-      <Row key={r.id} id={r.id} order={index} selected={selected} onClick={onRowSelected}>
+      <Row key={r.id} id={r.id} order={index} selected={selected} onClick={onRowSelected} onDoubleClick={onDoubleClick}>
         {createCells(r, index, selected)}
       </Row>
     );

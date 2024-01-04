@@ -2,23 +2,9 @@
 /* eslint-disable no-unused-vars */
 
 import { Button, Group, Image, Text } from "@mantine/core";
+import { IconPencil } from "@tabler/icons-react";
 
-const lpad = function (s, width, char) {
-  return s.length >= width ? s : (new Array(width).join(char) + s).slice(-width);
-};
-
-function convertMilisegToYYYYMMDDHHMISS(milisegundos) {
-  const fecha = new Date(milisegundos);
-  const year = fecha.getFullYear();
-  const month = String(fecha.getMonth() + 1).padStart(2, "0");
-  const day = String(fecha.getDate()).padStart(2, "0");
-  const hours = String(fecha.getHours()).padStart(2, "0");
-  const minutes = String(fecha.getMinutes()).padStart(2, "0");
-  const seconds = String(fecha.getSeconds()).padStart(2, "0");
-
-  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
-}
-
+const fwText = 400;
 function convertMilisegToYYYYMMDD(milisegundos) {
   const fecha = new Date(milisegundos);
   const year = fecha.getFullYear();
@@ -33,17 +19,26 @@ function convertStrToFloat(value) {
   return ret.toFixed(2);
 }
 
-const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defaultValue="" }) => {
+const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defaultValue = "" }) => {
   const createCellValue = (type, value) => {
     let ret = null;
     switch (type) {
+      case "led":
+        ret =
+          value !== "GREEN" ? (
+            <Group gap={0} h={"100%"} w={w} justify="center" align="center">
+              <IconPencil size={16} />
+            </Group>
+          ) : null;
+
+        break;
       case "image":
         ret = <Image src={value} h={32} w={"auto"} alt=""></Image>;
         break;
 
       case "timestampToYYYYMMDD":
         ret = (
-          <Text fw={500} truncate="end">
+          <Text fw={fwText} size="sm" truncate="end">
             {convertMilisegToYYYYMMDD(value)}
           </Text>
         );
@@ -51,7 +46,7 @@ const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defa
 
       case "strToFloat":
         ret = (
-          <Text fw={500} truncate="end">
+          <Text fw={fwText} size="sm" truncate="end">
             {convertStrToFloat(value)}
           </Text>
         );
@@ -59,18 +54,24 @@ const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defa
 
       case "linkButton":
         ret = (
-          <Button w={"100%"} size="xs" onClick={(e) => {
-            e.stopPropagation();
-            action(value)
-            }}>
-            <Text fw={400} size="sm">{value}</Text>
+          <Button
+            w={"100%"}
+            size="xs"
+            onClick={(e) => {
+              e.stopPropagation();
+              action(value);
+            }}
+          >
+            <Text fw={fwText} size="sm">
+              {value}
+            </Text>
           </Button>
         );
         break;
 
       default:
         ret = (
-          <Text fw={500} truncate="end">
+          <Text fw={fwText} size="sm" truncate="end">
             {value ? value : defaultValue}
           </Text>
         );
@@ -82,6 +83,7 @@ const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defa
   return (
     <Group
       p={3}
+      py={6}
       w={w}
       h={"100%"}
       justify={align}

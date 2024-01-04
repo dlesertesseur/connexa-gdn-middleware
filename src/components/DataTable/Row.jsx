@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
 import { Group } from "@mantine/core";
 
-const Row = ({ children, id, selected = false, order, onClick }) => {
-  const bgColor = order % 2 === 0 ? "white" : "gray.2"
+const Row = ({ children, id, selected = false, order, onClick, onDoubleClick }) => {
+  const bgColor = order % 2 === 0 ? "white" : "gray.1";
   return (
-    <Group gap={0} bg={selected ? "orange.3" : bgColor}  onClick={() => {onClick(id)}} align="flex-start">
+    <Group
+      gap={0}
+      bg={selected ? "blue.2" : bgColor}
+      onClick={() => {
+        onClick(id);
+      }}
+      onDoubleClick={() => {
+        onDoubleClick(id);
+      }}
+      align="flex-start"
+    >
       {children}
     </Group>
   );

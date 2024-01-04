@@ -10,7 +10,7 @@ const Column = ({ id, text, w, selected, sortOrder, onClick, lastColumn }) => {
       justify={"center"}
       h={"100%"}
       w={w}
-      bg={selected ? "blue.1" : "blue.2"}
+      bg={selected ? "gray.2" : "gray.2"}
       px={3}
       onClick={() => {
         onClick(id);
@@ -18,7 +18,7 @@ const Column = ({ id, text, w, selected, sortOrder, onClick, lastColumn }) => {
       style={{borderRight:rBorder, borderBottom:"1px solid #C5C5C5"}}
     >
       <Group justify={"center"}>
-        <Text fw={500}>{text}</Text>
+        <Text fw={500} size="sm">{text}</Text>
       </Group>
       {selected ? (
         <Group justify={"center"} ml={5}>

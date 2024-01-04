@@ -5,13 +5,13 @@ import { config } from "../../data/config";
 import { Stack } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useImportationContext } from "../../context/ImportationContext";
 import { findVesselByCode } from "../../data/vessels";
 import { useUserContext } from "../../context/UserContext";
 import { VesselCard } from "./VesselCard";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import LocationMapToolbar from "./LocationMapToolbar";
+import { useShipmentContext } from "../../context/ShipmentContext";
 
 const LocationMap = ({ h = 600 }) => {
   //const posicionInicial = [51.505, -0.09];
@@ -21,16 +21,16 @@ const LocationMap = ({ h = 600 }) => {
   const { title } = location.state;
   const [vessels, setVessels] = useState(null);
 
-  const { importationsByStatus } = useImportationContext();
+  const { shipmentsByStatus } = useShipmentContext();
   const { user } = useUserContext();
 
   const getData = async () => {
     const ret = [];
-    for (let index = 0; index < importationsByStatus.length; index++) {
-      const i = importationsByStatus[index];
+    for (let index = 0; index < shipmentsByStatus.length; index++) {
+      const i = shipmentsByStatus[index];
       const params = {
         token: user.token,
-        code: i.docReferencia,
+        code: i.referencia,
       };
 
       try {
@@ -49,10 +49,10 @@ const LocationMap = ({ h = 600 }) => {
   };
 
   useEffect(() => {
-    if (importationsByStatus) {
+    if (shipmentsByStatus) {
       getData();
     }
-  }, [importationsByStatus]);
+  }, [shipmentsByStatus]);
 
   // Crea un objeto de icono personalizado
   const barcoIcon = new L.Icon({

@@ -87,13 +87,16 @@
       "cancel": "Cancel",
       "close": "Close",
       "back": "Back",
-      "moreInfo": "More information"
+      "moreInfo": "More information",
+      "markAsModified":"Mark as modified",
+      "viewDetail":"See details"
     },
     "appTitle": "GDN Middleware",
     "label": {
       "loadingData": "Loading data ...",
       "noData": "Unassigned"
-    }
+    },
+    "title": { "error": "Error" }
   },
 
   "menu": {
@@ -103,12 +106,6 @@
         "name": "Dashboard",
         "description": "Monitor the general status of processes",
         "module": "dashboard"
-      },
-      {
-        "id": "imports",
-        "name": "Imports",
-        "description": "Monitor current status of imports",
-        "module": "importations"
       },
       {
         "id": "shipments",
@@ -136,7 +133,8 @@
     ],
 
     "button": {
-      "refresh": "Refresh"
+      "refresh": "Refresh",
+      "purchaseOrder": "Purchase order"
     },
 
     "items": {
@@ -159,6 +157,114 @@
     "filter": {
       "title": "Select filters"
     }
-  }
+  },
 
+  "shipment": {
+    "title":"Shipment information",
+    "detail": {
+      "fields": [
+        "led",
+        "ordenDeCompra",
+        "referencia",
+        "facturaProforma",
+        "spo",
+        "estado",
+        "division",
+        "departamento",
+        "analista",
+        "proveedor",
+        "producto",
+        "despachante",
+        "tipoDeOperacion",
+        "evento",
+        "necesidadEnCd",
+        "incoterm",
+        "paisOrigen",
+        "puertoOrigen",
+        "etd",
+        "eta",
+        "importationType",
+        "tiempoDeTransito",
+        "canal",
+        "terminoDePago",
+        "paisDestino",
+        "puertoDestino",
+        "moneda",
+        "modoDeTransporte",
+        "feus"
+      ],
+      "label": {
+        "ordenDeCompra": "Orden de compra",
+        "referencia": "Referencia",
+        "facturaProforma": "Factura proforma",
+        "spo": "SPO",
+        "estado": "Estado",
+        "division": "Division",
+        "departamento": "Departamento",
+        "analista": "Analista",
+        "proveedor": "Proveedor",
+        "producto": "Producto",
+        "despachante": "Despachante",
+        "tipoDeOperacion": "Tipo de operacion",
+        "evento": "Evento",
+        "necesidadEnCd": "Necesidad en CD",
+        "incoterm": "Incoterm",
+        "paisOrigen": "Pais origen",
+        "puertoOrigen": "Puerto origen",
+        "etd": "ETD",
+        "eta": "ETA",
+        "importationType": "Tipo de importacion",
+        "tiempoDeTransito": "Tiempo de transito",
+        "canal": "Canal",
+        "terminoDePago": "Termino de pago",
+        "paisDestino": "Pais destino",
+        "puertoDestino": "Puerto destino",
+        "moneda": "Moneda",
+        "modoDeTransporte": "Modo de transporte",
+        "feus": "FEUS"
+      }
+    }
+  },
+
+  "document": {
+    "title":"Document information",
+    "itemTitle":"Items information",
+    "shipmentsTitle":"Associated shipments",
+    "items": {
+      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+    },
+    "shipments": {
+      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+    },
+    "detail": {
+      "fields": [
+        "agente",
+        "proveedor",
+        "tipo",
+        "referencia",
+        "fecha",
+        "incoterm",
+        "moneda",
+        "valor",
+        "fob",
+        "codigoDeProveedor",
+        "estado",
+        "embarques"
+      ],
+      "label": {
+        "agente": "Agente",
+        "proveedor": "Proveedor",
+        "tipo": "Tipo",
+        "referencia": "Referencia",
+        "fecha": "Fecha",
+        "incoterm": "Incoterm",
+        "moneda": "Moneda",
+        "valor": "Valor",
+        "fob": "FOB|",
+        "codigoDeProveedor": "Codigo de proveedor",
+        "estado": "Estado",
+        "embarques": "Embarques"
+      }
+    }
+  }
 }

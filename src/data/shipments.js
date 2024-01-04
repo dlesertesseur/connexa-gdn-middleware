@@ -177,14 +177,48 @@ async function findShipmentsItemsByReference(params) {
   return data;
 }
 
+async function findShipmentsByReference(params) {
+  const requestOptions = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: params.token,
+    },
+  };
+  const url = `${baseUrl}/shipments/${params.reference}`;
+
+  const res = await fetch(url, requestOptions);
+  const data = await res.json();
+  return data;
+}
+
+async function markShipmentAsModied(params) {
+  const requestOptions = {
+    method: "PUT",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+  };
+  const url = `${baseUrl}/shipments?reference=${params.reference}`;
+
+  const res = await fetch(url, requestOptions);
+  const data = await res.json();
+  return data;
+}
+
 export {
+  getProcessStatus,
   findAllShipments,
   findAllShipmentStatuses,
   findShipmentsByStatus,
   findShipmentStatusCount,
   findShipmentsIndicatorsByStatus,
-  getProcessStatus,
   findAllBusinessObjectives,
   findAllAnalysts,
   findShipmentsItemsByReference,
+  findShipmentsByReference,
+  markShipmentAsModied
 };

@@ -14,6 +14,8 @@ import Shipments from "../components/shipments/Shipments";
 import ShipmentsPanel from "../components/shipments/ShipmentsPanel";
 import ShipmentStatusDetail from "../components/shipments/ShipmentStatusDetail";
 import ShipmentProductsDetail from "../components/shipments/ShipmentProductsDetail";
+import ShipmentDetail from "../components/shipments/ShipmentDetail";
+import DocumentDetail from "../components/shipments/DocumentDetail";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -80,6 +82,16 @@ const AppsModules = () => {
             {
               path: `${MODULE_APPS_ROOT}/shipments/shipmentStatusDetail/productsDetail`,
               element: <ShipmentProductsDetail />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/shipments/shipmentStatusDetail/shipmentDetail`,
+              element: <ShipmentDetail />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/shipments/shipmentStatusDetail/shipmentDetail/documentDetail`,
+              element: <DocumentDetail />,
               errorElement: <ErrorPage />,
             },
             {

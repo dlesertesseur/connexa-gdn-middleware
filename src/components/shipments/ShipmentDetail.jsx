@@ -1,115 +1,104 @@
-import { Stack } from "@mantine/core";
-// import { useState } from "react";
-//import { useLocation } from "react-router-dom";
-// import { useWindowSize } from "../../utils/hooks";
-// import { useShipmentContext } from "../../context/ShipmentContext";
-// import ShipmentProductsDetailToolbar from "./ShipmentProductsDetailToolbar";
-// import ShipmentProductDetailDialog from "./ShipmentProductDetailDialog";
+import { Alert, Group, ScrollArea, Skeleton, Stack, Table, Text, Title } from "@mantine/core";
+import { useViewportSize } from "@mantine/hooks";
+import { useLocation } from "react-router-dom";
+import { useShipmentContext } from "../../context/ShipmentContext";
+import { useTranslation } from "react-i18next";
+import { findShipmentsByReference } from "../../data/shipments";
+import { useUserContext } from "../../context/UserContext";
+import { useEffect, useState } from "react";
+import { IconAlertOctagonFilled } from "@tabler/icons-react";
+import ShipmentDetailToolbar from "./ShipmentDetailToolbar";
 
 const ShipmentDetail = () => {
-  // const [selectedProduct, setSelectedProduct] = useState(null);
-  // const navigate = useNavigate();
-  //const location = useLocation();
+  const { t } = useTranslation();
+  const location = useLocation();
+  const { height } = useViewportSize();
 
-  // const { setError, statusSelected } = useShipmentContext();
+  const { statusSelected } = useShipmentContext();
+  const { user } = useUserContext();
+  const { reference } = location.state;
+  const [values, setValues] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  //const { reference } = location.state;
-  // const wSize = useWindowSize();
+  const fields = t("shipment.detail.fields", { returnObjects: true });
 
-  // let col = 0;
-  // const cols = t("importations.items.columns", { returnObjects: true });
+  const getData = async () => {
+    const params = {
+      token: user.token,
+      reference: reference,
+    };
 
-  // const columns = [
-  //   { label: cols[col++], field: "image", align: "center", width: 100, type: "image" },
-  //   { label: cols[col++], field: "codigo", align: "right", width: 140 },
-  //   { label: cols[col++], field: "descripcion", align: "left", width: 300 },
-  //   { label: cols[col++], field: "upc", align: "right", width: 150 },
-  //   { label: cols[col++], field: "fob", align: "right", width: 140, type: "money" },
-  //   { label: cols[col++], field: "unidad", align: "left", width: 140 },
-  //   { label: cols[col++], field: "cantidad", align: "right", width: 140 },
-  //   { label: cols[col++], field: "valor", align: "right", width: 140 },
-  //   { label: cols[col++], field: "timestamp", align: "center", type: "timestampToYYYYMMDD" },
-  // ];
+    try {
+      setLoading(true);
+      const data = await findShipmentsByReference(params);
+      setLoading(false);
 
-  // const getData = async () => {
-  //   const params = {
-  //     token: user.token,
-  //     reference: reference,
-  //   };
+      if (data.message) {
+        setError(data.message);
+      } else {
+        const values = fields.map((e) => {
+          const ret = { label: t(`shipment.detail.label.${e}`), value: data[e] };
+          return ret;
+        });
+        setValues(values);
+      }
+    } catch (error) {
+      setError(error);
+    }
+    setLoading(false);
+  };
 
-  //   try {
-  //     setLoading(true);
-  //     const list = await findImportationsItemsByReference(params);
-  //     setLoading(false);
-
-  //     if (list.message) {
-  //       setError(list.message);
-  //     } else {
-  //       const rows = list.map((p) => {
-  //         const ret = { ...p };
-  //         ret.image = `${BASE_IMAGE_URl}/resources/gdnar_images/${p.upc}.jpg`;
-  //         return ret;
-  //       });
-  //       setRows(rows);
-  //     }
-  //   } catch (error) {
-  //     setError(error);
-  //   }
-  //   setLoading(false);
-  // };
-
-  // useEffect(() => {
-  //   if (reference) {
-  //     getData();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [reference]);
-
-  // useEffect(() => {
-  //   if (rowSelected) {
-  //     const product = rows.find((r) => r.id === rowSelected);
-  //     if (product) {
-  //       setSelectedProduct(product);
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [rowSelected]);
-
-
-  /*AGREGAR VISTA DE TODOS LOS CAMPOS AGRUPADOS POR ESTADO*/
+  useEffect(() => {
+    if (reference) {
+      getData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reference]);
 
   return (
-    <>
+    <Stack gap={"xs"}>
+      <ShipmentDetailToolbar disabled={loading} statusSelected={statusSelected} reference={reference} />
 
-    
-      <Stack gap={"xs"}>
-        {/* <ShipmentProductsDetailToolbar
-          statusSelected={statusSelected}
-          reference={reference}
-          back={() => {
-            navigate(-1);
-          }}
-        /> */}
-        {/* <DataTable
-          data={rows}
-          columns={columns}
-          headerHeight={36}
-          h={(wSize.height - HEADER_HIGHT)}
-          setSelectedRowId={setRowSelected}
-          selectedRowId={rowSelected}
-          loading={loading}
-        /> */}
-
-        {/* <ShipmentProductDetailDialog
-          title={rowSelected}
-          open={selectedProduct}
-          setOpen={() => {
-            setSelectedProduct(null);
-          }}
-          product={selectedProduct}
-        /> */}
-      </Stack>
-    </>
+      <Title order={4}>{t("shipment.title")}</Title>
+      {error ? (
+        <Group justify="center">
+          <Alert
+            miw={300}
+            maw={400}
+            variant="light"
+            color="red"
+            withCloseButton
+            title={t("general.title.error")}
+            icon={<IconAlertOctagonFilled size={24} />}
+          >
+            <Text size="sm" c={"red"}>
+              {error}
+            </Text>
+          </Alert>
+        </Group>
+      ) : (
+        <ScrollArea mt={"xs"} h={height - 170} offsetScrollbars>
+          {values ? (
+            <Table striped highlightOnHover withTableBorder withColumnBorders>
+              <Table.Tbody>
+                {values?.map((v) => {
+                  const ret = (
+                    <Table.Tr key={v.label}>
+                      <Table.Td>{v.label}</Table.Td>
+                      <Table.Td>{v.value}</Table.Td>
+                    </Table.Tr>
+                  );
+                  return ret;
+                })}
+              </Table.Tbody>
+            </Table>
+          ) : (
+            <Skeleton height={64} radius={"md"} />
+          )}
+        </ScrollArea>
+      )}
+    </Stack>
   );
 };
 

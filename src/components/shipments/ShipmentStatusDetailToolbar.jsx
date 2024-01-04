@@ -2,8 +2,9 @@
 import { Button, Group, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useShipmentContext } from "../../context/ShipmentContext";
 
-const ShipmentStatusDetailToolbar = ({ back = null, title, activeMap }) => {
+const ShipmentStatusDetailToolbar = ({ back = null, inspect = null, markAsModified = null, title, activeMap }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -16,6 +17,8 @@ const ShipmentStatusDetailToolbar = ({ back = null, title, activeMap }) => {
     };
     navigate(`logistics`, params);
   };
+
+  const {selectedShipmentId} = useShipmentContext();
 
   return (
     <Stack spacing={"xs"}>
@@ -32,6 +35,14 @@ const ShipmentStatusDetailToolbar = ({ back = null, title, activeMap }) => {
               <Text size="xs">{t("shipments.label.seeOnMap")}</Text>
             </Button>
           ) : null}
+
+          <Button onClick={markAsModified} disabled={selectedShipmentId ? false : true} size="xs">
+            <Text size="xs">{t("general.button.markAsModified")}</Text>
+          </Button>
+
+          <Button onClick={inspect} disabled={selectedShipmentId ? false : true} size="xs">
+            <Text size="xs">{t("general.button.viewDetail")}</Text>
+          </Button>
 
           <Button onClick={back} disabled={back === null ? true : false} size="xs">
             <Text size="xs">{t("general.button.back")}</Text>
