@@ -28,6 +28,12 @@ const AppsModules = () => {
       ),
       errorElement: <ErrorPage />,
       children: [
+        //Agregar la pantalla defecto
+        // {
+        //   path: `${MODULE_APPS_ROOT}/`,
+        //   element: <Title>{"PANTALLA DEFECTO"}</Title>,
+        //   errorElement: <ErrorPage />,
+        // },
         {
           path: `${MODULE_APPS_ROOT}/dashboard`,
           element: (

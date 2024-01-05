@@ -7,7 +7,7 @@ const ImportationProductsDetailToolbar = ({ back = null, statusSelected, referen
   const { t } = useTranslation();
 
   const openSidomApp = () => {
-    const url = `${config.SIDOM_URL} ${reference}`;
+    const url = `${config.SIDOM_URL}${reference}`;
 
     console.log("openSidomApp url -> ", url);
     

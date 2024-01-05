@@ -16,7 +16,7 @@ const ShipmentDetailToolbar = ({ disabled, statusSelected, reference }) => {
             {`${statusSelected} / `}
           </Text>
 
-          <Anchor ml={5} disabled={disabled} href={`${config.SIDOM_URL} ${reference}`} target="_blank">
+          <Anchor ml={5} disabled={disabled} href={`${config.SIDOM_URL}${reference}`} target="_blank">
             <Text fw={600} size="md" c={"blue"}>
               {reference}
             </Text>
