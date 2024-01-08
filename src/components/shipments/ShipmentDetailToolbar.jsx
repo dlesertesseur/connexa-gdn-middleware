@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Anchor, Button, Group, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { config } from "../../data/config";
 import { useNavigate } from "react-router-dom";
 
-const ShipmentDetailToolbar = ({ disabled, statusSelected, reference }) => {
+const ShipmentDetailToolbar = ({ disabled, statusSelected, reference, anchorUrl }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -16,7 +15,7 @@ const ShipmentDetailToolbar = ({ disabled, statusSelected, reference }) => {
             {`${statusSelected} / `}
           </Text>
 
-          <Anchor ml={5} disabled={disabled} href={`${config.SIDOM_URL}${reference}`} target="_blank">
+          <Anchor ml={5} disabled={disabled} href={anchorUrl} target="_blank">
             <Text fw={600} size="md" c={"blue"}>
               {reference}
             </Text>

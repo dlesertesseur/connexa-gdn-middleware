@@ -7,6 +7,7 @@ import { findShipmentsByReference } from "../../data/shipments";
 import { useUserContext } from "../../context/UserContext";
 import { useEffect, useState } from "react";
 import { IconAlertOctagonFilled } from "@tabler/icons-react";
+import { getSidomShipmentUrl } from "../../data/config";
 import ShipmentDetailToolbar from "./ShipmentDetailToolbar";
 
 const ShipmentDetail = () => {
@@ -18,6 +19,7 @@ const ShipmentDetail = () => {
   const { user } = useUserContext();
   const { reference } = location.state;
   const [values, setValues] = useState(null);
+  const [anchorUrl, setAnchorUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -41,6 +43,8 @@ const ShipmentDetail = () => {
           const ret = { label: t(`shipment.detail.label.${e}`), value: data[e] };
           return ret;
         });
+
+        setAnchorUrl(getSidomShipmentUrl(data.interno, data.referencia, data.destinacion))
         setValues(values);
       }
     } catch (error) {
@@ -58,7 +62,7 @@ const ShipmentDetail = () => {
 
   return (
     <Stack gap={"xs"}>
-      <ShipmentDetailToolbar disabled={loading} statusSelected={statusSelected} reference={reference} />
+      <ShipmentDetailToolbar disabled={loading} statusSelected={statusSelected} reference={reference} anchorUrl={anchorUrl}/>
 
       <Title order={4}>{t("shipment.title")}</Title>
       {error ? (
