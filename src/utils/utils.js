@@ -23,4 +23,8 @@ function convertMilisegToYYYYMMDD(milisegundos) {
   return `${year}/${month}/${day}`;
 }
 
-export { lpad, convertMilisegToYYYYMMDDHHMISS, convertMilisegToYYYYMMDD };
+function daysInYear(year) {
+  return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
+}
+
+export { lpad, convertMilisegToYYYYMMDDHHMISS, convertMilisegToYYYYMMDD, daysInYear };

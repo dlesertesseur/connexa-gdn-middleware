@@ -89,7 +89,11 @@
       "back": "Back",
       "moreInfo": "More information",
       "markAsModified":"Mark as modified",
-      "viewDetail":"See details"
+      "viewDetail":"See details",
+      "create": "Crear",
+      "update": "Modificar",
+      "delete": "Eliminar",
+      "save": "Salvar"
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -279,6 +283,91 @@
         "estado": "Estado",
         "embarques": "Embarques"
       }
+    }
+  },
+
+  "months": [
+    {
+      "abbreviation": "Jan",
+      "name": "January"
+    },
+    {
+      "abbreviation": "Feb",
+      "name": "February"
+    },
+    {
+      "abbreviation": "Mar",
+      "name": "March"
+    },
+    {
+      "abbreviation": "Apr",
+      "name": "April"
+    },
+    {
+      "abbreviation": "May",
+      "name": "May"
+    },
+    {
+      "abbreviation": "Jun",
+      "name": "June"
+    },
+    {
+      "abbreviation": "Jul",
+      "name": "July"
+    },
+    {
+      "abbreviation": "Aug",
+      "name": "August"
+    },
+    {
+      "abbreviation": "Sep",
+      "name": "September"
+    },
+    {
+      "abbreviation": "Oct",
+      "name": "October"
+    },
+    {
+      "abbreviation": "Nov",
+      "name": "November"
+    },
+    {
+      "abbreviation": "Dec",
+      "name": "December"
+    }
+  ],
+
+  "crud":{
+    "validation":{"required":"Required field"},
+    "users":{
+      "title":"User manager",
+      "create":"Create a new user",
+      "update":"Modify a user",
+      "delete":"Delete a user",
+
+      "label":{
+        "lastname":"Surnames",
+        "firstname":"Names",
+        "email":"Email",
+        "sidomkey":"SIDOM key"
+      },
+      "placeholder":{
+        "lastname":"surnames",
+        "firstname":"names",
+        "email":"email",
+        "sidomkey":"sidom key"
+      },
+
+      "columns": [
+        "Surnames",
+        "Names",
+        "Email",
+        "SIDOM key"
+      ]
+    },
+    "events":{
+      "columns": [
+      ]
     }
   }
 }

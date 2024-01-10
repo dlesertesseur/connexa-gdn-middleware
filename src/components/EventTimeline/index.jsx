@@ -10,36 +10,58 @@ import Row from "./Row";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import Item from "./Item";
+import { daysInYear } from "../../utils/utils";
 
-const EventTimeline = ({ startYear, endYear, data, h, headerHeight = 36, rowHeight = 46, onRowClick }) => {
+const EventTimeline = ({
+  startYear,
+  endYear,
+  data,
+  h,
+  headerHeight = 36,
+  rowHeight = 46,
+  minItemWidth = 200,
+  cw = 100,
+  onRowClick,
+  monthLabels = null,
+}) => {
   const targetRef = useRef();
   const itemRef = useRef();
+  const bodyRef = useRef();
+
   const [totalWidth, setTotalWidth] = useState(0);
   const [objCols, setObjCols] = useState(null);
   const [objRows, setObjRows] = useState(null);
   const [objItems, setObjItems] = useState(null);
   const [selectedRowId, setSelectedRowId] = useState(null);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
-  const [columnWidth, setColumnWidth] = useState(100);
+  const [columnWidth, setColumnWidth] = useState(cw);
+  const [totalDays, setTotalDays] = useState(0);
 
   const [scrollXPos, setScrollXPos] = useState(null);
   const [scrollYPos, setScrollYPos] = useState(null);
-  const [sizes, setSizes] = useState([100, "auto"]);
+  const [sizes, setSizes] = useState([200, "auto"]);
 
   useEffect(() => {
-    const rect = targetRef?.current.getBoundingClientRect();
+    if (endYear >= startYear) {
+      setSizes([minItemWidth, "auto"]);
+      let w = columnWidth * 12 * (endYear - startYear + 1);
+      setTotalWidth(w);
 
-    let w = columnWidth * 12 * (endYear - startYear + 1);
-    setTotalWidth(w);
+      const columns = createMonthsList(startYear, endYear);
+      setObjCols(columns);
 
-    const columns = createMonthsList(startYear, endYear);
-    setObjCols(columns);
+      const rows = data?.map((r, index) => createRows(r, index));
+      setObjRows(rows);
 
-    const rows = data?.map((r, index) => createRows(r, index));
-    setObjRows(rows);
+      const items = data?.map((r, index) => createItems(r, index));
+      setObjItems(items);
 
-    const items = data?.map((r, index) => createItems(r, index));
-    setObjItems(items);
+      let totalDays = 0;
+      for (let year = startYear; year <= endYear; year++) {
+        totalDays += daysInYear(year);
+      }
+      setTotalDays(totalDays);
+    }
   }, [startYear, endYear, data]);
 
   useEffect(() => {
@@ -57,12 +79,13 @@ const EventTimeline = ({ startYear, endYear, data, h, headerHeight = 36, rowHeig
     const totlalYears = endYear - startYear + 1;
 
     for (let years = 0; years < totlalYears; years++) {
-      for (let months = 0; months < 12; months++) {
+      for (let month = 0; month < 12; month++) {
         const yyyy = startYear + years;
-        const mm = months + 1;
+        const mm = month + 1;
         const id = `${yyyy}${mm.toString().padStart(2, "0")}`;
-        const label = `${yyyy} / ${mm.toString().padStart(2, "0")}`;
-        const col = <Column key={id} id={id} text={label} w={columnWidth} align={"center"} />;
+        const label = monthLabels ? monthLabels[month] : null;
+        const text = `${yyyy} / ${mm.toString().padStart(2, "0")}`;
+        const col = <Column key={id} id={id} text={text} label={label} w={columnWidth} align={"center"} />;
         ret.push(col);
       }
     }
@@ -80,9 +103,9 @@ const EventTimeline = ({ startYear, endYear, data, h, headerHeight = 36, rowHeig
     const ret = (
       <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
         <Group px={3} h={rowHeight} justify="flex-start" align="center">
-          {/* <Text fw={500} size="sm">
-            {r.label}
-          </Text> */}
+          <Text fw={500} size="sm">
+            {r.name}
+          </Text>
         </Group>
       </Row>
     );
@@ -100,37 +123,33 @@ const EventTimeline = ({ startYear, endYear, data, h, headerHeight = 36, rowHeig
         selected={r.id === selectedRowId ? true : false}
         onClick={onRowSelected}
         bg={bgColor}
+        miw={minItemWidth}
       >
-        <Group px={3} h={rowHeight} justify="flex-start" align="center">
-          {/* <Text fw={500} size="sm">
-            {r.label}
-          </Text> */}
+        <Group px={3} h={rowHeight} justify="flex-start" align="center" miw={minItemWidth}>
+          <Text fw={500} size="sm">
+            {r.name}
+          </Text>
         </Group>
       </Item>
     );
     return ret;
   };
 
-  // function sort(data, property, direction) {
-  //   data.sort(function (a, b) {
-  //     var valueA = a[property];
-  //     var valueB = b[property];
-
-  //     if (direction === "asc") {
-  //       return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
-  //     } else {
-  //       return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
-  //     }
-  //   });
-  // }
-
   return (
     <div style={{ height: h }}>
       <SplitPane split="vertical" sizes={sizes} onChange={setSizes}>
-        <Pane minSize={150} maxSize="50%">
+        <Pane minSize={minItemWidth} maxSize="50%">
           <Stack h={h} gap={0} style={{ borderTop: "1px solid #C5C5C5", borderLeft: "1px solid #C5C5C5" }}>
-            <Group gap={0} h={headerHeight} style={{ borderBottom: "1px solid #C5C5C5" }} />
-            <ScrollArea viewportRef={itemRef} scrollbars={"y"} w={"100%"}>
+            <Group gap={0} h={headerHeight - 1} style={{ borderBottom: "1px solid #C5C5C5" }} />
+            <ScrollArea
+              //offsetScrollbars
+              viewportRef={itemRef}
+              scrollbars={"y"}
+              w={"100%"}
+              onScrollPositionChange={(e) => {
+                bodyRef?.current.scrollTo({ top: e.y });
+              }}
+            >
               <Stack h={h - headerHeight} gap={0}>
                 {objItems}
               </Stack>
@@ -138,7 +157,7 @@ const EventTimeline = ({ startYear, endYear, data, h, headerHeight = 36, rowHeig
           </Stack>
         </Pane>
 
-        <Stack ref={targetRef} gap={"xs"} h={h} style={{ borderLeft: "1px solid #C5C5C5" }} bg={"red.3"}>
+        <Stack ref={targetRef} gap={"xs"} h={h} style={{ borderLeft: "1px solid #C5C5C5" }}>
           <ScrollArea
             scrollbars={"x"}
             onScrollPositionChange={(e) => {
@@ -147,6 +166,8 @@ const EventTimeline = ({ startYear, endYear, data, h, headerHeight = 36, rowHeig
           >
             <Header h={headerHeight}>{objCols}</Header>
             <ScrollArea
+              type="never"
+              viewportRef={bodyRef}
               scrollbars={"y"}
               w={totalWidth}
               onScrollPositionChange={(e) => {

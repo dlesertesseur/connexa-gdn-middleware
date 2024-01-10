@@ -1,14 +1,14 @@
 import { API_GDNAR } from "./config";
 
-export async function getUserById(id, token) {
-  const apiUrl = `${API_GDNAR}/users/${id}`;
+export async function getAllEvents(params) {
+  const apiUrl = `${API_GDNAR}/events`;
 
   const requestOptions = {
     method: "GET",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "token": token
+      "token": params.token
     },
   };
 
@@ -24,8 +24,8 @@ export async function getUserById(id, token) {
   return data;
 }
 
-export async function getAllUsers(params) {
-  const apiUrl = `${API_GDNAR}/users/unpaged`;
+export async function getEventById(params) {
+  const apiUrl = `${API_GDNAR}/events/${params.id}`;
 
   const requestOptions = {
     method: "GET",

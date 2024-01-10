@@ -90,7 +90,11 @@
       "back": "Volver",
       "moreInfo": "Más información",
       "markAsModified": "Marcar como modificado",
-      "viewDetail": "Ver detalle"
+      "viewDetail": "Ver detalle",
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "save": "Save"
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -280,6 +284,91 @@
         "estado": "Estado",
         "embarques": "Embarques"
       }
+    }
+  },
+
+  "months": [
+    {
+      "abbreviation": "Ene",
+      "name": "Enero"
+    },
+    {
+      "abbreviation": "Feb",
+      "name": "Febrero"
+    },
+    {
+      "abbreviation": "Mar",
+      "name": "Marzo"
+    },
+    {
+      "abbreviation": "Abr",
+      "name": "Abril"
+    },
+    {
+      "abbreviation": "May",
+      "name": "Mayo"
+    },
+    {
+      "abbreviation": "Jun",
+      "name": "Junio"
+    },
+    {
+      "abbreviation": "Jul",
+      "name": "Julio"
+    },
+    {
+      "abbreviation": "Aug",
+      "name": "Augosto"
+    },
+    {
+      "abbreviation": "Sep",
+      "name": "Septiembre"
+    },
+    {
+      "abbreviation": "Oct",
+      "name": "Octubre"
+    },
+    {
+      "abbreviation": "Nov",
+      "name": "Noviembre"
+    },
+    {
+      "abbreviation": "Dic",
+      "name": "Diciembre"
+    }
+  ],
+
+  "crud":{
+    "validation":{"required":"Campo requerido"},
+    "users":{
+      "title":"Administrador de usuarios",
+      "create":"Crear un nuevo usuario",
+      "update":"Modificar un usuario",
+      "delete":"Eliminar un usuario",
+
+      "label":{
+        "lastname":"Apellidos",
+        "firstname":"Nombres",
+        "email":"Email",
+        "sidomkey":"SIDOM key"
+      },
+      "placeholder":{
+        "lastname":"apellidos",
+        "firstname":"nombres",
+        "email":"email",
+        "sidomkey":"sidom key"
+      },
+
+      "columns": [
+        "Apellidos",
+        "Nombres",
+        "Email",
+        "SIDOM key"
+      ]
+    },
+    "events":{
+      "columns": [
+      ]
     }
   }
 }

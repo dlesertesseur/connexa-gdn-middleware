@@ -1,8 +1,8 @@
-import { Group, Text } from "@mantine/core";
-import { ChevronDown, ChevronUp } from "tabler-icons-react";
+import { Group, Stack, Text } from "@mantine/core";
+import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
 // eslint-disable-next-line react/prop-types
-const Column = ({ id, text, w, selected, sortOrder, onClick, lastColumn }) => {
+const Column = ({ id, label, text, w, selected, sortOrder, onClick, lastColumn }) => {
   const rBorder = !lastColumn ? "1px solid #C5C5C5" : null;
   return (
     <Group
@@ -10,19 +10,30 @@ const Column = ({ id, text, w, selected, sortOrder, onClick, lastColumn }) => {
       justify={"center"}
       h={"100%"}
       w={w}
-      bg={selected ? "blue.1" : "blue.2"}
+      bg={selected ? "gray.2" : "gray.1"}
       px={3}
       onClick={() => {
         onClick(id);
       }}
-      style={{borderRight:rBorder, borderBottom:"1px solid #C5C5C5"}}
+      style={{ borderRight: rBorder, borderBottom: "1px solid #C5C5C5", borderTop: "1px solid #C5C5C5" }}
     >
-      <Group justify={"center"}>
-        <Text fw={500}>{text}</Text>
-      </Group>
+      <Stack gap={0}>
+        {label ? (
+          <Group justify={"center"}>
+            <Text fw={"bold"} size="xs">
+              {label ? label : "<NO DEF>"}
+            </Text>
+          </Group>
+        ) : null}
+        <Group justify={"center"}>
+          <Text fw={"normal"} size="xs">
+            {text}
+          </Text>
+        </Group>
+      </Stack>
       {selected ? (
         <Group justify={"center"} ml={5}>
-          {sortOrder === "asc" ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          {sortOrder === "asc" ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
         </Group>
       ) : null}
     </Group>

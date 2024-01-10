@@ -12,6 +12,12 @@ import ShipmentStatusDetail from "../components/shipments/ShipmentStatusDetail";
 import ShipmentProductsDetail from "../components/shipments/ShipmentProductsDetail";
 import ShipmentDetail from "../components/shipments/ShipmentDetail";
 import DocumentDetail from "../components/shipments/DocumentDetail";
+import EventCrud from "../components/cruds/EventCrud";
+import UserCrud from "../components/cruds/UserCrud";
+import EventList from "../components/cruds/EventCrud/EventList";
+import EventPanel from "../components/cruds/EventCrud/EventPanel";
+import UserList from "../components/cruds/UserCrud/UserList";
+import UserPanel from "../components/cruds/UserCrud/UserPanel";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -39,33 +45,60 @@ const AppsModules = () => {
           ),
           errorElement: <ErrorPage />,
         },
-        // {
-        //   path: `${MODULE_APPS_ROOT}/importations`,
-        //   element: <Importations />,
-        //   errorElement: <ErrorPage />,
-        //   children: [
-        //     {
-        //       path: `${MODULE_APPS_ROOT}/importations/`,
-        //       element: <ImportationsPanel />,
-        //       errorElement: <ErrorPage />,
-        //     },
-        //     {
-        //       path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail`,
-        //       element: <ImportationStatusDetail />,
-        //       errorElement: <ErrorPage />,
-        //     },
-        //     {
-        //       path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail/productsDetail`,
-        //       element: <ImportationProductsDetail />,
-        //       errorElement: <ErrorPage />,
-        //     },
-        //     {
-        //       path: `${MODULE_APPS_ROOT}/importations/importationStatusDetail/logistics`,
-        //       element: <Logistic />,
-        //       errorElement: <ErrorPage />,
-        //     },
-        //   ],
-        // },
+        {
+          path: `${MODULE_APPS_ROOT}/crud/users`,
+          element: <UserCrud />,
+          errorElement: <ErrorPage />,
+            children: [
+              {
+                path: `${MODULE_APPS_ROOT}/crud/users/`,
+                element: <UserList />,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: `${MODULE_APPS_ROOT}/crud/users/create`,
+                element: <UserPanel mode={"create"}/>,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: `${MODULE_APPS_ROOT}/crud/users/update`,
+                element: <UserPanel mode={"update"}/>,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: `${MODULE_APPS_ROOT}/crud/users/delete`,
+                element: <UserPanel mode={"delete"}/>,
+                errorElement: <ErrorPage />,
+              }
+            ],
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/crud/events`,
+          element: <EventCrud />,
+          errorElement: <ErrorPage />,
+            children: [
+              {
+                path: `${MODULE_APPS_ROOT}/crud/events/`,
+                element: <EventList />,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: `${MODULE_APPS_ROOT}/crud/events/create`,
+                element: <EventPanel />,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: `${MODULE_APPS_ROOT}/crud/events/update`,
+                element: <EventPanel />,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: `${MODULE_APPS_ROOT}/crud/events/delete`,
+                element: <EventPanel />,
+                errorElement: <ErrorPage />,
+              }
+            ],
+        },
         {
           path: `${MODULE_APPS_ROOT}/shipments`,
           element: <Shipments />,

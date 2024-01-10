@@ -14,9 +14,7 @@ const AppItem = ({ id, name, description, href, selected, setSelected }) => {
     >
       <Paper
         p={6}
-        radius={"md"}
-        
-        w={266}
+        radius={"xs"}
         bg={selected ? "blue" : "gray.1"}
       >
         <Grid align="center" gutter={0}>

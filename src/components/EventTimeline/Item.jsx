@@ -1,9 +1,17 @@
-import { Stack} from "@mantine/core";
+import { Stack } from "@mantine/core";
 
 // eslint-disable-next-line react/prop-types
-const Item = ({ children, selected=false, bg }) => {
+const Item = ({ children, id, selected = false, bg, onClick, miw }) => {
   return (
-    <Stack gap={0} bg={selected ? "blue.3" : bg} style={{ borderBottom: "1px solid #C5C5C5" }}>
+    <Stack
+      gap={0}
+      bg={selected ? "blue.3" : bg}
+      style={{ borderBottom: "1px solid #C5C5C5" }}
+      onClick={() => {
+        onClick(id);
+      }}
+      miw={miw}
+    >
       {children}
     </Stack>
   );

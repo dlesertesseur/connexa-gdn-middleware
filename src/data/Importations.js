@@ -28,7 +28,7 @@ async function findAllImportationStatuses(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -47,7 +47,7 @@ async function findImportationsByStatus(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
   const event = params.event ? `&event=${params.event}` : null;
@@ -66,7 +66,7 @@ async function findImportationStatusCount(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -89,7 +89,7 @@ async function findImportationsIndicatorsByStatus(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -110,7 +110,7 @@ async function getProcessStatus(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -126,7 +126,7 @@ async function findAllBusinessObjectives(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -145,7 +145,7 @@ async function findAllAnalysts(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -164,7 +164,7 @@ async function findImportationsItemsByReference(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 

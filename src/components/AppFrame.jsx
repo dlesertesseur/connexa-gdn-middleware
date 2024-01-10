@@ -37,7 +37,7 @@ export default function AppFrame() {
         </Group>
       </AppShell.Header>
 
-      <AppShell.Navbar p="md">
+      <AppShell.Navbar>
         <AppMenu />
       </AppShell.Navbar>
 

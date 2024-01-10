@@ -28,7 +28,7 @@ async function findAllShipmentStatuses(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -47,7 +47,7 @@ async function findShipmentsByStatus(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
   const event = params.event ? `&event=${params.event}` : null;
@@ -66,7 +66,7 @@ async function findShipmentStatusCount(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -89,7 +89,7 @@ async function findShipmentsIndicatorsByStatus(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -110,7 +110,7 @@ async function getProcessStatus(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -126,7 +126,7 @@ async function findAllBusinessObjectives(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -145,7 +145,7 @@ async function findAllAnalysts(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -164,7 +164,7 @@ async function findShipmentsItemsByReference(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -183,7 +183,7 @@ async function findShipmentsByReference(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
   const url = `${baseUrl}/shipments/${params.reference}`;

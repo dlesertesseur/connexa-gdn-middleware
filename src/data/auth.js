@@ -1,7 +1,7 @@
-import { config } from "@/app/config";
+import { API_GDNAR } from "./config";
 
 export async function signin(parameters) {
-  const apiUrl = `${config.API_SERVER}:${config.API_PORT}${config.ADMIN_BASE}/authentication`;
+  const apiUrl = `${API_GDNAR}/authentication`;
   
   const body = JSON.stringify({
     email: parameters.email,

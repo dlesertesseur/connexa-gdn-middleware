@@ -28,7 +28,7 @@ async function findItemsByDocument(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -48,7 +48,7 @@ async function findAsociateShipmentsByDocument(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 
@@ -67,7 +67,7 @@ async function findDocumentByReference(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      apikey: params.token,
+      token: params.token,
     },
   };
 

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { API_ADMIN, config } from "../data/config";
+import { API_GDNAR, config } from "../data/config";
+import { getAllUsers } from "../data/user";
 
 const UserContext = createContext();
 
@@ -14,6 +15,7 @@ const UserProvier = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [localDataLoaded, setLocalDataLoaded] = useState(false);
+  const [users, setUsers] = useState(null);
 
   useEffect(() => {
     if (!user) {
@@ -42,7 +44,7 @@ const UserProvier = ({ children }) => {
         body: body,
       };
 
-      const url = `${API_ADMIN}/authentication`;
+      const url = `${API_GDNAR}/authentications`;
       const res = await fetch(url, requestOptions);
       const data = await res.json();
 
@@ -55,10 +57,13 @@ const UserProvier = ({ children }) => {
         const obj = {
           firstname: data.user.firstname,
           lastname: data.user.lastname,
-          email: data.user.email,
-          urlImage: `${config.SERVER}:${config.PORT}${data.user.image}`,
-          token:data.token,
-          id: data.id
+          email: data.user.username,
+          urlImage: data.user.image
+            ? `${config.SERVER}:${config.PORT}${data.user.image}`
+            : `${config.APP_PUBLIC_URL}/images/user.png`,
+          token: data.token,
+          roles: data.user.roles,
+          id: data.user.id,
         };
 
         const ud = JSON.stringify(obj);
@@ -79,8 +84,6 @@ const UserProvier = ({ children }) => {
       const url = "/api/auth";
       const res = await fetch(url, { cache: "no-store" });
       const data = await res.json();
-
-      console.log("checkSession Context data -> ", data.session);
 
       if (data.error) {
         console.log(data);
@@ -104,8 +107,14 @@ const UserProvier = ({ children }) => {
     localStorage.removeItem("user");
   };
 
+  const getAll = async () => {
+    const params = { token: user.token };
+    const users = await getAllUsers(params);
+    setUsers(users);
+  };
+
   return (
-    <UserContext.Provider value={{ localDataLoaded, user, error, authenticate, checkSession, logOut }}>
+    <UserContext.Provider value={{ localDataLoaded, user, error, authenticate, checkSession, logOut, getAll, users }}>
       {children}
     </UserContext.Provider>
   );
