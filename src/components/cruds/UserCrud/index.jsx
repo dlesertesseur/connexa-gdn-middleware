@@ -1,12 +1,17 @@
-import { Outlet } from "react-router-dom"
-import UserCrudProvider from "../../../context/UserCrudContext"
+import { Outlet } from "react-router-dom";
+import { useUserCrudContext } from "../../../context/UserCrudContext";
+import { useEffect } from "react";
 
 const UserCrud = () => {
-  return (
-    <UserCrudProvider>
-      <Outlet/>
-    </UserCrudProvider>
-  )
-}
+  const { initData } = useUserCrudContext();
+  
+  useEffect(() => {
 
-export default UserCrud
+    initData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return <Outlet />;
+};
+
+export default UserCrud;

@@ -6,7 +6,7 @@ async function findAllBusinessGoals(params) {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        apikey: params.token,
+        token: params.token,
       },
     };
   

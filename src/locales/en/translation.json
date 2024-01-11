@@ -88,12 +88,12 @@
       "close": "Close",
       "back": "Back",
       "moreInfo": "More information",
-      "markAsModified":"Mark as modified",
-      "viewDetail":"See details",
+      "markAsModified": "Mark as modified",
+      "viewDetail": "See details",
       "create": "Crear",
       "update": "Modificar",
       "delete": "Eliminar",
-      "save": "Salvar"
+      "save": "Save"
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -164,7 +164,7 @@
   },
 
   "shipment": {
-    "title":"Shipment information",
+    "title": "Shipment information",
     "detail": {
       "fields": [
         "led",
@@ -231,9 +231,9 @@
   },
 
   "document": {
-    "title":"Document information",
-    "itemTitle":"Items information",
-    "shipmentsTitle":"Associated shipments",
+    "title": "Document information",
+    "itemTitle": "Items information",
+    "shipmentsTitle": "Associated shipments",
     "items": {
       "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
     },
@@ -253,7 +253,7 @@
         "Status"
       ]
     },
-    
+
     "detail": {
       "fields": [
         "agente",
@@ -337,37 +337,42 @@
     }
   ],
 
-  "crud":{
-    "validation":{"required":"Required field"},
-    "users":{
-      "title":"User manager",
-      "create":"Create a new user",
-      "update":"Modify a user",
-      "delete":"Delete a user",
-
-      "label":{
-        "lastname":"Surnames",
-        "firstname":"Names",
-        "email":"Email",
-        "sidomkey":"SIDOM key"
+  "crud": {
+    "validation": { "required": "Required field", "invalidEmail": "Invalid email" },
+    "users": {
+      "title": "User manager",
+      "create": "Create a new user",
+      "update": "Modify a user",
+      "delete": "Delete a user",
+      "errors":{
+        "create":"Error when trying to create user",
+        "update":"Error when trying to update user",
+        "delete":"Error when trying to delete user"
       },
-      "placeholder":{
-        "lastname":"surnames",
-        "firstname":"names",
-        "email":"email",
-        "sidomkey":"sidom key"
+      "label": {
+        "lastname": "Surnames",
+        "firstname": "Names",
+        "email": "Email",
+        "sidomkey": "SIDOM User",
+        "role": "Role",
+        "initialPassword": "Initial password"
+      },
+      "placeholder": {
+        "lastname": "surnames",
+        "firstname": "names",
+        "email": "email",
+        "sidomkey": "sidom user",
+        "role": "select a role",
+        "initialPassword": "initial password"
+      },
+      "description": {
+        "sidomkey": "Enter an * to see information for all users"
       },
 
-      "columns": [
-        "Surnames",
-        "Names",
-        "Email",
-        "SIDOM key"
-      ]
+      "columns": ["Surnames", "Names", "Email", "SIDOM key"]
     },
-    "events":{
-      "columns": [
-      ]
+    "events": {
+      "columns": []
     }
   }
 }

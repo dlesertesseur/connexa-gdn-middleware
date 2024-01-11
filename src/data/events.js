@@ -8,7 +8,7 @@ export async function getAllEvents(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "token": params.token
+      token: params.token
     },
   };
 
@@ -32,7 +32,7 @@ export async function getEventById(params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "token": params.token
+      token: params.token
     },
   };
 

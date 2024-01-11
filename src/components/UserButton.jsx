@@ -3,17 +3,19 @@ import { IconChevronDown, IconChevronUp, IconLogout } from "@tabler/icons-react"
 import { useState } from "react";
 import { useUserContext } from "../context/UserContext";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { MODULE_APPS_ROOT } from "../data/config";
 
 export function UserButton() {
   const { user, logOut } = useUserContext();
   const [opened, setOpened] = useState(false);
-
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const onLogout = () => {
     logOut();
     setOpened(false);
-    console.log("onLogout -> ");
+    navigate(`${MODULE_APPS_ROOT}`);
   };
 
   return (

@@ -94,7 +94,7 @@
       "create": "Create",
       "update": "Update",
       "delete": "Delete",
-      "save": "Save"
+      "save": "Salvar"
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -339,24 +339,36 @@
   ],
 
   "crud":{
-    "validation":{"required":"Campo requerido"},
+    "validation":{"required":"Campo requerido", "invalidEmail": "Email invalido"},
     "users":{
       "title":"Administrador de usuarios",
       "create":"Crear un nuevo usuario",
       "update":"Modificar un usuario",
       "delete":"Eliminar un usuario",
+      "errors":{
+        "create":"Error al intentar crear un usuario",
+        "update":"Error al intentar modificar un usuario",
+        "delete":"Error al intentar eliminar un usuario"
+      },
 
       "label":{
         "lastname":"Apellidos",
         "firstname":"Nombres",
         "email":"Email",
-        "sidomkey":"SIDOM key"
+        "sidomkey":"Usuario SIDOM",
+        "role":"Roles",
+        "initialPassword": "Clave inicial"
       },
       "placeholder":{
         "lastname":"apellidos",
         "firstname":"nombres",
         "email":"email",
-        "sidomkey":"sidom key"
+        "sidomkey":"usuario sidom",
+        "role":"seleccione los roles",
+        "initialPassword": "clave incial de ingreso"
+      },
+      "description":{
+        "sidomkey":"Ingrese un * para ver información de todos los usuarios"
       },
 
       "columns": [

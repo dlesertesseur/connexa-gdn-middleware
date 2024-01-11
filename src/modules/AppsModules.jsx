@@ -18,6 +18,8 @@ import EventList from "../components/cruds/EventCrud/EventList";
 import EventPanel from "../components/cruds/EventCrud/EventPanel";
 import UserList from "../components/cruds/UserCrud/UserList";
 import UserPanel from "../components/cruds/UserCrud/UserPanel";
+import UserCrudProvider from "../context/UserCrudContext";
+import CreateUserPanel from "../components/cruds/UserCrud/CreateUserPanel";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -47,57 +49,61 @@ const AppsModules = () => {
         },
         {
           path: `${MODULE_APPS_ROOT}/crud/users`,
-          element: <UserCrud />,
+          element: (
+            <UserCrudProvider>
+              <UserCrud />
+            </UserCrudProvider>
+          ),
           errorElement: <ErrorPage />,
-            children: [
-              {
-                path: `${MODULE_APPS_ROOT}/crud/users/`,
-                element: <UserList />,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: `${MODULE_APPS_ROOT}/crud/users/create`,
-                element: <UserPanel mode={"create"}/>,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: `${MODULE_APPS_ROOT}/crud/users/update`,
-                element: <UserPanel mode={"update"}/>,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: `${MODULE_APPS_ROOT}/crud/users/delete`,
-                element: <UserPanel mode={"delete"}/>,
-                errorElement: <ErrorPage />,
-              }
-            ],
+          children: [
+            {
+              path: `${MODULE_APPS_ROOT}/crud/users/`,
+              element: <UserList />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/users/create`,
+              element: <CreateUserPanel/>,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/users/update`,
+              element: <UserPanel mode={"update"} />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/users/delete`,
+              element: <UserPanel mode={"delete"} />,
+              errorElement: <ErrorPage />,
+            },
+          ],
         },
         {
           path: `${MODULE_APPS_ROOT}/crud/events`,
           element: <EventCrud />,
           errorElement: <ErrorPage />,
-            children: [
-              {
-                path: `${MODULE_APPS_ROOT}/crud/events/`,
-                element: <EventList />,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: `${MODULE_APPS_ROOT}/crud/events/create`,
-                element: <EventPanel />,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: `${MODULE_APPS_ROOT}/crud/events/update`,
-                element: <EventPanel />,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: `${MODULE_APPS_ROOT}/crud/events/delete`,
-                element: <EventPanel />,
-                errorElement: <ErrorPage />,
-              }
-            ],
+          children: [
+            {
+              path: `${MODULE_APPS_ROOT}/crud/events/`,
+              element: <EventList />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/events/create`,
+              element: <EventPanel />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/events/update`,
+              element: <EventPanel />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/events/delete`,
+              element: <EventPanel />,
+              errorElement: <ErrorPage />,
+            },
+          ],
         },
         {
           path: `${MODULE_APPS_ROOT}/shipments`,

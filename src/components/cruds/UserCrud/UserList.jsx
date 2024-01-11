@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Stack } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useUserCrudContext } from "../../../context/UserCrudContext";
 import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "../../../utils/hooks";
@@ -10,9 +10,8 @@ import UserCrudToolbar from "./UserCrudToolbar";
 import DataTable from "../../DataTable";
 
 const UserList = () => {
-  const { getAll, users, loading } = useUserCrudContext();
+  const { getAll, users, loading, reload, selectedUserId, setSelectedUserId } = useUserCrudContext();
   const { t } = useTranslation();
-  const [rowSelected, setRowSelected] = useState(null);
   const navigate = useNavigate();
   const wSize = useWindowSize();
 
@@ -28,25 +27,33 @@ const UserList = () => {
 
   useEffect(() => {
     getAll();
-  }, []);
+  }, [reload]);
 
   return (
     <Stack gap={"xs"}>
       <UserCrudToolbar
         title={t("crud.users.title")}
-        rowSelected={rowSelected}
-        onBack={() => {navigate(-1);}}
-        onCreate={() => {navigate("create");}}
-        onUpdate={() => {navigate("update");}}
-        onDelete={() => {navigate("delete");}}
+        rowSelected={selectedUserId}
+        onBack={() => {
+          navigate(-1);
+        }}
+        onCreate={() => {
+          navigate("create");
+        }}
+        onUpdate={() => {
+          navigate("update");
+        }}
+        onDelete={() => {
+          navigate("delete");
+        }}
       />
       <DataTable
         data={users}
         columns={columns}
         headerHeight={36}
         h={wSize.height - HEADER_HIGHT}
-        setSelectedRowId={setRowSelected}
-        selectedRowId={rowSelected}
+        setSelectedRowId={setSelectedUserId}
+        selectedRowId={selectedUserId}
         loading={loading}
       />
     </Stack>
