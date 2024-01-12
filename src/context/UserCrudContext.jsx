@@ -13,6 +13,7 @@ import {
   updateUser,
 } from "../data/user";
 import { useUserContext } from "./UserContext";
+import { sortData } from "../utils/utils";
 
 const UserCrudContext = createContext();
 
@@ -30,12 +31,17 @@ const UserCrudProvider = ({ children }) => {
   const [roles, setRoles] = useState(null);
   const [reload, setReload] = useState(Date.now());
   const [selectedUserId, setSelectedUserId] = useState(null);
-
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const [sortOrder, setSortOrder] = useState("desc");
   const { user } = useUserContext();
 
   const getAll = async () => {
     const params = { token: user.token };
     const users = await getAllUsers(params);
+
+    if(sortOrder && selectedColumnId){
+      sortData(users, selectedColumnId, sortOrder);
+    }
     setUsers(users);
   };
 
@@ -153,6 +159,10 @@ const UserCrudProvider = ({ children }) => {
         roles,
         selectedUserId,
         setSelectedUserId,
+        selectedColumnId,
+        sortOrder,
+        setSelectedColumnId,
+        setSortOrder
       }}
     >
       {children}

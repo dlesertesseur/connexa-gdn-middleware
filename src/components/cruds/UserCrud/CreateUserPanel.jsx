@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Alert, Button, Center, Group, ScrollArea, Stack, TextInput } from "@mantine/core";
+import { Alert, Center, ScrollArea, Stack, TextInput } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
@@ -8,8 +8,9 @@ import { useEffect, useState } from "react";
 import { useViewportSize } from "@mantine/hooks";
 import { HEADER_HIGHT } from "../../../data/config";
 import { IconAlertCircle } from "@tabler/icons-react";
-import UserCrudHeader from "./UserCrudHeader";
 import CheckList from "../../CheckList";
+import CrudHeader from "../CrudHeader";
+import CrudButton from "../CrudButton";
 
 const CreateUserPanel = () => {
   const { t } = useTranslation();
@@ -52,24 +53,17 @@ const CreateUserPanel = () => {
     setLocalRoles(ret);
   };
 
-  const onSave = (values) => {
+  const onSave = async (values) => {
     clearError();
     const roles = localRoles.filter((r) => r.checked === true);
-    create(values, roles);
+    await create(values, roles);
     reloadData();
     navigate(-1);
   };
 
   return (
     <Stack gap={"xs"}>
-      <UserCrudHeader
-        crudTitle={t("crud.users.title")}
-        mode={"create"}
-        onBack={() => {
-          navigate(-1);
-          clearError();
-        }}
-      />
+      <CrudHeader title={t("crud.users.title")} subTitle={t(`crud.users.create`)} mode={"create"} />
       <Center mt={"lg"}>
         <form
           onSubmit={form.onSubmit((values) => {
@@ -112,9 +106,8 @@ const CreateUserPanel = () => {
               />
 
               <CheckList w={mw} label={t("crud.users.label.role")} data={localRoles} onCheck={onRoleCheck} />
-              <Group w={"100%"} mt={"lg"} justify="flex-end">
-                <Button type="submit">{t("general.button.save")}</Button>
-              </Group>
+              <CrudButton mode={"create"} />
+
               {error ? (
                 <Alert
                   mt={"xs"}

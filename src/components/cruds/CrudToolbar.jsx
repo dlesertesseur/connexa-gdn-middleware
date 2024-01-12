@@ -2,7 +2,7 @@
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 
-const UserCrudToolbar = ({ title, onCreate, onUpdate, onDelete, onBack, rowSelected }) => {
+const CrudToolbar = ({ title, onCreate, onUpdate, onDelete, onBack, rowSelected }) => {
   const { t } = useTranslation();
   return (
     <Group justify="space-between">
@@ -29,4 +29,4 @@ const UserCrudToolbar = ({ title, onCreate, onUpdate, onDelete, onBack, rowSelec
   );
 };
 
-export default UserCrudToolbar;
+export default CrudToolbar;

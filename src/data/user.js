@@ -226,9 +226,7 @@ export async function removeRoleFromUser(params) {
   const res = await fetch(apiUrl, requestOptions);
   let data = null;
 
-  if (res.status === 200) {
-    data = await res.json();
-  } else {
+  if (res.status !== 200) {
     throw new Error(`${res.status}`);
   }
 

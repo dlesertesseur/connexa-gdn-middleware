@@ -5,12 +5,23 @@ import { useUserCrudContext } from "../../../context/UserCrudContext";
 import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "../../../utils/hooks";
 import { useTranslation } from "react-i18next";
-import { HEADER_HIGHT } from "../../../data/config";
-import UserCrudToolbar from "./UserCrudToolbar";
+import { HEADER_HIGHT, MODULE_APPS_ROOT } from "../../../data/config";
 import DataTable from "../../DataTable";
+import CrudToolbar from "../CrudToolbar";
 
 const UserList = () => {
-  const { getAll, users, loading, reload, selectedUserId, setSelectedUserId } = useUserCrudContext();
+  const {
+    getAll,
+    users,
+    loading,
+    reload,
+    selectedUserId,
+    setSelectedUserId,
+    selectedColumnId,
+    setSelectedColumnId,
+    sortOrder,
+    setSortOrder,
+  } = useUserCrudContext();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const wSize = useWindowSize();
@@ -19,10 +30,10 @@ const UserList = () => {
   const cols = t("crud.users.columns", { returnObjects: true });
 
   const columns = [
-    { label: cols[col++], field: "lastname", align: "left", width: 300 },
-    { label: cols[col++], field: "firstname", align: "left", width: 300 },
-    { label: cols[col++], field: "username", align: "left", width: 300 },
-    { label: cols[col++], field: "sidomkey", align: "left" },
+    { label: cols[col++], field: "lastname", align: "left", width: "25%" },
+    { label: cols[col++], field: "firstname", align: "left", width: "30%" },
+    { label: cols[col++], field: "username", align: "left", width: "20%" },
+    { label: cols[col++], field: "sidomkey", align: "left", width: "25%" },
   ];
 
   useEffect(() => {
@@ -31,11 +42,11 @@ const UserList = () => {
 
   return (
     <Stack gap={"xs"}>
-      <UserCrudToolbar
+      <CrudToolbar
         title={t("crud.users.title")}
         rowSelected={selectedUserId}
         onBack={() => {
-          navigate(-1);
+          navigate(`${MODULE_APPS_ROOT}`);
         }}
         onCreate={() => {
           navigate("create");
@@ -55,6 +66,11 @@ const UserList = () => {
         setSelectedRowId={setSelectedUserId}
         selectedRowId={selectedUserId}
         loading={loading}
+        selectedColumnId={selectedColumnId}
+        sortOrder={sortOrder}
+        setSelectedColumnId={setSelectedColumnId}
+        setSortOrder={setSortOrder}
+        columnsByPercentage={true}
       />
     </Stack>
   );

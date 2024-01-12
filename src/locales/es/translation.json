@@ -91,10 +91,15 @@
       "moreInfo": "Más información",
       "markAsModified": "Marcar como modificado",
       "viewDetail": "Ver detalle",
-      "create": "Create",
-      "update": "Update",
-      "delete": "Delete",
-      "save": "Salvar"
+      "create": "Crear",
+      "update": "Modificar",
+      "delete": "Eliminar",
+      "save": "Salvar",
+      "color": {
+        "create": "blue",
+        "update": "blue",
+        "delete": "red"
+      }
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -379,8 +384,33 @@
       ]
     },
     "events":{
-      "columns": [
-      ]
+      "title":"Administrador de eventos",
+      "create":"Crear un nuevo evento",
+      "update":"Modificar un evento",
+      "delete":"Eliminar un evento",
+      "errors":{
+        "create":"Error al intentar crear un evento",
+        "update":"Error al intentar modificar un evento",
+        "delete":"Error al intentar eliminar un evento"
+      },
+      "label": {
+        "name": "Nombre",
+        "description": "Description",
+        "sidomkeys": "SIDOM keys",
+        "startDateTime": "Fecha de inicio",
+        "endDateTime": "Fecha de fin"
+      },
+      "placeholder": {
+        "name": "un nombre",
+        "description": "una description",
+        "sidomkeys": "sidom keys",
+        "startDateTime": "una fecha de inicio",
+        "endDateTime": "una fecha de fin"
+      },
+      "description": {
+      },
+
+      "columns": ["Nombre", "Descripcion", "Sidom keys", "Inicio", "Fin"]
     }
   }
 }

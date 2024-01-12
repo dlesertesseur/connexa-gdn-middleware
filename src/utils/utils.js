@@ -27,4 +27,17 @@ function daysInYear(year) {
   return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
 }
 
-export { lpad, convertMilisegToYYYYMMDDHHMISS, convertMilisegToYYYYMMDD, daysInYear };
+function sortData(data, property, direction) {
+  data.sort(function (a, b) {
+    var valueA = a[property];
+    var valueB = b[property];
+
+    if (direction === "asc") {
+      return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+    } else {
+      return valueA > valueB ? -1 : valueA < valueB ? 1 : 0;
+    }
+  });
+}
+
+export { lpad, convertMilisegToYYYYMMDDHHMISS, convertMilisegToYYYYMMDD, daysInYear, sortData };

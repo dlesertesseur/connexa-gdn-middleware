@@ -63,7 +63,7 @@ const AppsModules = () => {
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/users/create`,
-              element: <CreateUserPanel/>,
+              element: <CreateUserPanel />,
               errorElement: <ErrorPage />,
             },
             {
@@ -90,17 +90,17 @@ const AppsModules = () => {
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/events/create`,
-              element: <EventPanel />,
+              element: <EventPanel mode={"create"} />,
               errorElement: <ErrorPage />,
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/events/update`,
-              element: <EventPanel />,
+              element: <EventPanel mode={"update"} />,
               errorElement: <ErrorPage />,
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/events/delete`,
-              element: <EventPanel />,
+              element: <EventPanel mode={"delete"} />,
               errorElement: <ErrorPage />,
             },
           ],

@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import EventProvider from "../../../context/EventContext";
+import EventCrudProvider from "../../../context/EventCrudContext";
 
 const EventCrud = () => {
   return (
-    <EventProvider>
+    <EventCrudProvider>
       <Outlet />
-    </EventProvider>
+    </EventCrudProvider>
   );
 };
 

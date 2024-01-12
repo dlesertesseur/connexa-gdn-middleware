@@ -114,7 +114,18 @@ const UserProvier = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ localDataLoaded, user, error, authenticate, checkSession, logOut, getAll, users }}>
+    <UserContext.Provider
+      value={{
+        localDataLoaded,
+        user,
+        error,
+        authenticate,
+        checkSession,
+        logOut,
+        getAll,
+        users,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

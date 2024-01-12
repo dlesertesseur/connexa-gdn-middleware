@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Alert, Button, Center, Group, LoadingOverlay, ScrollArea, Stack, TextInput } from "@mantine/core";
+import { Alert, Center, Group, LoadingOverlay, ScrollArea, Stack, TextInput } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
@@ -9,8 +9,9 @@ import { useEffect, useState } from "react";
 import { useViewportSize } from "@mantine/hooks";
 import { HEADER_HIGHT } from "../../../data/config";
 import { IconAlertCircle } from "@tabler/icons-react";
-import UserCrudHeader from "./UserCrudHeader";
 import CheckList from "../../CheckList";
+import CrudHeader from "../CrudHeader";
+import CrudButton from "../CrudButton";
 
 const UserPanel = ({ mode }) => {
   const { t } = useTranslation();
@@ -77,12 +78,12 @@ const UserPanel = ({ mode }) => {
     }
   };
 
-  const onSave = (values) => {
+  const onSave = async (values) => {
     clearError();
     if (mode === "delete") {
-      remove(selectedUserId);
+      await remove(selectedUserId);
     } else {
-      update(selectedUserId, values);
+      await update(selectedUserId, values);
     }
     reloadData();
     navigate(-1);
@@ -93,16 +94,14 @@ const UserPanel = ({ mode }) => {
     return ret;
   }
 
+  function getModeTitle() {
+    const ret = t(`crud.users.${mode}`);
+    return ret;
+  }
+
   return (
     <Stack gap={"xs"}>
-      <UserCrudHeader
-        crudTitle={t("crud.users.title")}
-        mode={mode}
-        onBack={() => {
-          navigate(-1);
-          clearError();
-        }}
-      />
+      <CrudHeader title={t("crud.users.title")} subTitle={getModeTitle()} mode={mode} />
       <Center mt={"lg"}>
         <form
           onSubmit={form.onSubmit((values) => {
@@ -154,9 +153,7 @@ const UserPanel = ({ mode }) => {
                   onCheck={onRoleCheck}
                 />
 
-                <Group w={"100%"} mt={"lg"} justify="flex-end">
-                  <Button type="submit">{t("general.button.save")}</Button>
-                </Group>
+                <CrudButton mode={mode} />
                 {error ? (
                   <Alert
                     mt={"xs"}

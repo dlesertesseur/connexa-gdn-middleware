@@ -90,10 +90,15 @@
       "moreInfo": "More information",
       "markAsModified": "Mark as modified",
       "viewDetail": "See details",
-      "create": "Crear",
-      "update": "Modificar",
-      "delete": "Eliminar",
-      "save": "Save"
+      "create": "Create",
+      "update": "Update",
+      "delete": "Delete",
+      "save": "Save",
+      "color": {
+        "create": "blue",
+        "update": "blue",
+        "delete": "red"
+      }
     },
     "appTitle": "GDN Middleware",
     "label": {
@@ -344,10 +349,10 @@
       "create": "Create a new user",
       "update": "Modify a user",
       "delete": "Delete a user",
-      "errors":{
-        "create":"Error when trying to create user",
-        "update":"Error when trying to update user",
-        "delete":"Error when trying to delete user"
+      "errors": {
+        "create": "Error when trying to create user",
+        "update": "Error when trying to update user",
+        "delete": "Error when trying to delete user"
       },
       "label": {
         "lastname": "Surnames",
@@ -372,7 +377,32 @@
       "columns": ["Surnames", "Names", "Email", "SIDOM key"]
     },
     "events": {
-      "columns": []
+      "title": "Event manager",
+      "create": "Create a new event",
+      "update": "Modify an event",
+      "delete": "Delete an event",
+      "errors": {
+        "create": "Error when trying to create event",
+        "update": "Error when trying to update event",
+        "delete": "Error when trying to delete event"
+      },
+      "label": {
+        "name": "Name",
+        "description": "Description",
+        "sidomkeys": "SIDOM keys",
+        "startDateTime": "Start date time",
+        "endDateTime": "End date time"
+      },
+      "placeholder": {
+        "name": "a name",
+        "description": "a description",
+        "sidomkeys": "sidom keys",
+        "startDateTime": "a start date time",
+        "endDateTime": "a end date time"
+      },
+      "description": {},
+
+      "columns": ["Name", "Description", "Sidom keys", "Start date", "End date"]
     }
   }
 }

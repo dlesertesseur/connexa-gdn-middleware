@@ -21,7 +21,12 @@ const DataTable = ({
   setScrollXPos,
   scrollYPos,
   setScrollYPos,
-  onDoubleClick
+  onDoubleClick,
+  selectedColumnId,
+  setSelectedColumnId,
+  sortOrder,
+  setSortOrder,
+  columnsByPercentage = false,
 }) => {
   const targetRef = useRef();
   const scrollYRef = useRef();
@@ -29,8 +34,6 @@ const DataTable = ({
   const [totalWidth, setTotalWidth] = useState(0);
   const [objCols, setObjCols] = useState(null);
   const [objRows, setObjRows] = useState(null);
-  const [selectedColumnId, setSelectedColumnId] = useState(null);
-  const [sortOrder, setSortOrder] = useState("desc");
 
   useEffect(() => {
     const rect = targetRef.current.getBoundingClientRect();
@@ -40,12 +43,14 @@ const DataTable = ({
       w += c.width ? c.width : 0;
     });
 
-    const remainingWidth = rect.right - w;
-    if (remainingWidth > 0) {
-      columns[columns.length - 1].width = remainingWidth - 11;
-      setTotalWidth(rect.right - 11);
-    } else {
-      setTotalWidth(w);
+    if (!columnsByPercentage) {
+      const remainingWidth = rect.right - w;
+      if (remainingWidth > 0) {
+        columns[columns.length - 1].width = remainingWidth - 11;
+        setTotalWidth(rect.right - 11);
+      } else {
+        setTotalWidth(w);
+      }
     }
 
     const cols = columns?.map((c, index) => createColumn(c, columns.length, index));
@@ -72,6 +77,9 @@ const DataTable = ({
       const rows = data?.map((r, index) => createRows(r, index));
       setObjRows(rows);
     }
+
+    setSelectedColumnId(selectedColumnId);
+    setSortOrder(sortOrder);
   }, [selectedColumnId, sortOrder]);
 
   useLayoutEffect(() => {
@@ -99,7 +107,7 @@ const DataTable = ({
         key={c.field}
         id={c.field}
         text={c.label}
-        w={c.width}
+        w={columnsByPercentage ? `${c.width}` : c.width}
         align={c.align}
         selected={c.field === selectedColumnId ? true : false}
         sortOrder={sortOrder}
@@ -135,7 +143,7 @@ const DataTable = ({
         <Cell
           key={`row-${rowIndex}-cell-${index}`}
           value={value}
-          w={c.width}
+          w={columnsByPercentage ? `${c.width}` : c.width}
           align={c.align}
           order={index}
           type={c.type}
@@ -181,7 +189,7 @@ const DataTable = ({
           <ScrollArea
             viewportRef={scrollYRef}
             scrollbars={"y"}
-            w={totalWidth}
+            w={columnsByPercentage ? "100%" : totalWidth}
             onScrollPositionChange={(e) => {
               if (setScrollYPos) {
                 setScrollYPos(e.y);
