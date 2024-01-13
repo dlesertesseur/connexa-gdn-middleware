@@ -3,6 +3,7 @@
 /* eslint-disable react/prop-types */
 import { Group, ScrollArea, Stack, Text } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
+import { daysInYear } from "../../../utils/utils";
 import Header from "./Header";
 import Body from "./Body";
 import Column from "./Column";
@@ -10,7 +11,6 @@ import Row from "./Row";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import Item from "./Item";
-import { daysInYear } from "../../utils/utils";
 
 const EventTimeline = ({
   startYear,

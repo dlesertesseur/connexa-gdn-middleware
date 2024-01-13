@@ -8,7 +8,7 @@ import { findImportationsItemsByReference } from "../../data/Importations";
 import { useUserContext } from "../../context/UserContext";
 import { useWindowSize } from "../../utils/hooks";
 import { useShipmentContext } from "../../context/ShipmentContext";
-import DataTable from "../DataTable";
+import DataTable from "../ui/DataTable";
 import ShipmentProductsDetailToolbar from "./ShipmentProductsDetailToolbar";
 import ShipmentProductDetailDialog from "./ShipmentProductDetailDialog";
 

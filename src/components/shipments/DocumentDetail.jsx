@@ -10,7 +10,7 @@ import { IconAlertOctagonFilled } from "@tabler/icons-react";
 import { BASE_IMAGE_URl } from "../../data/config";
 import DocumentDetailToolbar from "./DocumentDetailToolbar";
 import ShipmentProductDetailDialog from "./ShipmentProductDetailDialog";
-import SimpleTable from "../SimpleTable/SimpleTable";
+import SimpleTable from "../ui/SimpleTable/SimpleTable";
 
 const DocumentDetail = () => {
   const location = useLocation();

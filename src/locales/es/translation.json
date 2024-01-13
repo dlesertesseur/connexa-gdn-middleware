@@ -95,6 +95,8 @@
       "update": "Modificar",
       "delete": "Eliminar",
       "save": "Salvar",
+      "account": "Informacion de usuario",
+      "changePassword":"Cambiar clave",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -102,9 +104,15 @@
       }
     },
     "appTitle": "GDN Middleware",
+    "userInfoTitle":"Información de usuario",
+    "changePasswordTitle":"Cambiar clave de acceso",
     "label": {
       "loadingData": "Cargando datos ...",
-      "noData": "No asignado"
+      "noData": "No asignado",
+      "notification":"Notificacion"
+    },
+    "message":{
+      "changePassword":"La clave fue cambiada con éxito.\nPor favor ingrese nuevamente."
     },
     "title": { "error": "Error" }
   },
@@ -344,7 +352,7 @@
   ],
 
   "crud":{
-    "validation":{"required":"Campo requerido", "invalidEmail": "Email invalido"},
+    "validation":{"required":"Campo requerido", "invalidEmail": "Email invalido","passwordNotMatch":"Las claves no coinciden"},
     "users":{
       "title":"Administrador de usuarios",
       "create":"Crear un nuevo usuario",
@@ -411,6 +419,19 @@
       },
 
       "columns": ["Nombre", "Descripcion", "Sidom keys", "Inicio", "Fin"]
+    }
+  },
+
+  "changePassword":{
+    "label":{
+      "actualPassword":"Clave actual",
+      "newPassword1":"Nueva clave",
+      "newPassword2":"Confirmar la nueva clave"
+    },
+    "placeholder":{
+      "actualPassword":"clave actual",
+      "newPassword1":"nueva clave",
+      "newPassword2":"confirmar la nueva clave"
     }
   }
 }

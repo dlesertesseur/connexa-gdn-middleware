@@ -7,7 +7,7 @@ import { HEADER_HIGHT, MODULE_APPS_ROOT } from "../../../data/config";
 import { useEffect } from "react";
 import { useEventCrudContext } from "../../../context/EventCrudContext";
 import CrudToolbar from "../CrudToolbar";
-import DataTable from "../../DataTable";
+import DataTable from "../../ui/DataTable";
 
 const EventList = () => {
   const { t } = useTranslation();

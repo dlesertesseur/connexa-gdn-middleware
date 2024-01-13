@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useViewportSize } from "@mantine/hooks";
 import { HEADER_HIGHT } from "../../../data/config";
 import { IconAlertCircle } from "@tabler/icons-react";
-import CheckList from "../../CheckList";
+import CheckList from "../../ui/CheckList";
 import CrudHeader from "../CrudHeader";
 import CrudButton from "../CrudButton";
 

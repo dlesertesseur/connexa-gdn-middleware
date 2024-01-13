@@ -4,8 +4,8 @@ import { useViewportSize } from "@mantine/hooks";
 import { findAllBusinessGoals } from "../../data/businessGoals";
 import { useUserContext } from "../../context/UserContext";
 import { useEffect, useState } from "react";
-import EventTimeline from "../EventTimeline";
 import { useTranslation } from "react-i18next";
+import EventTimeline from "../ui/EventTimeline";
 
 const Dashboard = () => {
   const { height } = useViewportSize();

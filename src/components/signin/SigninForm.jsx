@@ -16,7 +16,7 @@ import { IconAlertCircle } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUserContext } from "../../context/UserContext";
-import Logo from "../Logo";
+import Logo from "../ui/Logo";
 
 export function SigninForm() {
   const { t, i18n } = useTranslation();

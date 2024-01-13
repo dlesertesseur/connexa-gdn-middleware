@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { HEADER_HIGHT } from "../../data/config";
 import { useShipmentContext } from "../../context/ShipmentContext";
 import { useWindowSize } from "../../utils/hooks";
-import DataTable from "../DataTable";
+import DataTable from "../ui/DataTable";
 import ShipmentStatusDetailToolbar from "./ShipmentStatusDetailToolbar";
 
 const ShipmentStatusDetail = () => {
@@ -39,7 +39,9 @@ const ShipmentStatusDetail = () => {
     setSelectedShipmentId,
     scrollYPos,
     setScrollYPos,
-    markAsModified
+    markAsModified,
+    selectedColumnId, setSelectedColumnId,
+    sortOrder, setSortOrder
   } = useShipmentContext();
 
   const onRowClick = (id) => {
@@ -96,6 +98,10 @@ const ShipmentStatusDetail = () => {
         loading={loading}
         setScrollYPos={setScrollYPos}
         scrollYPos={scrollYPos}
+        selectedColumnId={selectedColumnId}
+        sortOrder={sortOrder}
+        setSelectedColumnId={setSelectedColumnId}
+        setSortOrder={setSortOrder}
         //onDoubleClick={onDoubleClick}
       />
     </Stack>

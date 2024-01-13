@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Accordion, ScrollArea, Stack } from "@mantine/core";
-import { MODULE_APPS_ROOT } from "../data/config";
+import { MODULE_APPS_ROOT } from "../../data/config";
 import { useEffect, useState } from "react";
-import { useUserContext } from "../context/UserContext";
+import { useUserContext } from "../../context/UserContext";
 import { IconApps } from "@tabler/icons-react";
 import AppItem from "./AppItem";
 

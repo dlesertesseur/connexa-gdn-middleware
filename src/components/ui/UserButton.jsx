@@ -1,10 +1,10 @@
 import { Avatar, Text, Menu, UnstyledButton, Group } from "@mantine/core";
-import { IconChevronDown, IconChevronUp, IconLogout } from "@tabler/icons-react";
+import { IconChevronDown, IconChevronUp, IconForms, IconLogout, IconPasswordUser } from "@tabler/icons-react";
 import { useState } from "react";
-import { useUserContext } from "../context/UserContext";
+import { useUserContext } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { MODULE_APPS_ROOT } from "../data/config";
+import { MODULE_APPS_ROOT } from "../../data/config";
 
 export function UserButton() {
   const { user, logOut } = useUserContext();
@@ -16,6 +16,16 @@ export function UserButton() {
     logOut();
     setOpened(false);
     navigate(`${MODULE_APPS_ROOT}`);
+  };
+
+  const onUserInfo = () => {
+    setOpened(false);
+    navigate(`${MODULE_APPS_ROOT}/user-info`);
+  };
+
+  const onChangePassword = () => {
+    setOpened(false);
+    navigate(`${MODULE_APPS_ROOT}/change-password`);
   };
 
   return (
@@ -45,6 +55,12 @@ export function UserButton() {
       </Menu.Target>
 
       <Menu.Dropdown>
+        <Menu.Item leftSection={<IconForms size={16} />} onClick={onUserInfo}>
+          {t("general.button.account")}
+        </Menu.Item>
+        <Menu.Item leftSection={<IconPasswordUser size={16} />} onClick={onChangePassword}>
+          {t("general.button.changePassword")}
+        </Menu.Item>
         <Menu.Item leftSection={<IconLogout size={16} />} onClick={onLogout}>
           {t("general.button.signOut")}
         </Menu.Item>

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "../../../utils/hooks";
 import { useTranslation } from "react-i18next";
 import { HEADER_HIGHT, MODULE_APPS_ROOT } from "../../../data/config";
-import DataTable from "../../DataTable";
+import DataTable from "../../ui/DataTable";
 import CrudToolbar from "../CrudToolbar";
 
 const UserList = () => {

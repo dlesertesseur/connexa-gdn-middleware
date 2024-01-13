@@ -1,5 +1,5 @@
 import { Image } from "@mantine/core";
-import { config } from "../data/config";
+import { config } from "../../data/config";
 
 // eslint-disable-next-line react/prop-types
 const Logo = ({ size = null, image = "/logo/logo.png", height = 0, width = 0 }) => {

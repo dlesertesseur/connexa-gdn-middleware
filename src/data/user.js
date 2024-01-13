@@ -232,3 +232,35 @@ export async function removeRoleFromUser(params) {
 
   return data;
 }
+
+export async function changePassword(params) {
+  const apiUrl = `${API_GDNAR}/users/pwd`;
+
+  const body = JSON.stringify({
+    "userId": params.userId,
+    "oldPassword": params.actualPassword,
+    "newPassword": params.newPassword
+  });
+
+  const requestOptions = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+    body: body,
+  };
+
+  const res = await fetch(apiUrl, requestOptions);
+  let data = null;
+
+  if (res.status === 200) {
+    data = await res.json();
+  } else {
+    throw new Error(`${res.status}`);
+  }
+
+  return data;
+}
+

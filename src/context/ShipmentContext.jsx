@@ -40,6 +40,8 @@ const ShipmentProvider = ({ children }) => {
   const [loadingTotalsData, setLoadingTotalsData] = useState(false);
   const [selectedShipmentId, setSelectedShipmentId] = useState(null);
   const [scrollYPos, setScrollYPos] = useState(null);
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const [sortOrder, setSortOrder] = useState("desc");
   const { user } = useUserContext();
 
   const refreshData = () => {
@@ -219,7 +221,9 @@ const ShipmentProvider = ({ children }) => {
         setSelectedShipmentId,
         scrollYPos,
         setScrollYPos,
-        markAsModified
+        markAsModified,
+        selectedColumnId, setSelectedColumnId,
+        sortOrder, setSortOrder
       }}
     >
       {children}

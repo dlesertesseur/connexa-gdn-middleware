@@ -1,8 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { MODULE_APPS_ROOT } from "../data/config";
 import ErrorPage from "./ErrorPage";
-import AppFrame from "../components/AppFrame";
-import ProtectRoute from "../components/ProtectRoute";
+import AppFrame from "../components/ui/AppFrame";
+import ProtectRoute from "../components/ui/ProtectRoute";
 import Dashboard from "../components/dashboard/Dashboard";
 import DashboardProvier from "../context/DashboardContext";
 import Logistic from "../components/logistic/Logistic";
@@ -20,6 +20,8 @@ import UserList from "../components/cruds/UserCrud/UserList";
 import UserPanel from "../components/cruds/UserCrud/UserPanel";
 import UserCrudProvider from "../context/UserCrudContext";
 import CreateUserPanel from "../components/cruds/UserCrud/CreateUserPanel";
+import UserInfo from "../components/userInfo";
+import ChangePassword from "../components/changePassword";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -38,6 +40,19 @@ const AppsModules = () => {
         //   element: <Title>{"PANTALLA DEFECTO"}</Title>,
         //   errorElement: <ErrorPage />,
         // },
+
+        {
+          path: `${MODULE_APPS_ROOT}/user-info`,
+          element: <UserInfo />,
+          errorElement: <ErrorPage />,
+        },
+
+        {
+          path: `${MODULE_APPS_ROOT}/change-password`,
+          element: <ChangePassword />,
+          errorElement: <ErrorPage />,
+        },
+
         {
           path: `${MODULE_APPS_ROOT}/dashboard`,
           element: (

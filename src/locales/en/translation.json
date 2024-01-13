@@ -17,7 +17,7 @@
     },
     "button": {
       "signIn": "Sign in",
-      "signOut": "sign out"
+        "signOut": "Sign out"
     },
     "validation": {
       "emailFormat": "Invalid email",
@@ -94,6 +94,8 @@
       "update": "Update",
       "delete": "Delete",
       "save": "Save",
+      "account": "User data",
+      "changePassword":"Change password",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -101,9 +103,15 @@
       }
     },
     "appTitle": "GDN Middleware",
+    "userInfoTitle":"User information",
+    "changePasswordTitle":"Change access password",
     "label": {
       "loadingData": "Loading data ...",
-      "noData": "Unassigned"
+      "noData": "Unassigned",
+      "notification":"Notification"
+    },
+    "message":{
+      "changePassword":"The password was changed successfully.\nPlease log in again."
     },
     "title": { "error": "Error" }
   },
@@ -343,7 +351,7 @@
   ],
 
   "crud": {
-    "validation": { "required": "Required field", "invalidEmail": "Invalid email" },
+    "validation": { "required": "Required field", "invalidEmail": "Invalid email","passwordNotMatch":"Passwords did not match" },
     "users": {
       "title": "User manager",
       "create": "Create a new user",
@@ -403,6 +411,19 @@
       "description": {},
 
       "columns": ["Name", "Description", "Sidom keys", "Start date", "End date"]
+    }
+  },
+
+  "changePassword":{
+    "label":{
+      "oldPassword":"Old password",
+      "newPassword1":"New password",
+      "newPassword2":"Check new password"
+    },
+    "placeholder":{
+      "oldPassword":"old password",
+      "newPassword1":"a new password",
+      "newPassword2":"new password again"
     }
   }
 }
