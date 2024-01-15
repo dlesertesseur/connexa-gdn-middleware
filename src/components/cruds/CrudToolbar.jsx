@@ -1,15 +1,33 @@
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { MODULE_APPS_ROOT } from "../../data/config";
+import { useAppContext } from "../../context/AppContext";
 
-const CrudToolbar = ({ title, onCreate, onUpdate, onDelete, onBack, rowSelected }) => {
+const CrudToolbar = ({ title, rowSelected }) => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const { setSelectedMenu } = useAppContext();
+  
+  const onBack = () => {
+    setSelectedMenu(null);
+    navigate(`${MODULE_APPS_ROOT}`);
+  };
+  const onCreate = () => {
+    navigate("create");
+  };
+  const onUpdate = () => {
+    navigate("update");
+  };
+  const onDelete = () => {
+    navigate("delete");
+  };
+
   return (
     <Group justify="space-between">
       <Group gap={0} wrap="nowrap">
-        <Title size={"h5"}>
-          {title}
-        </Title>
+        <Title size={"h5"}>{title}</Title>
       </Group>
       <Group gap={"xs"} wrap="nowrap">
         <Button size="xs" onClick={onCreate} disabled={onCreate ? false : true}>

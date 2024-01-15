@@ -11,7 +11,6 @@ const Row = ({ children, id, selected = false, order, onClick }) => {
         onClick(id);
       }}
       align="center"
-      justify="flex-start"
       style={{ borderBottom: "1px solid #C5C5C5" }}
     >
       {children}

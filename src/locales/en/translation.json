@@ -411,6 +411,12 @@
       "description": {},
 
       "columns": ["Name", "Description", "Sidom keys", "Start date", "End date"]
+    },
+    "shipmentPlanner":{
+      "title": "Shipment planner",
+      "label":{
+        "yearRange":"Time frame"
+      }
     }
   },
 

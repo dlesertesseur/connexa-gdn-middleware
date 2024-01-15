@@ -331,7 +331,7 @@
     },
     {
       "abbreviation": "Aug",
-      "name": "Augosto"
+      "name": "Agosto"
     },
     {
       "abbreviation": "Sep",
@@ -419,7 +419,14 @@
       },
 
       "columns": ["Nombre", "Descripcion", "Sidom keys", "Inicio", "Fin"]
+    },
+    "shipmentPlanner":{
+      "title": "Planificador de embarques",
+      "label":{
+        "yearRange":"Periodo de tiempo"
+      }
     }
+
   },
 
   "changePassword":{

@@ -4,13 +4,15 @@ import { MODULE_APPS_ROOT } from "../../data/config";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../context/UserContext";
 import { IconApps } from "@tabler/icons-react";
+import { useAppContext } from "../../context/AppContext";
 import AppItem from "./AppItem";
 
 const AppMenu = () => {
-  const [selectedMenu, setSelectedMenu] = useState(null);
   const [menu, setMenu] = useState(null);
   const [roleDefault, setRoleDefault] = useState(null);
   const { user } = useUserContext();
+
+  const {selectedMenu, setSelectedMenu} = useAppContext();
 
   useEffect(() => {
     if (user && user.roles) {

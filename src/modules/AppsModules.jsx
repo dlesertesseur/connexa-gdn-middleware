@@ -22,6 +22,9 @@ import UserCrudProvider from "../context/UserCrudContext";
 import CreateUserPanel from "../components/cruds/UserCrud/CreateUserPanel";
 import UserInfo from "../components/userInfo";
 import ChangePassword from "../components/changePassword";
+import ShipmentPlanner from "../components/cruds/ShipmentPlanner";
+import ShipmentPlannerProvier from "../context/ShipmentPlannerContext";
+import ShipmentPlannerPanel from "../components/cruds/ShipmentPlanner/ShipmentPlannerPanel";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -34,12 +37,15 @@ const AppsModules = () => {
       ),
       errorElement: <ErrorPage />,
       children: [
-        //Agregar la pantalla defecto
-        // {
-        //   path: `${MODULE_APPS_ROOT}/`,
-        //   element: <Title>{"PANTALLA DEFECTO"}</Title>,
-        //   errorElement: <ErrorPage />,
-        // },
+        {
+          path: `${MODULE_APPS_ROOT}/`,
+          element: (
+            <DashboardProvier>
+              <Dashboard />
+            </DashboardProvier>
+          ),
+          errorElement: <ErrorPage />,
+        },
 
         {
           path: `${MODULE_APPS_ROOT}/user-info`,
@@ -50,16 +56,6 @@ const AppsModules = () => {
         {
           path: `${MODULE_APPS_ROOT}/change-password`,
           element: <ChangePassword />,
-          errorElement: <ErrorPage />,
-        },
-
-        {
-          path: `${MODULE_APPS_ROOT}/dashboard`,
-          element: (
-            <DashboardProvier>
-              <Dashboard />
-            </DashboardProvier>
-          ),
           errorElement: <ErrorPage />,
         },
         {
@@ -116,6 +112,22 @@ const AppsModules = () => {
             {
               path: `${MODULE_APPS_ROOT}/crud/events/delete`,
               element: <EventPanel mode={"delete"} />,
+              errorElement: <ErrorPage />,
+            },
+          ],
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/crud/shipment-planner`,
+          element: (
+            <ShipmentPlannerProvier>
+              <ShipmentPlanner />
+            </ShipmentPlannerProvier>
+          ),
+          errorElement: <ErrorPage />,
+          children: [
+            {
+              path: `${MODULE_APPS_ROOT}/crud/shipment-planner/`,
+              element: <ShipmentPlannerPanel />,
               errorElement: <ErrorPage />,
             },
           ],

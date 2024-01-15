@@ -2,10 +2,9 @@
 import { Stack } from "@mantine/core";
 import { useEffect } from "react";
 import { useUserCrudContext } from "../../../context/UserCrudContext";
-import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "../../../utils/hooks";
 import { useTranslation } from "react-i18next";
-import { HEADER_HIGHT, MODULE_APPS_ROOT } from "../../../data/config";
+import { HEADER_HIGHT } from "../../../data/config";
 import DataTable from "../../ui/DataTable";
 import CrudToolbar from "../CrudToolbar";
 
@@ -23,7 +22,6 @@ const UserList = () => {
     setSortOrder,
   } = useUserCrudContext();
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const wSize = useWindowSize();
 
   let col = 0;
@@ -42,22 +40,7 @@ const UserList = () => {
 
   return (
     <Stack gap={"xs"}>
-      <CrudToolbar
-        title={t("crud.users.title")}
-        rowSelected={selectedUserId}
-        onBack={() => {
-          navigate(`${MODULE_APPS_ROOT}`);
-        }}
-        onCreate={() => {
-          navigate("create");
-        }}
-        onUpdate={() => {
-          navigate("update");
-        }}
-        onDelete={() => {
-          navigate("delete");
-        }}
-      />
+      <CrudToolbar title={t("crud.users.title")} rowSelected={selectedUserId} />
       <DataTable
         data={users}
         columns={columns}

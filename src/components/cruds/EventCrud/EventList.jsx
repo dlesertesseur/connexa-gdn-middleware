@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { useWindowSize } from "../../../utils/hooks";
 import { Stack } from "@mantine/core";
-import { HEADER_HIGHT, MODULE_APPS_ROOT } from "../../../data/config";
+import { HEADER_HIGHT } from "../../../data/config";
 import { useEffect } from "react";
 import { useEventCrudContext } from "../../../context/EventCrudContext";
 import CrudToolbar from "../CrudToolbar";
@@ -11,7 +10,7 @@ import DataTable from "../../ui/DataTable";
 
 const EventList = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+
   const wSize = useWindowSize();
 
   const {
@@ -24,7 +23,7 @@ const EventList = () => {
     selectedColumnId,
     setSelectedColumnId,
     sortOrder,
-    setSortOrder
+    setSortOrder,
   } = useEventCrudContext();
 
   let col = 0;
@@ -44,22 +43,7 @@ const EventList = () => {
 
   return (
     <Stack gap={"xs"}>
-      <CrudToolbar
-        title={t("crud.events.title")}
-        rowSelected={selectedRowId}
-        onBack={() => {
-          navigate(`${MODULE_APPS_ROOT}`);
-        }}
-        onCreate={() => {
-          navigate("create");
-        }}
-        onUpdate={() => {
-          navigate("update");
-        }}
-        onDelete={() => {
-          navigate("delete");
-        }}
-      />
+      <CrudToolbar title={t("crud.events.title")} rowSelected={selectedRowId} />
       <DataTable
         data={events}
         columns={columns}
