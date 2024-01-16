@@ -3,8 +3,6 @@ import { MODULE_APPS_ROOT } from "../data/config";
 import ErrorPage from "./ErrorPage";
 import AppFrame from "../components/ui/AppFrame";
 import ProtectRoute from "../components/ui/ProtectRoute";
-import Dashboard from "../components/dashboard/Dashboard";
-import DashboardProvier from "../context/DashboardContext";
 import Logistic from "../components/logistic/Logistic";
 import Shipments from "../components/shipments/Shipments";
 import ShipmentsPanel from "../components/shipments/ShipmentsPanel";
@@ -24,7 +22,10 @@ import UserInfo from "../components/userInfo";
 import ChangePassword from "../components/changePassword";
 import ShipmentPlanner from "../components/cruds/ShipmentPlanner";
 import ShipmentPlannerProvier from "../context/ShipmentPlannerContext";
-import ShipmentPlannerPanel from "../components/cruds/ShipmentPlanner/ShipmentPlannerPanel";
+import ShipmentPlannerList from "../components/cruds/ShipmentPlanner/ShipmentPlannerList";
+import ShipmentPlannerEditor from "../components/cruds/ShipmentPlanner/ShipmentPlannerEditor";
+
+import { Title } from "@mantine/core";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -39,11 +40,7 @@ const AppsModules = () => {
       children: [
         {
           path: `${MODULE_APPS_ROOT}/`,
-          element: (
-            <DashboardProvier>
-              <Dashboard />
-            </DashboardProvier>
-          ),
+          element: <></>,
           errorElement: <ErrorPage />,
         },
 
@@ -127,7 +124,22 @@ const AppsModules = () => {
           children: [
             {
               path: `${MODULE_APPS_ROOT}/crud/shipment-planner/`,
-              element: <ShipmentPlannerPanel />,
+              element: <ShipmentPlannerList />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/shipment-planner/editPlan`,
+              element: <ShipmentPlannerEditor />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/shipment-planner/createPlan`,
+              element: <Title>{"CREATE PLAN"}</Title>,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/shipment-planner/panel`,
+              element: <Title>{"PANEL"}</Title>,
               errorElement: <ErrorPage />,
             },
           ],

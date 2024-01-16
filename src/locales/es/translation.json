@@ -423,8 +423,33 @@
     "shipmentPlanner":{
       "title": "Planificador de embarques",
       "label":{
-        "yearRange":"Periodo de tiempo"
-      }
+        "yearRange":"Periodo de tiempo",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin",
+        "numberOfDays":"Número de días",
+        "start": "Inicio",
+        "end": "Fin",
+        "anchor":"Anclar dia"
+      },
+      "description": { "anchor": "Desplaza los sprints según el anclaje seleccionado" },
+      "button":{
+        "createPlan":"Crear plan",
+        "editPlan":"Editar plan"
+      },
+      "columns": [
+        "Referencia",
+        "Producto",
+        "Analista",
+        "Evento",
+        "Pais origen",
+        "Valor",
+        "Moneda",
+        "Incoterm",
+        "FEUS",
+        "Proveedor",
+        "Requerido en CD",
+        "Canal"
+      ]
     }
 
   },
@@ -439,6 +464,33 @@
       "actualPassword":"clave actual",
       "newPassword1":"nueva clave",
       "newPassword2":"confirmar la nueva clave"
+    }
+  },
+  "sprints": {
+    "sales": {
+      "label": "Ventas",
+      "description": "Sprint de ventas",
+      "color":"green"
+    },
+    "distribution": {
+      "label": "Distribución",
+      "description": "Sprint de distribución",
+      "color":"yellow"
+    },
+    "reception": {
+      "label": "Recepción",
+      "description": "Sprint de recepción",
+      "color":"orange"
+    },
+    "shipping": {
+      "label": "Envío",
+      "description": "Sprint de transporte",
+      "color":"blue.4"
+    },
+    "preparation": {
+      "label": "Preparación",
+      "description": "Sprint de preparación",
+      "color":"blue"
     }
   }
 }

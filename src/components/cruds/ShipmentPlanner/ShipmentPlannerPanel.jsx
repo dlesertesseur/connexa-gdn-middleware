@@ -2,11 +2,11 @@ import { Center, Loader, Stack } from "@mantine/core";
 import { useDisclosure, useViewportSize } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
+import { useState } from "react";
 import EventTimeline from "../../ui/EventTimeline";
 import ShipmentPlannerToolbar from "./ShipmentPlannerToolbar";
 import Header from "./Header";
 import InspectModal from "./InspectModal";
-import { useState } from "react";
 
 const ShipmentPlannerPanel = () => {
   const { height } = useViewportSize();

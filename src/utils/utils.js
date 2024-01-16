@@ -71,6 +71,17 @@ function diffBetweenDays(d1, d2) {
   return(diffDays);
 }
 
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function subtractDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() - days);
+  return result;
+}
 export {
   lpad,
   convertMilisegToYYYYMMDDHHMISS,
@@ -79,5 +90,7 @@ export {
   sortData,
   daysInMonth,
   daysInTimeFrame,
-  diffBetweenDays
+  diffBetweenDays,
+  addDays,
+  subtractDays
 };

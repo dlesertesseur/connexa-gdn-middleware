@@ -243,7 +243,7 @@ export async function changePassword(params) {
   });
 
   const requestOptions = {
-    method: "POST",
+    method: "PUT",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",

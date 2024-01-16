@@ -63,6 +63,7 @@ const UserProvier = ({ children }) => {
             : `${config.APP_PUBLIC_URL}/images/user.png`,
           token: data.token,
           roles: data.user.roles,
+          sidomkeys:data.user.sidomkey,
           id: data.user.id,
         };
 

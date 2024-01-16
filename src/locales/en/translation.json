@@ -17,7 +17,7 @@
     },
     "button": {
       "signIn": "Sign in",
-        "signOut": "Sign out"
+      "signOut": "Sign out"
     },
     "validation": {
       "emailFormat": "Invalid email",
@@ -95,7 +95,7 @@
       "delete": "Delete",
       "save": "Save",
       "account": "User data",
-      "changePassword":"Change password",
+      "changePassword": "Change password",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -103,15 +103,15 @@
       }
     },
     "appTitle": "GDN Middleware",
-    "userInfoTitle":"User information",
-    "changePasswordTitle":"Change access password",
+    "userInfoTitle": "User information",
+    "changePasswordTitle": "Change access password",
     "label": {
       "loadingData": "Loading data ...",
       "noData": "Unassigned",
-      "notification":"Notification"
+      "notification": "Notification"
     },
-    "message":{
-      "changePassword":"The password was changed successfully.\nPlease log in again."
+    "message": {
+      "changePassword": "The password was changed successfully.\nPlease log in again."
     },
     "title": { "error": "Error" }
   },
@@ -351,7 +351,11 @@
   ],
 
   "crud": {
-    "validation": { "required": "Required field", "invalidEmail": "Invalid email","passwordNotMatch":"Passwords did not match" },
+    "validation": {
+      "required": "Required field",
+      "invalidEmail": "Invalid email",
+      "passwordNotMatch": "Passwords did not match"
+    },
     "users": {
       "title": "User manager",
       "create": "Create a new user",
@@ -412,24 +416,77 @@
 
       "columns": ["Name", "Description", "Sidom keys", "Start date", "End date"]
     },
-    "shipmentPlanner":{
+    "shipmentPlanner": {
       "title": "Shipment planner",
-      "label":{
-        "yearRange":"Time frame"
-      }
+      "label": {
+        "yearRange": "Time frame",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "numberOfDays": "Number of days",
+        "start": "Start",
+        "end": "End",
+        "anchor": "Anchor"
+      },
+      "description": { "anchor": "Move sprints based on selected anchor" },
+      "button": {
+        "createPlan": "Create plan",
+        "editPlan": "Edit plan"
+      },
+      "columns": [
+        "Reference",
+        "Product",
+        "Analyst",
+        "Event",
+        "Country of origin",
+        "Value",
+        "Currency",
+        "Incoterm",
+        "FEUS",
+        "Provider",
+        "Required in warehouse",
+        "Status"
+      ]
     }
   },
 
-  "changePassword":{
-    "label":{
-      "oldPassword":"Old password",
-      "newPassword1":"New password",
-      "newPassword2":"Check new password"
+  "changePassword": {
+    "label": {
+      "oldPassword": "Old password",
+      "newPassword1": "New password",
+      "newPassword2": "Check new password"
     },
-    "placeholder":{
-      "oldPassword":"old password",
-      "newPassword1":"a new password",
-      "newPassword2":"new password again"
+    "placeholder": {
+      "oldPassword": "old password",
+      "newPassword1": "a new password",
+      "newPassword2": "new password again"
+    }
+  },
+
+  "sprints": {
+    "sales": {
+      "label": "Sales",
+      "description": "Sales sprint",
+      "color": "green"
+    },
+    "distribution": {
+      "label": "Distribution",
+      "description": "Distribution sprint",
+      "color": "yellow"
+    },
+    "reception": {
+      "label": "Reception",
+      "description": "Reception sprint",
+      "color": "orange"
+    },
+    "shipping": {
+      "label": "shipping",
+      "description": "shipping sprint",
+      "color": "blue.4"
+    },
+    "preparation": {
+      "label": "Preparation",
+      "description": "Preparation sprint",
+      "color": "blue"
     }
   }
 }

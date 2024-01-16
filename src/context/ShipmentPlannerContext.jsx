@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useUserContext } from "./UserContext";
 import { getAllEvents } from "../data/events";
 import { sortData } from "../utils/utils";
+import { getAllShipmentPlanBySidomkeys } from "../data/shipmentPlanner";
 
 const ShipmentPlannerContext = createContext();
 
@@ -19,6 +20,15 @@ const ShipmentPlannerProvier = ({ children }) => {
   const [businessObjectives, setBusinessObjectives] = useState(null);
   const [timeFrame, setTimeFrame] = useState([null, null]);
 
+  const [selectedShipmentId, setSelectedShipmentId] = useState(null);
+  const [scrollYPos, setScrollYPos] = useState(null);
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const [sortOrder, setSortOrder] = useState("desc");
+  const [reloadData, setReloadData] = useState(null);
+  const [data, setData] = useState(null);
+
+  const [shipmentPlanBySidomkeys, setShipmentPlanBySidomkeys] = useState(null);
+
   const { user } = useUserContext();
 
   const getData = async () => {
@@ -34,6 +44,25 @@ const ShipmentPlannerProvier = ({ children }) => {
     setLoadingData(false);
   };
 
+  const getShipmentsPlanBySidomkeys = async () => {
+    try {
+      const planById = new Map();
+      const params = { token: user.token, sidomkeys: user.sidomkeys };
+      const ret = await getAllShipmentPlanBySidomkeys(params);
+
+      const list = ret.map((o) => {
+        planById.set(o.id, o);
+        const ret = { ...o.shipment, hasPlan: o.shipmentPlan ? true : false };
+        return ret;
+      });
+
+      setData(ret);
+      setShipmentPlanBySidomkeys(list);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   async function initData() {
     const start = new Date();
     start.setFullYear(start.getFullYear() - 1);
@@ -43,6 +72,33 @@ const ShipmentPlannerProvier = ({ children }) => {
 
     setTimeFrame([start, end]);
     await getData();
+  }
+
+  useEffect(() => {
+    getShipmentsPlanBySidomkeys();
+  }, [user, reloadData]);
+
+  function reaload() {
+    setReloadData(Date.now());
+  }
+
+  function getShipmentPlanById(id) {
+    const ret = data?.find(s => s.shipment.id === id);
+    return ret;
+  }
+
+  function getBusinessObjectivesBySidomkeys(name){
+    const ret = businessObjectives.find(bo => bo.sidomkeys.includes(name));
+    return(ret);
+  }
+
+  function hasPlan() {
+    let ret = false;
+    const shipment = shipmentPlanBySidomkeys?.find((s) => s.id === selectedShipmentId);
+    if (shipment) {
+      ret = shipment.hasPlan;
+    }
+    return ret;
   }
 
   return (
@@ -55,6 +111,19 @@ const ShipmentPlannerProvier = ({ children }) => {
         businessObjectives,
         timeFrame,
         setTimeFrame,
+        selectedShipmentId,
+        setSelectedShipmentId,
+        scrollYPos,
+        setScrollYPos,
+        selectedColumnId,
+        setSelectedColumnId,
+        sortOrder,
+        setSortOrder,
+        shipmentPlanBySidomkeys,
+        reaload,
+        hasPlan,
+        getShipmentPlanById,
+        getBusinessObjectivesBySidomkeys
       }}
     >
       {children}

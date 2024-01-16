@@ -151,6 +151,8 @@ const DataTable = ({
           selected={selected}
           defaultValue={c.default}
           lastColumn={columns.length - index > 1 ? false : true}
+          iconOn={c.iconOn}
+          iconOff={c.iconOff}
         />
       );
       cells.push(ret);

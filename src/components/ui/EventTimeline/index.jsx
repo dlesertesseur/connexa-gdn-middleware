@@ -3,7 +3,13 @@
 /* eslint-disable react/prop-types */
 import { Box, Group, ScrollArea, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { convertMilisegToYYYYMMDD, daysInTimeFrame, daysInYear, diffBetweenDays } from "../../../utils/utils";
+import {
+  convertMilisegToYYYYMMDD,
+  daysInMonth,
+  daysInTimeFrame,
+  daysInYear,
+  diffBetweenDays,
+} from "../../../utils/utils";
 import Header from "./Header";
 import Body from "./Body";
 import Column from "./Column";
@@ -11,6 +17,7 @@ import Row from "./Row";
 import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import Item from "./Item";
+import Layer from "./Layer";
 
 const EventTimeline = ({
   startYear,
@@ -23,7 +30,8 @@ const EventTimeline = ({
   onRowClick,
   monthLabels = null,
   relationPixeDay = 5,
-  onInspect
+  onInspect,
+  layers,
 }) => {
   const targetRef = useRef();
   const itemRef = useRef();
@@ -33,6 +41,7 @@ const EventTimeline = ({
   const [objCols, setObjCols] = useState(null);
   const [objRows, setObjRows] = useState(null);
   const [objItems, setObjItems] = useState(null);
+  const [objLayers, setObjLayers] = useState(null);
   const [selectedRowId, setSelectedRowId] = useState(null);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [totalDays, setTotalDays] = useState(0);
@@ -43,24 +52,54 @@ const EventTimeline = ({
   const [sizes, setSizes] = useState([200, "auto"]);
 
   useEffect(() => {
-    if (endYear >= startYear && data) {
-      setSizes([minItemWidth, "auto"]);
+    if (data) {
+      if (endYear > startYear) {
+        setSizes([minItemWidth, "auto"]);
 
-      const ret = daysInTimeFrame(startYear, endYear);
-      setTotalDays(ret.totalDays);
-      setDaysByYearMonth(ret.daysByYearMonth);
+        const ret = daysInTimeFrame(startYear, endYear);
+        setTotalDays(ret.totalDays);
+        setDaysByYearMonth(ret.daysByYearMonth);
 
-      const columns = createMonthsList(startYear, endYear, ret.daysByYearMonth);
-      setObjCols(columns);
+        const columns = createMonthsList(startYear, endYear, ret.daysByYearMonth);
+        setObjCols(columns);
 
-      const rows = data?.map((r, index) => createRows(r, index));
-      setObjRows(rows);
+        const rows = data?.map((r, index) => createRows(r, index));
+        setObjRows(rows);
 
-      const items = data?.map((r, index) => createItems(r, index));
-      setObjItems(items);
+        const items = data?.map((r, index) => createItems(r, index));
+        setObjItems(items);
 
-      const w = ret.totalDays * relationPixeDay;
-      setTotalWidth(w);
+        const w = ret.totalDays * relationPixeDay;
+        setTotalWidth(w);
+      } else {
+        if (endYear === startYear) {
+          setSizes([minItemWidth, "auto"]);
+
+          const ret = daysInYear(startYear);
+          setTotalDays(ret);
+
+          const columns = createMonthsListFromYear(startYear);
+          setObjCols(columns);
+
+          const rows = data?.map((r, index) => createRows(r, index));
+          setObjRows(rows);
+
+          const items = data?.map((r, index) => createItems(r, index));
+          setObjItems(items);
+
+          const w = ret * relationPixeDay;
+          setTotalWidth(w);
+        }
+      }
+
+      const ret = [];
+      layers?.forEach((l) => {
+        const obj = createObjLayers(l);
+        if (obj) {
+          ret.push(obj);
+        }
+      });
+      setObjLayers(ret);
     }
   }, [startYear, endYear, relationPixeDay, data]);
 
@@ -73,6 +112,30 @@ const EventTimeline = ({
       setObjItems(items);
     }
   }, [selectedRowId]);
+
+  function createObjLayers(layer, index) {
+    let posX = 0;
+    let ret = null;
+    const startDate = new Date(startYear, 0, 1);
+
+    const day1 = layer.startDateTime < startDate.getTime() ? startDate.getTime() : layer.startDateTime;
+
+    if (layer.endDateTime.getTime() > day1) {
+      const diffInDays = diffBetweenDays(day1, layer.endDateTime);
+
+      const blockW = diffInDays * relationPixeDay;
+
+      if (layer.startDateTime < startDate.getTime()) {
+        posX = 0;
+      } else {
+        posX = diffBetweenDays(startDate, layer.startDateTime) * relationPixeDay;
+      }
+
+      ret = <Layer key={layer.id} id={layer.id} order={index} h={layer.h} w={blockW} left={posX} color={layer.color} />;
+    }
+
+    return ret;
+  }
 
   const createMonthsList = (startYear, endYear, daysByYearMonth) => {
     const ret = [];
@@ -90,6 +153,23 @@ const EventTimeline = ({
         const col = <Column key={id} id={id} text={text} label={label} w={columnWidth} align={"center"} />;
         ret.push(col);
       }
+    }
+    return ret;
+  };
+
+  const createMonthsListFromYear = (year) => {
+    const ret = [];
+
+    for (let month = 0; month < 12; month++) {
+      const yyyy = year;
+      const mm = month + 1;
+      const id = `${yyyy}${mm.toString().padStart(2, "0")}`;
+      const label = monthLabels ? monthLabels[month] : null;
+      const text = `${yyyy} / ${mm.toString().padStart(2, "0")}`;
+      const days = daysInMonth(month + 1, year);
+      const columnWidth = days * relationPixeDay;
+      const col = <Column key={id} id={id} text={text} label={label} w={columnWidth} align={"center"} />;
+      ret.push(col);
     }
     return ret;
   };
@@ -120,7 +200,16 @@ const EventTimeline = ({
     const ret = (
       <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
         <Box py={2} pos={"relative"} h={rowHeight} w={blockW} left={posX}>
-          <UnstyledButton onClick={() => {onInspect ? onInspect(r) : null}} h={"100%"} w={"100%"} bg={"orange"} style={{ borderRadius: 0 }}></UnstyledButton>
+          
+          <UnstyledButton
+            onClick={() => {
+              onInspect ? onInspect(r) : null;
+            }}
+            h={"100%"}
+            w={"100%"}
+            bg={r.color ? r.color : "orange"}
+            style={{ borderRadius: 0}}
+          ></UnstyledButton>
         </Box>
       </Row>
     );
@@ -196,6 +285,7 @@ const EventTimeline = ({
                 itemRef?.current.scrollTo({ top: e.y });
               }}
             >
+              {objLayers}
               <Body h={h - headerHeight}>{objRows}</Body>
             </ScrollArea>
           </ScrollArea>

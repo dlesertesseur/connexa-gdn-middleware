@@ -19,7 +19,7 @@ function convertStrToFloat(value) {
   return ret.toFixed(2);
 }
 
-const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defaultValue = "" }) => {
+const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defaultValue = "", iconOn, iconOff }) => {
   const createCellValue = (type, value) => {
     let ret = null;
     switch (type) {
@@ -68,7 +68,14 @@ const Cell = ({ value, w, align, order, type, action, selected, lastColumn, defa
           </Button>
         );
         break;
+      case "icon":
+        ret = (
+          <Group gap={0} h={"100%"} w={w} justify="center" align="center">
+            {value ? iconOn : iconOff}
+          </Group>
+        );
 
+        break;
       default:
         ret = (
           <Text fw={fwText} size="sm" truncate="end">

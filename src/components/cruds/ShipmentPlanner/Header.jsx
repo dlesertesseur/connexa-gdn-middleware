@@ -3,7 +3,6 @@ import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../context/AppContext";
-import { MODULE_APPS_ROOT } from "../../../data/config";
 
 const Header = ({ title, subTitle }) => {
   const { t } = useTranslation();
@@ -12,7 +11,8 @@ const Header = ({ title, subTitle }) => {
 
   const onBack = () => {
     setSelectedMenu(null);
-    navigate(`${MODULE_APPS_ROOT}`);
+    //navigate(`${MODULE_APPS_ROOT}`);
+    navigate(-1);
   };
 
   return (

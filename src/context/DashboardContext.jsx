@@ -20,6 +20,7 @@ const DashboardProvier = ({ children }) => {
   const [chartsData, setChartsData] = useState(null);
   const { user } = useUserContext();
 
+  // eslint-disable-next-line no-unused-vars
   const getData = async () => {
     setLoadingData(true);
     try {
@@ -37,7 +38,7 @@ const DashboardProvier = ({ children }) => {
   };
 
   useEffect(() => {
-    getData();
+    //getData();
   }, []);
 
   const getChartByBusinessObjective = (businessObjective) => {
