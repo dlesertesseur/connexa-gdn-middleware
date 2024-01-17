@@ -23,6 +23,8 @@ const InspectModal = ({ opened, close, sprint, onUpdate }) => {
       setEndDate(sprint.endDateTime);
       setNumberOfDays(diffBetweenDays(sprint.startDateTime, sprint.endDateTime));
     }
+
+    setAnchor("start");
   }, [sprint]);
 
   useEffect(() => {

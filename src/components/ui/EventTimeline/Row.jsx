@@ -6,7 +6,7 @@ const Row = ({ children, id, selected = false, order, onClick }) => {
   return (
     <Group
       gap={0}
-      bg={selected ? "blue.3" : bgColor}
+      bg={selected ? "blue.2" : bgColor}
       onClick={() => {
         onClick(id);
       }}

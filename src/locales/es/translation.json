@@ -96,7 +96,7 @@
       "delete": "Eliminar",
       "save": "Salvar",
       "account": "Informacion de usuario",
-      "changePassword":"Cambiar clave",
+      "changePassword": "Cambiar clave",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -104,15 +104,15 @@
       }
     },
     "appTitle": "GDN Middleware",
-    "userInfoTitle":"Información de usuario",
-    "changePasswordTitle":"Cambiar clave de acceso",
+    "userInfoTitle": "Información de usuario",
+    "changePasswordTitle": "Cambiar clave de acceso",
     "label": {
       "loadingData": "Cargando datos ...",
       "noData": "No asignado",
-      "notification":"Notificacion"
+      "notification": "Notificacion"
     },
-    "message":{
-      "changePassword":"La clave fue cambiada con éxito.\nPor favor ingrese nuevamente."
+    "message": {
+      "changePassword": "La clave fue cambiada con éxito.\nPor favor ingrese nuevamente."
     },
     "title": { "error": "Error" }
   },
@@ -351,55 +351,54 @@
     }
   ],
 
-  "crud":{
-    "validation":{"required":"Campo requerido", "invalidEmail": "Email invalido","passwordNotMatch":"Las claves no coinciden"},
-    "users":{
-      "title":"Administrador de usuarios",
-      "create":"Crear un nuevo usuario",
-      "update":"Modificar un usuario",
-      "delete":"Eliminar un usuario",
-      "errors":{
-        "create":"Error al intentar crear un usuario",
-        "update":"Error al intentar modificar un usuario",
-        "delete":"Error al intentar eliminar un usuario"
+  "crud": {
+    "validation": {
+      "required": "Campo requerido",
+      "invalidEmail": "Email invalido",
+      "passwordNotMatch": "Las claves no coinciden"
+    },
+    "users": {
+      "title": "Administrador de usuarios",
+      "create": "Crear un nuevo usuario",
+      "update": "Modificar un usuario",
+      "delete": "Eliminar un usuario",
+      "errors": {
+        "create": "Error al intentar crear un usuario",
+        "update": "Error al intentar modificar un usuario",
+        "delete": "Error al intentar eliminar un usuario"
       },
 
-      "label":{
-        "lastname":"Apellidos",
-        "firstname":"Nombres",
-        "email":"Email",
-        "sidomkey":"Usuario SIDOM",
-        "role":"Roles",
+      "label": {
+        "lastname": "Apellidos",
+        "firstname": "Nombres",
+        "email": "Email",
+        "sidomkey": "Usuario SIDOM",
+        "role": "Roles",
         "initialPassword": "Clave inicial"
       },
-      "placeholder":{
-        "lastname":"apellidos",
-        "firstname":"nombres",
-        "email":"email",
-        "sidomkey":"usuario sidom",
-        "role":"seleccione los roles",
+      "placeholder": {
+        "lastname": "apellidos",
+        "firstname": "nombres",
+        "email": "email",
+        "sidomkey": "usuario sidom",
+        "role": "seleccione los roles",
         "initialPassword": "clave incial de ingreso"
       },
-      "description":{
-        "sidomkey":"Ingrese un * para ver información de todos los usuarios"
+      "description": {
+        "sidomkey": "Ingrese un * para ver información de todos los usuarios"
       },
 
-      "columns": [
-        "Apellidos",
-        "Nombres",
-        "Email",
-        "SIDOM key"
-      ]
+      "columns": ["Apellidos", "Nombres", "Email", "SIDOM key"]
     },
-    "events":{
-      "title":"Administrador de eventos",
-      "create":"Crear un nuevo evento",
-      "update":"Modificar un evento",
-      "delete":"Eliminar un evento",
-      "errors":{
-        "create":"Error al intentar crear un evento",
-        "update":"Error al intentar modificar un evento",
-        "delete":"Error al intentar eliminar un evento"
+    "events": {
+      "title": "Administrador de eventos",
+      "create": "Crear un nuevo evento",
+      "update": "Modificar un evento",
+      "delete": "Eliminar un evento",
+      "errors": {
+        "create": "Error al intentar crear un evento",
+        "update": "Error al intentar modificar un evento",
+        "delete": "Error al intentar eliminar un evento"
       },
       "label": {
         "name": "Nombre",
@@ -415,26 +414,26 @@
         "startDateTime": "una fecha de inicio",
         "endDateTime": "una fecha de fin"
       },
-      "description": {
-      },
+      "description": {},
 
       "columns": ["Nombre", "Descripcion", "Sidom keys", "Inicio", "Fin"]
     },
-    "shipmentPlanner":{
+    "shipmentPlanner": {
       "title": "Planificador de embarques",
-      "label":{
-        "yearRange":"Periodo de tiempo",
+      "label": {
+        "yearRange": "Periodo de tiempo",
         "startDate": "Fecha de inicio",
         "endDate": "Fecha de fin",
-        "numberOfDays":"Número de días",
+        "numberOfDays": "Número de días",
         "start": "Inicio",
         "end": "Fin",
-        "anchor":"Anclar dia"
+        "anchor": "Anclar dia"
       },
       "description": { "anchor": "Desplaza los sprints según el anclaje seleccionado" },
-      "button":{
-        "createPlan":"Crear plan",
-        "editPlan":"Editar plan"
+      "button": {
+        "createPlan": "Crear plan",
+        "editPlan": "Editar plan",
+        "deletePlan": "Eliminar plan"
       },
       "columns": [
         "Referencia",
@@ -449,48 +448,51 @@
         "Proveedor",
         "Requerido en CD",
         "Canal"
-      ]
-    }
+      ],
 
+      "placeholder": {
+        "event": "Seleccione un evento"
+      }
+    }
   },
 
-  "changePassword":{
-    "label":{
-      "actualPassword":"Clave actual",
-      "newPassword1":"Nueva clave",
-      "newPassword2":"Confirmar la nueva clave"
+  "changePassword": {
+    "label": {
+      "actualPassword": "Clave actual",
+      "newPassword1": "Nueva clave",
+      "newPassword2": "Confirmar la nueva clave"
     },
-    "placeholder":{
-      "actualPassword":"clave actual",
-      "newPassword1":"nueva clave",
-      "newPassword2":"confirmar la nueva clave"
+    "placeholder": {
+      "actualPassword": "clave actual",
+      "newPassword1": "nueva clave",
+      "newPassword2": "confirmar la nueva clave"
     }
   },
   "sprints": {
     "sales": {
       "label": "Ventas",
       "description": "Sprint de ventas",
-      "color":"green"
+      "color": "green"
     },
     "distribution": {
       "label": "Distribución",
       "description": "Sprint de distribución",
-      "color":"yellow"
+      "color": "yellow"
     },
     "reception": {
       "label": "Recepción",
       "description": "Sprint de recepción",
-      "color":"orange"
+      "color": "orange"
     },
     "shipping": {
       "label": "Envío",
       "description": "Sprint de transporte",
-      "color":"blue.4"
+      "color": "blue.4"
     },
     "preparation": {
       "label": "Preparación",
       "description": "Sprint de preparación",
-      "color":"blue"
+      "color": "blue"
     }
   }
 }

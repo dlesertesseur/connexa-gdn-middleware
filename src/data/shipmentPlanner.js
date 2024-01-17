@@ -24,8 +24,8 @@ export async function getAllShipmentPlanBySidomkeys(params) {
   return data;
 }
 
-export async function getEventById(params) {
-  const apiUrl = `${API_GDNAR}/events/${params.id}`;
+export async function getAllBusinessObjectivesBySidomkeys(params) {
+  const apiUrl = `${API_GDNAR}/events/sidom/${params.sidomkeys}`;
 
   const requestOptions = {
     method: "GET",
@@ -48,8 +48,8 @@ export async function getEventById(params) {
   return data;
 }
 
-export async function createEvent(params) {
-  const apiUrl = `${API_GDNAR}/events`;
+export async function createShipmentPlan(params) {
+  const apiUrl = `${API_GDNAR}/shipment-plan`;
 
   const body = JSON.stringify({
     name: params.values.name,
@@ -81,20 +81,13 @@ export async function createEvent(params) {
   return data;
 }
 
-export async function updateEvent(params) {
-  const apiUrl = `${API_GDNAR}/events`;
+export async function updateShipmentPlan(params) {
+  const apiUrl = `${API_GDNAR}/shipment-plan`;
 
-  const body = JSON.stringify({
-    id: params.id,
-    name: params.values.name,
-    description: params.values.description,
-    sidomkeys: params.values.sidomkeys,
-    startDateTime: params.values.startDateTime,
-    endDateTime: params.values.endDateTime
-  });
+  const body = JSON.stringify(params.body);
 
   const requestOptions = {
-    method: "PUT",
+    method: "POST",
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
@@ -113,23 +106,4 @@ export async function updateEvent(params) {
   }
 
   return data;
-}
-
-export async function removeEvent(params) {
-  const apiUrl = `${API_GDNAR}/events/${params.id}`;
-
-  const requestOptions = {
-    method: "DELETE",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      token: params.token,
-    },
-  };
-
-  const res = await fetch(apiUrl, requestOptions);
-
-  if (res.status !== 200) {
-    throw new Error(`${res.status}`);
-  }
 }

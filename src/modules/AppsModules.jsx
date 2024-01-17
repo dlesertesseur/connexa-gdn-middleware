@@ -134,7 +134,7 @@ const AppsModules = () => {
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/shipment-planner/createPlan`,
-              element: <Title>{"CREATE PLAN"}</Title>,
+              element: <ShipmentPlannerEditor/>,
               errorElement: <ErrorPage />,
             },
             {

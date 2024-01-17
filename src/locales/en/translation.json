@@ -430,7 +430,8 @@
       "description": { "anchor": "Move sprints based on selected anchor" },
       "button": {
         "createPlan": "Create plan",
-        "editPlan": "Edit plan"
+        "editPlan": "Edit plan",
+        "deletePlan": "Remove plan"
       },
       "columns": [
         "Reference",
@@ -445,7 +446,11 @@
         "Provider",
         "Required in warehouse",
         "Status"
-      ]
+      ],
+
+      "placeholder":{
+        "event":"select a event"
+      }
     }
   },
 

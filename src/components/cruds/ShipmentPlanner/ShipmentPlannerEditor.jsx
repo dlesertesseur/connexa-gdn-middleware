@@ -1,28 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Center, Loader, Stack } from "@mantine/core";
-import { useDisclosure, useViewportSize } from "@mantine/hooks";
+import { Stack } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
+import { addDays, subtractDays } from "../../../utils/utils";
 import EventTimeline from "../../ui/EventTimeline";
 import Header from "./Header";
 import InspectModal from "./InspectModal";
+import ModalNotification from "../../ui/ModalNotification";
+import ShipmentPlannerEditorToolbar from "./ShipmentPlannerEditorToolbar";
+
+const currentYear = new Date().getFullYear();
 
 const ShipmentPlannerEditor = () => {
-  const { height } = useViewportSize();
+  //const { height } = useViewportSize();
   const { t } = useTranslation();
 
+  const rowHeight = 46;
   const [opened, { close, open }] = useDisclosure(false);
   const [selectedSprint, setSeletedSprint] = useState(null);
 
   const [shipmentData, setShipmentData] = useState(null);
   const [sprints, setSprints] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [layers, setLayers] = useState(null);
+  const [error, setError] = useState(null);
 
-  const { getShipmentPlanById, selectedShipmentId, getBusinessObjectivesBySidomkeys } = useShipmentPlannerContext();
+  const [startYearGantt, setStartYearGantt] = useState(currentYear);
+  const [endYearGantt, setEndYearGantt] = useState(currentYear+1);
+
+  const { getShipmentPlanById, selectedShipmentId, getBusinessObjectivesBySidomkeys, update } =
+    useShipmentPlannerContext();
 
   const months = t("months", { returnObjects: true });
   const monthLabels = months.map((m) => m.name);
-  const totalH = height - 200;
 
   const onInspect = (event) => {
     setSeletedSprint(event);
@@ -38,27 +50,24 @@ const ShipmentPlannerEditor = () => {
     getData();
   }, [selectedShipmentId]);
 
+  // useEffect(() => {
+  //   if (shipmentData) {
+  //     getLayers();
+  //   }
+  // }, [shipmentData, sprints]);
+
   useEffect(() => {
     if (shipmentData?.shipmentPlan) {
       setSprints(createSprints());
+
+      let date = null;
+      date = new Date(shipmentData?.shipmentPlan.preparationStart);
+      setStartYearGantt(date.getFullYear());
+
+      date = new Date(shipmentData?.shipmentPlan.salesEnd);
+      setEndYearGantt(date.getFullYear());
     }
   }, [shipmentData]);
-
-  // const toolbar = (
-  //   <Group justify="flex-start">
-  //     <Text>{t("crud.shipmentPlanner.label.yearRange")}</Text>
-  //   </Group>
-  // );
-
-  function getStartYear() {
-    const date = new Date(shipmentData.shipmentPlan.preparationStart);
-    return date.getFullYear();
-  }
-
-  function getEndYear() {
-    const date = new Date(shipmentData.shipmentPlan.salesEnd);
-    return date.getFullYear();
-  }
 
   function createTimelineReg(id, name, description, color, duration) {
     const ret = {
@@ -132,50 +141,140 @@ const ShipmentPlannerEditor = () => {
     return ret;
   }
 
-  const getLayers = () => {
-    let ret = null;
+  const getLayers = async () => {
+    let layers = null;
     const obj = shipmentData.shipment;
-    const businessObjective = getBusinessObjectivesBySidomkeys(obj.evento);
+    const businessObjective = await getBusinessObjectivesBySidomkeys(obj.evento);
 
     if (businessObjective) {
-      ret = [
-        {
-          id: businessObjective.id,
-          startDateTime: new Date(businessObjective.startDateTime),
-          endDateTime: new Date(businessObjective.endDateTime),
+      layers = businessObjective.map((bo) => {
+        const ret = {
+          id: bo.id,
+          startDateTime: new Date(bo.startDateTime),
+          endDateTime: new Date(bo.endDateTime),
           color: "rgba( 255, 0, 0, 0.2 )",
-          name: businessObjective.name,
-          h: totalH - 50,
-        },
-      ];
+          name: bo.name,
+          h: rowHeight * (sprints?.length + 1),
+        };
+        return ret;
+      });
+
+      // if (shipmentData && !shipmentData.shipmentPlan === null) {
+      //   if (shipmentData && layers && layers.length > 0) {
+      //     const layer = layers[0];
+      //     setStartYearGantt(layer.startDateTime.getFullYear());
+      //     setEndYearGantt(layer.endDateTime.getFullYear());
+      //   } else {
+      //     const startDate = Date.now();
+      //     setStartYearGantt(startDate.getFullYear());
+
+      //     const endDate = new Date(startDate);
+      //     endDate.setFullYear(endDate.getFullYear() + 1);
+      //     setEndYearGantt(endDate.getFullYear());
+      //   }
+      // }
     }
-    return ret;
+    setLayers(layers);
   };
 
   const updateSprint = (sprint) => {
-    console.log("updateSprint sptint -> ", sprint.index);
+    let baseDate = sprint.startDateTime;
+    for (let index = sprint.index - 1; index >= 0; index--) {
+      const s = sprints[index];
+      s.endDateTime = new Date(baseDate);
+      s.startDateTime = subtractDays(baseDate, s.duration);
+      baseDate = new Date(s.startDateTime);
+    }
+
+    baseDate = sprint.endDateTime;
+    for (let index = sprint.index + 1; index < sprints.length; index++) {
+      const s = sprints[index];
+      s.startDateTime = new Date(baseDate);
+      s.endDateTime = addDays(baseDate, s.duration);
+      baseDate = new Date(s.endDateTime);
+    }
+
+    setSprints([...sprints]);
+  };
+
+  const save = async () => {
+    const plan = shipmentData.shipmentPlan;
+
+    for (let index = 0; index < sprints.length; index++) {
+      const sprint = sprints[index];
+
+      switch (sprint.id) {
+        case "preparation":
+          plan.preparationStart = sprint.startDateTime;
+          plan.preparationEnd = sprint.endDateTime;
+          plan.preparationDurationInDays = sprint.duration;
+          break;
+        case "shipping":
+          plan.shippingStart = sprint.startDateTime;
+          plan.shippingEnd = sprint.endDateTime;
+          plan.shippingDurationInDays = sprint.duration;
+          break;
+        case "reception":
+          plan.receptionStart = sprint.startDateTime;
+          plan.receptionEnd = sprint.endDateTime;
+          plan.receptionDurationInDays = sprint.duration;
+          break;
+        case "distribution":
+          plan.distributionStart = sprint.startDateTime;
+          plan.distributionEnd = sprint.endDateTime;
+          plan.distributionDurationInDays = sprint.duration;
+          break;
+        case "sales":
+          plan.salesStart = sprint.startDateTime;
+          plan.salesEnd = sprint.endDateTime;
+          plan.salesDurationInDays = sprint.duration;
+          break;
+
+        default:
+          break;
+      }
+    }
+
+    try {
+      const ret = await update(plan);
+      console.log("ret -> ", ret);
+    } catch (error) {
+      console.log("error -> ", error);
+      setError(error);
+    }
   };
 
   return (
-    <Stack spacing={0}>
-      <Header title={t("crud.shipmentPlanner.title")} />
-      <InspectModal opened={opened} close={close} sprint={selectedSprint} onUpdate={updateSprint}/>
+    <Stack gap={"xs"}>
+      <ModalNotification
+        opened={error}
+        text={error?.message}
+        state={"error"}
+        onClick={() => {
+          setError(null);
+        }}
+      />
 
-      {shipmentData ? (
-        <EventTimeline
-          startYear={getStartYear()}
-          endYear={getEndYear()}
-          data={sprints}
-          h={totalH}
-          monthLabels={monthLabels}
-          onInspect={onInspect}
-          layers={getLayers()}
-        />
-      ) : (
-        <Center h={totalH}>
-          <Loader />
-        </Center>
-      )}
+      <Header title={t("crud.shipmentPlanner.title")} />
+      <ShipmentPlannerEditorToolbar
+        save={save}
+        shipment={shipmentData}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={setSelectedEvent}
+      />
+      <InspectModal opened={opened} close={close} sprint={selectedSprint} onUpdate={updateSprint} />
+
+      <EventTimeline
+        startYear={startYearGantt}
+        endYear={endYearGantt}
+        data={sprints}
+        //h={rowHeight * (sprints?.length + 1)}
+        h={300}
+        rowHeight={rowHeight}
+        monthLabels={monthLabels}
+        onInspect={onInspect}
+        layers={layers}
+      />
     </Stack>
   );
 };

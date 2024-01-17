@@ -45,13 +45,13 @@ const ShipmentPlannerList = () => {
     sortOrder,
     setSortOrder,
     shipmentPlanBySidomkeys,
-    hasPlan
+    hasPlan,
   } = useShipmentPlannerContext();
 
   const onRowClick = (id) => {
     if (id) {
       setSelectedShipmentId(id);
-   }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 

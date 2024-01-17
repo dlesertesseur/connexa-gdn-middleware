@@ -14,8 +14,8 @@ const Toolbar = ({ title, rowSelected, hasPlan }) => {
     setSelectedMenu(null);
     navigate(`${MODULE_APPS_ROOT}`);
   };
-  const onCreate = () => {
-    navigate("createPlan");
+  const onDelete = () => {
+    //navigate("createPlan");
   };
   const onUpdate = () => {
     navigate("editPlan");
@@ -27,11 +27,11 @@ const Toolbar = ({ title, rowSelected, hasPlan }) => {
         <Title size={"h5"}>{title}</Title>
       </Group>
       <Group gap={"xs"} wrap="nowrap">
-        <Button size="xs" onClick={onCreate} disabled={onCreate && rowSelected && !hasPlan ? false : true}>
-          <Text size="xs">{t("crud.shipmentPlanner.button.createPlan")}</Text>
-        </Button>
-        <Button size="xs" onClick={onUpdate} disabled={onCreate && rowSelected && hasPlan ? false : true}>
+        <Button size="xs" onClick={onUpdate} disabled={rowSelected ? false : true}>
           <Text size="xs">{t("crud.shipmentPlanner.button.editPlan")}</Text>
+        </Button>
+        <Button size="xs" onClick={onDelete} disabled={rowSelected && hasPlan ? false : true}>
+          <Text size="xs">{t("crud.shipmentPlanner.button.deletePlan")}</Text>
         </Button>
         <Button onClick={onBack} disabled={onBack === null ? true : false} size="xs">
           <Text size="xs">{t("general.button.back")}</Text>

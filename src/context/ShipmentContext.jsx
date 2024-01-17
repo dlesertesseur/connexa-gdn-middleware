@@ -25,6 +25,7 @@ export const useShipmentContext = () => {
 // eslint-disable-next-line react/prop-types
 const ShipmentProvider = ({ children }) => {
   const { t } = useTranslation();
+  const { user } = useUserContext();
   const [statuses, setStatuses] = useState(null);
   const [businessObjectives, setBusinessObjectives] = useState(null);
   const [analysts, setAnalysts] = useState(null);
@@ -32,7 +33,7 @@ const ShipmentProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [processControl, setProcessControl] = useState(null);
   const [businessObjectiveSelected, setBusinessObjectiveSelected] = useState(t("importations.label.all"));
-  const [analystSelected, setAnalystSelected] = useState(t("importations.label.all"));
+  const [analystSelected, setAnalystSelected] = useState(user?.sidomkeys ? user .sidomkeys : t("importations.label.all"));
   const [statusSelected, setStatusSelected] = useState(null);
   const [shipmentsByStatus, setShipmentsByStatus] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
@@ -42,7 +43,6 @@ const ShipmentProvider = ({ children }) => {
   const [scrollYPos, setScrollYPos] = useState(null);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [sortOrder, setSortOrder] = useState("desc");
-  const { user } = useUserContext();
 
   const refreshData = () => {
     setLastUpdate(Date.now());

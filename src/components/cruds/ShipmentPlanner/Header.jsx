@@ -4,14 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../context/AppContext";
 
-const Header = ({ title, subTitle }) => {
+const Header = ({ title, subTitle}) => {
   const { t } = useTranslation();
   const { setSelectedMenu } = useAppContext();
   const navigate = useNavigate();
 
   const onBack = () => {
     setSelectedMenu(null);
-    //navigate(`${MODULE_APPS_ROOT}`);
     navigate(-1);
   };
 
@@ -21,9 +20,11 @@ const Header = ({ title, subTitle }) => {
         <Title size={"h5"}>{`${title} ${subTitle ? `/ ${subTitle}` : ""}`}</Title>
       </Group>
       <Group gap={"xs"} wrap="nowrap">
-        <Button onClick={onBack} disabled={onBack === null ? true : false} size="xs">
-          <Text size="xs">{t("general.button.back")}</Text>
-        </Button>
+        <Group>
+          <Button onClick={onBack} disabled={onBack === null ? true : false} size="xs">
+            <Text size="xs">{t("general.button.close")}</Text>
+          </Button>
+        </Group>
       </Group>
     </Group>
   );

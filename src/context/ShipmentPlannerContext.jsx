@@ -3,7 +3,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useUserContext } from "./UserContext";
 import { getAllEvents } from "../data/events";
 import { sortData } from "../utils/utils";
-import { getAllShipmentPlanBySidomkeys } from "../data/shipmentPlanner";
+import {
+  getAllBusinessObjectivesBySidomkeys,
+  getAllShipmentPlanBySidomkeys,
+  updateShipmentPlan,
+} from "../data/shipmentPlanner";
 
 const ShipmentPlannerContext = createContext();
 
@@ -83,13 +87,16 @@ const ShipmentPlannerProvier = ({ children }) => {
   }
 
   function getShipmentPlanById(id) {
-    const ret = data?.find(s => s.shipment.id === id);
+    const ret = data?.find((s) => s.shipment.id === id);
     return ret;
   }
 
-  function getBusinessObjectivesBySidomkeys(name){
-    const ret = businessObjectives.find(bo => bo.sidomkeys.includes(name));
-    return(ret);
+  async function getBusinessObjectivesBySidomkeys(sidomkeys) {
+    const params = { token: user.token, sidomkeys: sidomkeys };
+    const ret = await getAllBusinessObjectivesBySidomkeys(params);
+
+    //const ret = businessObjectives.find(bo => bo.sidomkeys.includes(name));
+    return ret;
   }
 
   function hasPlan() {
@@ -98,6 +105,16 @@ const ShipmentPlannerProvier = ({ children }) => {
     if (shipment) {
       ret = shipment.hasPlan;
     }
+    return ret;
+  }
+
+  async function update(plan) {
+    const params = {
+      token: user.token,
+      body: plan,
+    };
+
+    const ret = await updateShipmentPlan(params);
     return ret;
   }
 
@@ -123,7 +140,8 @@ const ShipmentPlannerProvier = ({ children }) => {
         reaload,
         hasPlan,
         getShipmentPlanById,
-        getBusinessObjectivesBySidomkeys
+        getBusinessObjectivesBySidomkeys,
+        update,
       }}
     >
       {children}

@@ -3,13 +3,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Group, ScrollArea, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import {
-  convertMilisegToYYYYMMDD,
-  daysInMonth,
-  daysInTimeFrame,
-  daysInYear,
-  diffBetweenDays,
-} from "../../../utils/utils";
+import { daysInMonth, daysInTimeFrame, daysInYear, diffBetweenDays } from "../../../utils/utils";
 import Header from "./Header";
 import Body from "./Body";
 import Column from "./Column";
@@ -91,15 +85,6 @@ const EventTimeline = ({
           setTotalWidth(w);
         }
       }
-
-      const ret = [];
-      layers?.forEach((l) => {
-        const obj = createObjLayers(l);
-        if (obj) {
-          ret.push(obj);
-        }
-      });
-      setObjLayers(ret);
     }
   }, [startYear, endYear, relationPixeDay, data]);
 
@@ -112,6 +97,19 @@ const EventTimeline = ({
       setObjItems(items);
     }
   }, [selectedRowId]);
+
+  useEffect(() => {
+    if (layers) {
+      const ret = [];
+      layers?.forEach((l) => {
+        const obj = createObjLayers(l);
+        if (obj) {
+          ret.push(obj);
+        }
+      });
+      setObjLayers(ret);
+    }
+  }, [layers]);
 
   function createObjLayers(layer, index) {
     let posX = 0;
@@ -200,7 +198,6 @@ const EventTimeline = ({
     const ret = (
       <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
         <Box py={2} pos={"relative"} h={rowHeight} w={blockW} left={posX}>
-          
           <UnstyledButton
             onClick={() => {
               onInspect ? onInspect(r) : null;
@@ -208,7 +205,7 @@ const EventTimeline = ({
             h={"100%"}
             w={"100%"}
             bg={r.color ? r.color : "orange"}
-            style={{ borderRadius: 0}}
+            style={{ borderRadius: 0 }}
           ></UnstyledButton>
         </Box>
       </Row>

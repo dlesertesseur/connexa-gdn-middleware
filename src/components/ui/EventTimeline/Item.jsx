@@ -5,7 +5,7 @@ const Item = ({ children, id, selected = false, bg, onClick, miw }) => {
   return (
     <Stack
       gap={0}
-      bg={selected ? "blue.3" : bg}
+      bg={selected ? "blue.2" : bg}
       style={{ borderBottom: "1px solid #C5C5C5" }}
       onClick={() => {
         onClick(id);
