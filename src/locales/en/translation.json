@@ -108,10 +108,13 @@
     "label": {
       "loadingData": "Loading data ...",
       "noData": "Unassigned",
-      "notification": "Notification"
+      "notification": "Notification",
+      "confirmation": "Confirmation",
+      "to":"to"
     },
     "message": {
-      "changePassword": "The password was changed successfully.\nPlease log in again."
+      "changePassword": "The password was changed successfully.\nPlease log in again.",
+      "deleteRow": "Are you sure about deleting the registry?"
     },
     "title": { "error": "Error" }
   },
@@ -448,8 +451,27 @@
         "Status"
       ],
 
-      "placeholder":{
-        "event":"select a event"
+      "placeholder": {
+        "event": "select a event"
+      }
+    },
+    "createShipmentPlanner": {
+      "title": "Craete shipment planner",
+      "label": {
+        "event":"Business goal",
+        "salesPeriodStartDate":"Sales period start date",
+        "salesPeriod":"Sales period",
+        "distributionPeriod":"Distribution period",
+        "receptionPeriod":"Reception period",
+        "shippingPeriod":"Shipping period",
+        "preparationPeriod":"Preparation period"
+      },
+      "placeholder": {
+        "event": "select a business objective",
+        "salesPeriodStartDate":"start date"
+      },
+      "description":{
+        "period":"Indicate the period in number of days"
       }
     }
   },

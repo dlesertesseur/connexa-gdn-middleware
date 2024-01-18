@@ -1,13 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react";
 import { useUserContext } from "./UserContext";
-import { getAllEvents } from "../data/events";
+import { getAllEvents, getEventById } from "../data/events";
 import { sortData } from "../utils/utils";
-import {
-  getAllBusinessObjectivesBySidomkeys,
-  getAllShipmentPlanBySidomkeys,
-  updateShipmentPlan,
-} from "../data/shipmentPlanner";
+import { getAllShipmentPlanBySidomkeys, removeShipmentPlan, updateShipmentPlan } from "../data/shipmentPlanner";
 
 const ShipmentPlannerContext = createContext();
 
@@ -91,11 +87,17 @@ const ShipmentPlannerProvier = ({ children }) => {
     return ret;
   }
 
-  async function getBusinessObjectivesBySidomkeys(sidomkeys) {
-    const params = { token: user.token, sidomkeys: sidomkeys };
-    const ret = await getAllBusinessObjectivesBySidomkeys(params);
+  // async function getBusinessObjectivesBySidomkeys(sidomkeys) {
+  //   const params = { token: user.token, sidomkeys: sidomkeys };
+  //   const ret = await getAllBusinessObjectivesBySidomkeys(params);
 
-    //const ret = businessObjectives.find(bo => bo.sidomkeys.includes(name));
+  //   //const ret = businessObjectives.find(bo => bo.sidomkeys.includes(name));
+  //   return ret;
+  // }
+
+  async function getAssociatedEventById(id) {
+    const params = { token: user.token, id: id };
+    const ret = await getEventById(params);
     return ret;
   }
 
@@ -108,6 +110,15 @@ const ShipmentPlannerProvier = ({ children }) => {
     return ret;
   }
 
+  function getPlan() {
+    let ret = false;
+    const shipment = data?.find((s) => s.shipment.id === selectedShipmentId);
+    if (shipment) {
+      ret = shipment.shipmentPlan;
+    }
+    return ret;
+  }
+
   async function update(plan) {
     const params = {
       token: user.token,
@@ -116,6 +127,18 @@ const ShipmentPlannerProvier = ({ children }) => {
 
     const ret = await updateShipmentPlan(params);
     return ret;
+  }
+
+  async function removePlan() {
+    const plan = getPlan();
+    if (plan) {
+      const params = {
+        token: user.token,
+        id: plan.id,
+      };
+
+      await removeShipmentPlan(params);
+    }
   }
 
   return (
@@ -140,8 +163,9 @@ const ShipmentPlannerProvier = ({ children }) => {
         reaload,
         hasPlan,
         getShipmentPlanById,
-        getBusinessObjectivesBySidomkeys,
+        getAssociatedEventById,
         update,
+        removePlan,
       }}
     >
       {children}

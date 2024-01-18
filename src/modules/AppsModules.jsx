@@ -26,6 +26,7 @@ import ShipmentPlannerList from "../components/cruds/ShipmentPlanner/ShipmentPla
 import ShipmentPlannerEditor from "../components/cruds/ShipmentPlanner/ShipmentPlannerEditor";
 
 import { Title } from "@mantine/core";
+import CreateShipmentPlanner from "../components/cruds/ShipmentPlanner/CreateShipmentPlanner";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -134,7 +135,7 @@ const AppsModules = () => {
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/shipment-planner/createPlan`,
-              element: <ShipmentPlannerEditor/>,
+              element: <CreateShipmentPlanner/>,
               errorElement: <ErrorPage />,
             },
             {

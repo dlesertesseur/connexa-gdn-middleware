@@ -22,7 +22,7 @@ const Header = ({ title, subTitle}) => {
       <Group gap={"xs"} wrap="nowrap">
         <Group>
           <Button onClick={onBack} disabled={onBack === null ? true : false} size="xs">
-            <Text size="xs">{t("general.button.close")}</Text>
+            <Text size="xs">{t("general.button.back")}</Text>
           </Button>
         </Group>
       </Group>

@@ -26,6 +26,7 @@ const EventTimeline = ({
   relationPixeDay = 5,
   onInspect,
   layers,
+  center
 }) => {
   const targetRef = useRef();
   const itemRef = useRef();
@@ -109,6 +110,9 @@ const EventTimeline = ({
       });
       setObjLayers(ret);
     }
+
+    bodyRef.current.scrollTo({ left: 600 });
+
   }, [layers]);
 
   function createObjLayers(layer, index) {

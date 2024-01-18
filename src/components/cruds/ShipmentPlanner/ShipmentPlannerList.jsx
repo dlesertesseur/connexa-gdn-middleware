@@ -9,11 +9,14 @@ import { IconCalendarMonth } from "@tabler/icons-react";
 import DataTable from "../../ui/DataTable";
 import ModalNotification from "../../ui/ModalNotification";
 import Toolbar from "./Toolbar";
+import ModalConfirmation from "../../ui/ModalConfirmation";
 
 const ShipmentPlannerList = () => {
   const { t } = useTranslation();
   const { height } = useViewportSize();
   const [error, setError] = useState(null);
+  const [confirmation, setConfirmation] = useState(false);
+  const [removing, setRemoving] = useState(false);
 
   let col = 0;
   const cols = t("crud.shipmentPlanner.columns", { returnObjects: true });
@@ -46,6 +49,8 @@ const ShipmentPlannerList = () => {
     setSortOrder,
     shipmentPlanBySidomkeys,
     hasPlan,
+    removePlan,
+    reaload,
   } = useShipmentPlannerContext();
 
   const onRowClick = (id) => {
@@ -53,6 +58,19 @@ const ShipmentPlannerList = () => {
       setSelectedShipmentId(id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  const deleteRow = async () => {
+    setRemoving(true);
+    setConfirmation(null)
+    try {
+      await removePlan();
+    } catch (error) {
+      setError(error);
+    } finally {
+      setRemoving(false);
+    }
+    reaload();
   };
 
   return (
@@ -66,14 +84,30 @@ const ShipmentPlannerList = () => {
         }}
       />
 
-      <Toolbar title={t("crud.shipmentPlanner.title")} rowSelected={selectedShipmentId} hasPlan={hasPlan()} />
+      <ModalConfirmation
+        opened={confirmation}
+        text={t("general.message.deleteRow")}
+        onAccept={() => {
+          deleteRow();
+        }}
+        onCancel={() => {
+          setConfirmation(null);
+        }}
+      />
+
+      <Toolbar
+        title={t("crud.shipmentPlanner.title")}
+        rowSelected={selectedShipmentId}
+        hasPlan={hasPlan()}
+        onDelete={() => setConfirmation(true)}
+      />
       <DataTable
         data={shipmentPlanBySidomkeys}
         columns={columns}
         h={height - HEADER_HIGHT}
         setSelectedRowId={onRowClick}
         selectedRowId={selectedShipmentId}
-        loading={loading}
+        loading={loading || removing}
         setScrollYPos={setScrollYPos}
         scrollYPos={scrollYPos}
         selectedColumnId={selectedColumnId}

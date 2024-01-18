@@ -99,11 +99,28 @@ export async function updateShipmentPlan(params) {
   const res = await fetch(apiUrl, requestOptions);
   let data = null;
 
-  if (res.status === 200) {
-    data = await res.json();
-  } else {
+  if (res.status !== 200) {
     throw new Error(`${res.status}`);
   }
 
   return data;
+}
+
+export async function removeShipmentPlan(params) {
+  const apiUrl = `${API_GDNAR}/shipment-plan/${params.id}`;
+
+  const requestOptions = {
+    method: "DELETE",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+  };
+
+  const res = await fetch(apiUrl, requestOptions);
+
+  if (res.status !== 200) {
+    throw new Error(`${res.status}`);
+  }
 }

@@ -109,10 +109,13 @@
     "label": {
       "loadingData": "Cargando datos ...",
       "noData": "No asignado",
-      "notification": "Notificacion"
+      "notification": "Notificacion",
+      "confirmation": "Confirmación",
+      "to":"al"
     },
     "message": {
-      "changePassword": "La clave fue cambiada con éxito.\nPor favor ingrese nuevamente."
+      "changePassword": "La clave fue cambiada con éxito.\nPor favor ingrese nuevamente.",
+      "deleteRow": "¿Esta seguro de eliminar el registro?"
     },
     "title": { "error": "Error" }
   },
@@ -452,6 +455,25 @@
 
       "placeholder": {
         "event": "Seleccione un evento"
+      }
+    },
+    "createShipmentPlanner": {
+      "title": "Crear planificacion de embarque",
+      "label": {
+        "event": "Objetivo de negocio",
+        "salesPeriodStartDate":"Fecha de inicio del período de ventas",
+        "salesPeriod":"Periodo de ventas",
+        "distributionPeriod":"Periodo de distribución",
+        "receptionPeriod":"Periodo de recepción",
+        "shippingPeriod":"Periodo de transporte",
+        "preparationPeriod":"Periodo de preparación"
+      },
+      "placeholder": {
+        "event": "seleccione un objetivo de negocio",
+        "salesPeriodStartDate":"fecha de inicio"
+      },
+      "description":{
+        "period":"Indicar el periodo en cantidad de días"
       }
     }
   },

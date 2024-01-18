@@ -1,31 +1,16 @@
 /* eslint-disable react/prop-types */
-import { Button, Group, Select, Text } from "@mantine/core";
+import { Button, Group, Skeleton, Text, Title } from "@mantine/core";
 import { IconDeviceFloppy } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
+import { convertMilisegToYYYYMMDD } from "../../../utils/utils";
 
-const ShipmentPlannerEditorToolbar = ({ save, shipment, selectedEvent, setSelectedEvent }) => {
+const ShipmentPlannerEditorToolbar = ({ save, shipment, event, saving }) => {
   const { t } = useTranslation();
-
-  const { businessObjectives } = useShipmentPlannerContext();
-  const [events, setEvents] = useState(null);
-
-  useEffect(() => {
-    if (businessObjectives) {
-      const events = businessObjectives.map((b) => {
-        const ret = { label: b.name, value: b.id };
-        return ret;
-      });
-
-      setEvents(events);
-    }
-  }, [businessObjectives]);
-
 
   useEffect(() => {
     if (shipment) {
-      console.log("ShipmentPlannerEditorToolbar shipment ->", shipment);
+      //console.log("ShipmentPlannerEditorToolbar shipment ->", shipment);
     }
   }, [shipment]);
 
@@ -35,19 +20,24 @@ const ShipmentPlannerEditorToolbar = ({ save, shipment, selectedEvent, setSelect
 
   return (
     <Group justify="space-between">
-      <Group>
-        {/* <Text>{"ShipmentPlannerEditorToolbar"}</Text> */}
-
-        <Select
-          data={events}
-          value={selectedEvent}
-          onChange={setSelectedEvent}
-          placeholder={t("crud.shipmentPlanner.placeholder.event")}
-        />
-      </Group>
-
+      {event ? (
+        <Group>
+          <Title size="h5">{event?.name}</Title>
+          <Title size="h5">{event?.description}</Title>
+          <Title size="h5">{`${convertMilisegToYYYYMMDD(event?.startDateTime)} ${t(
+            "general.label.to"
+          )} ${convertMilisegToYYYYMMDD(event?.endDateTime)}`}</Title>
+        </Group>
+      ) : (
+        <Group>
+          <Skeleton w={100} height={30} radius="xs" />
+          <Skeleton w={150} height={30} radius="xs" />
+          <Skeleton w={150} height={30} radius="xs" />
+        </Group>
+      )}
       <Group>
         <Button
+          loading={saving}
           leftSection={<IconDeviceFloppy size={20} />}
           onClick={onSave}
           disabled={save === null ? true : false}

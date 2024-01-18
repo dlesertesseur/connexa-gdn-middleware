@@ -23,21 +23,21 @@ const ShipmentPlannerEditor = () => {
 
   const [shipmentData, setShipmentData] = useState(null);
   const [sprints, setSprints] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState(null);
   const [layers, setLayers] = useState(null);
+  const [event, setEvent] = useState(null);
   const [error, setError] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   const [startYearGantt, setStartYearGantt] = useState(currentYear);
-  const [endYearGantt, setEndYearGantt] = useState(currentYear+1);
+  const [endYearGantt, setEndYearGantt] = useState(currentYear + 1);
 
-  const { getShipmentPlanById, selectedShipmentId, getBusinessObjectivesBySidomkeys, update } =
-    useShipmentPlannerContext();
+  const { getShipmentPlanById, selectedShipmentId, getAssociatedEventById, update } = useShipmentPlannerContext();
 
   const months = t("months", { returnObjects: true });
   const monthLabels = months.map((m) => m.name);
 
-  const onInspect = (event) => {
-    setSeletedSprint(event);
+  const onInspect = (sprint) => {
+    setSeletedSprint(sprint);
     open();
   };
 
@@ -49,12 +49,6 @@ const ShipmentPlannerEditor = () => {
   useEffect(() => {
     getData();
   }, [selectedShipmentId]);
-
-  // useEffect(() => {
-  //   if (shipmentData) {
-  //     getLayers();
-  //   }
-  // }, [shipmentData, sprints]);
 
   useEffect(() => {
     if (shipmentData?.shipmentPlan) {
@@ -68,6 +62,12 @@ const ShipmentPlannerEditor = () => {
       setEndYearGantt(date.getFullYear());
     }
   }, [shipmentData]);
+
+  useEffect(() => {
+    if (shipmentData && shipmentData?.shipmentPlan) {
+      createLayers();
+    }
+  }, [shipmentData, sprints]);
 
   function createTimelineReg(id, name, description, color, duration) {
     const ret = {
@@ -141,38 +141,22 @@ const ShipmentPlannerEditor = () => {
     return ret;
   }
 
-  const getLayers = async () => {
-    let layers = null;
-    const obj = shipmentData.shipment;
-    const businessObjective = await getBusinessObjectivesBySidomkeys(obj.evento);
+  const createLayers = async () => {
+    let layers = [];
+    const obj = shipmentData.shipmentPlan;
+    const event = await getAssociatedEventById(obj.eventId);
 
-    if (businessObjective) {
-      layers = businessObjective.map((bo) => {
-        const ret = {
-          id: bo.id,
-          startDateTime: new Date(bo.startDateTime),
-          endDateTime: new Date(bo.endDateTime),
-          color: "rgba( 255, 0, 0, 0.2 )",
-          name: bo.name,
-          h: rowHeight * (sprints?.length + 1),
-        };
-        return ret;
-      });
-
-      // if (shipmentData && !shipmentData.shipmentPlan === null) {
-      //   if (shipmentData && layers && layers.length > 0) {
-      //     const layer = layers[0];
-      //     setStartYearGantt(layer.startDateTime.getFullYear());
-      //     setEndYearGantt(layer.endDateTime.getFullYear());
-      //   } else {
-      //     const startDate = Date.now();
-      //     setStartYearGantt(startDate.getFullYear());
-
-      //     const endDate = new Date(startDate);
-      //     endDate.setFullYear(endDate.getFullYear() + 1);
-      //     setEndYearGantt(endDate.getFullYear());
-      //   }
-      // }
+    if (event) {
+      const ret = {
+        id: event.id,
+        startDateTime: new Date(event.startDateTime),
+        endDateTime: new Date(event.endDateTime),
+        color: "rgba( 255, 0, 0, 0.2 )",
+        name: event.name,
+        h: rowHeight * (sprints?.length + 1),
+      };
+      layers.push(ret);
+      setEvent(event);
     }
     setLayers(layers);
   };
@@ -199,7 +183,7 @@ const ShipmentPlannerEditor = () => {
 
   const save = async () => {
     const plan = shipmentData.shipmentPlan;
-
+    setSaving(true);
     for (let index = 0; index < sprints.length; index++) {
       const sprint = sprints[index];
 
@@ -241,6 +225,8 @@ const ShipmentPlannerEditor = () => {
     } catch (error) {
       console.log("error -> ", error);
       setError(error);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -256,20 +242,14 @@ const ShipmentPlannerEditor = () => {
       />
 
       <Header title={t("crud.shipmentPlanner.title")} />
-      <ShipmentPlannerEditorToolbar
-        save={save}
-        shipment={shipmentData}
-        selectedEvent={selectedEvent}
-        setSelectedEvent={setSelectedEvent}
-      />
+      <ShipmentPlannerEditorToolbar save={save} shipment={shipmentData} event={event} saving={saving} />
       <InspectModal opened={opened} close={close} sprint={selectedSprint} onUpdate={updateSprint} />
 
       <EventTimeline
         startYear={startYearGantt}
         endYear={endYearGantt}
         data={sprints}
-        //h={rowHeight * (sprints?.length + 1)}
-        h={300}
+        h={rowHeight * 6}
         rowHeight={rowHeight}
         monthLabels={monthLabels}
         onInspect={onInspect}
