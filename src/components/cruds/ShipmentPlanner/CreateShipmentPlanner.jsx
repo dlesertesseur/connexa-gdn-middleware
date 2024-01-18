@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Center, LoadingOverlay, NumberInput, ScrollArea, Select, Stack } from "@mantine/core";
+import { Center, Fieldset, Group, LoadingOverlay, NumberInput, ScrollArea, Select, Stack } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useViewportSize } from "@mantine/hooks";
@@ -15,6 +15,7 @@ import Header from "./Header";
 import CrudButton from "../CrudButton";
 import "dayjs/locale/es";
 import "dayjs/locale/en";
+import Label from "../../ui/Label";
 
 const CreateShipmentPlanner = () => {
   const navigate = useNavigate();
@@ -23,17 +24,26 @@ const CreateShipmentPlanner = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [events, setEvents] = useState(null);
+  const [shipmentData, setShipmentData] = useState(null);
   const mw = 500;
   const ms = 300;
 
-  const { businessObjectives, selectedShipmentId, getShipmentPlanById, update, reaload } = useShipmentPlannerContext();
+  const { businessObjectives, selectedShipmentId, getShipmentPlanById, update, reload } = useShipmentPlannerContext();
+
+  useEffect(() => {
+    const getData = async () => {
+      const shipmentData = await getShipmentPlanById(selectedShipmentId);
+      setShipmentData(shipmentData);
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
     if (businessObjectives) {
       const events = businessObjectives.map((b) => {
-        const label = `${b.name}  (${convertMilisegToYYYYMMDD(b.startDateTime)} ${t("general.label.to")} ${convertMilisegToYYYYMMDD(
-          b.endDateTime
-        )})`;
+        const label = `${b.name}  (${convertMilisegToYYYYMMDD(b.startDateTime)} ${t(
+          "general.label.to"
+        )} ${convertMilisegToYYYYMMDD(b.endDateTime)})`;
         const ret = { label: label, value: b.id, startDateTime: b.startDateTime, endDateTime: b.endDateTime };
         return ret;
       });
@@ -65,7 +75,6 @@ const CreateShipmentPlanner = () => {
 
   const onCreate = async (values) => {
     setLoading(true);
-    const shipmentData = await getShipmentPlanById(selectedShipmentId);
 
     const baseDate = values.salesPeriodStartDate;
 
@@ -112,7 +121,7 @@ const CreateShipmentPlanner = () => {
     try {
       await update(plan);
       navigate(-1);
-      reaload();
+      reload();
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -140,60 +149,73 @@ const CreateShipmentPlanner = () => {
         >
           <ScrollArea h={height - HEADER_HIGHT - 40} offsetScrollbars>
             <LoadingOverlay visible={loading} />
-            <Stack align="flex-start">
-              <Select
-                data={events}
-                w={mw}
-                {...form.getInputProps("event")}
-                label={t("crud.createShipmentPlanner.label.event")}
-                placeholder={t("crud.createShipmentPlanner.placeholder.event")}
-              />
-
-              <DatesProvider settings={{ locale: i18n.language }}>
-                <DatePickerInput
-                  w={ms}
-                  {...form.getInputProps("salesPeriodStartDate")}
-                  label={t("crud.createShipmentPlanner.label.salesPeriodStartDate")}
-                  placeholder={t("crud.createShipmentPlanner.placeholder.salesPeriodStartDate")}
+            <Group align="flex-start" wrap="nowrap">
+              <Fieldset legend={t("crud.createShipmentPlanner.label.shipmentInfo")} variant="filled">
+                <Stack align="flex-start" py={3} gap={"sm"}>
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.reference")} value={shipmentData?.shipment.ordenDeCompra} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.product")} value={shipmentData?.shipment.producto} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.analyst")} value={shipmentData?.shipment.analista} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.event")} value={shipmentData?.shipment.evento} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.requiredInWarehouse")} value={shipmentData?.shipment.necesidadEnCd} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.provider")} value={shipmentData?.shipment.proveedor} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.countryOfOrigin")} value={shipmentData?.shipment.paisOrigen} />
+                </Stack>
+              </Fieldset>
+              <Stack align="flex-start">
+                <Select
+                  data={events}
+                  w={mw}
+                  {...form.getInputProps("event")}
+                  label={t("crud.createShipmentPlanner.label.businessObjective")}
+                  placeholder={t("crud.createShipmentPlanner.placeholder.event")}
                 />
-              </DatesProvider>
-              <NumberInput
-                w={ms}
-                {...form.getInputProps("salesPeriod")}
-                label={t("crud.createShipmentPlanner.label.salesPeriod")}
-                description={t("crud.createShipmentPlanner.description.period")}
-                min={1}
-              />
-              <NumberInput
-                w={ms}
-                {...form.getInputProps("distributionPeriod")}
-                label={t("crud.createShipmentPlanner.label.distributionPeriod")}
-                description={t("crud.createShipmentPlanner.description.period")}
-                min={1}
-              />
-              <NumberInput
-                w={ms}
-                {...form.getInputProps("receptionPeriod")}
-                label={t("crud.createShipmentPlanner.label.receptionPeriod")}
-                description={t("crud.createShipmentPlanner.description.period")}
-                min={1}
-              />
-              <NumberInput
-                w={ms}
-                {...form.getInputProps("shippingPeriod")}
-                label={t("crud.createShipmentPlanner.label.shippingPeriod")}
-                description={t("crud.createShipmentPlanner.description.period")}
-                min={1}
-              />
-              <NumberInput
-                w={ms}
-                {...form.getInputProps("preparationPeriod")}
-                label={t("crud.createShipmentPlanner.label.preparationPeriod")}
-                description={t("crud.createShipmentPlanner.description.period")}
-                min={1}
-              />
-              <CrudButton mode={"create"} />
-            </Stack>
+
+                <DatesProvider settings={{ locale: i18n.language }}>
+                  <DatePickerInput
+                    w={ms}
+                    {...form.getInputProps("salesPeriodStartDate")}
+                    label={t("crud.createShipmentPlanner.label.salesPeriodStartDate")}
+                    placeholder={t("crud.createShipmentPlanner.placeholder.salesPeriodStartDate")}
+                  />
+                </DatesProvider>
+                <NumberInput
+                  w={ms}
+                  {...form.getInputProps("salesPeriod")}
+                  label={t("crud.createShipmentPlanner.label.salesPeriod")}
+                  description={t("crud.createShipmentPlanner.description.period")}
+                  min={1}
+                />
+                <NumberInput
+                  w={ms}
+                  {...form.getInputProps("distributionPeriod")}
+                  label={t("crud.createShipmentPlanner.label.distributionPeriod")}
+                  description={t("crud.createShipmentPlanner.description.period")}
+                  min={1}
+                />
+                <NumberInput
+                  w={ms}
+                  {...form.getInputProps("receptionPeriod")}
+                  label={t("crud.createShipmentPlanner.label.receptionPeriod")}
+                  description={t("crud.createShipmentPlanner.description.period")}
+                  min={1}
+                />
+                <NumberInput
+                  w={ms}
+                  {...form.getInputProps("shippingPeriod")}
+                  label={t("crud.createShipmentPlanner.label.shippingPeriod")}
+                  description={t("crud.createShipmentPlanner.description.period")}
+                  min={1}
+                />
+                <NumberInput
+                  w={ms}
+                  {...form.getInputProps("preparationPeriod")}
+                  label={t("crud.createShipmentPlanner.label.preparationPeriod")}
+                  description={t("crud.createShipmentPlanner.description.period")}
+                  min={1}
+                />
+                <CrudButton mode={"create"} />
+              </Stack>
+            </Group>
           </ScrollArea>
         </form>
       </Center>

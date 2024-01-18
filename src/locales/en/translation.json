@@ -441,13 +441,14 @@
         "Product",
         "Analyst",
         "Event",
+        "State",
+        "Required in warehouse",
+        "Provider",
         "Country of origin",
         "Value",
         "Currency",
         "Incoterm",
         "FEUS",
-        "Provider",
-        "Required in warehouse",
         "Status"
       ],
 
@@ -458,13 +459,21 @@
     "createShipmentPlanner": {
       "title": "Craete shipment planner",
       "label": {
-        "event":"Business goal",
+        "businessObjective":"Business goal",
         "salesPeriodStartDate":"Sales period start date",
         "salesPeriod":"Sales period",
         "distributionPeriod":"Distribution period",
         "receptionPeriod":"Reception period",
         "shippingPeriod":"Shipping period",
-        "preparationPeriod":"Preparation period"
+        "preparationPeriod":"Preparation period",
+        "shipmentInfo":"Shipping information",
+        "reference":"Reference",
+        "product":"Product",
+        "analyst":"Analyst",
+        "event":"Event",
+        "requiredInWarehouse":"Required in warehouse",
+        "provider":"Supplier",
+        "countryOfOrigin":"Country of origin"
       },
       "placeholder": {
         "event": "select a business objective",

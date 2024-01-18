@@ -111,7 +111,7 @@
       "noData": "No asignado",
       "notification": "Notificacion",
       "confirmation": "Confirmación",
-      "to":"al"
+      "to": "al"
     },
     "message": {
       "changePassword": "La clave fue cambiada con éxito.\nPor favor ingrese nuevamente.",
@@ -443,13 +443,14 @@
         "Producto",
         "Analista",
         "Evento",
+        "Estado",
+        "Requerido en CD",
+        "Proveedor",
         "Pais origen",
         "Valor",
         "Moneda",
         "Incoterm",
         "FEUS",
-        "Proveedor",
-        "Requerido en CD",
         "Canal"
       ],
 
@@ -460,20 +461,28 @@
     "createShipmentPlanner": {
       "title": "Crear planificacion de embarque",
       "label": {
-        "event": "Objetivo de negocio",
-        "salesPeriodStartDate":"Fecha de inicio del período de ventas",
-        "salesPeriod":"Periodo de ventas",
-        "distributionPeriod":"Periodo de distribución",
-        "receptionPeriod":"Periodo de recepción",
-        "shippingPeriod":"Periodo de transporte",
-        "preparationPeriod":"Periodo de preparación"
+        "businessObjective": "Objetivo de negocio",
+        "salesPeriodStartDate": "Fecha de inicio del período de ventas",
+        "salesPeriod": "Periodo de ventas",
+        "distributionPeriod": "Periodo de distribución",
+        "receptionPeriod": "Periodo de recepción",
+        "shippingPeriod": "Periodo de transporte",
+        "preparationPeriod": "Periodo de preparación",
+        "shipmentInfo":"Información de embarque",
+        "reference":"Referencia",
+        "product":"Producto",
+        "analyst":"Analista",
+        "event":"Evento",
+        "requiredInWarehouse":"Requerido en CD",
+        "provider":"Proveedor",
+        "countryOfOrigin":"País de origen"
       },
       "placeholder": {
         "event": "seleccione un objetivo de negocio",
-        "salesPeriodStartDate":"fecha de inicio"
+        "salesPeriodStartDate": "fecha de inicio"
       },
-      "description":{
-        "period":"Indicar el periodo en cantidad de días"
+      "description": {
+        "period": "Indicar el periodo en cantidad de días"
       }
     }
   },

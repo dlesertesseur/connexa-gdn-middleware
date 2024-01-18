@@ -7,7 +7,7 @@ const Row = ({ children, id, selected = false, order, onClick, onDoubleClick }) 
     <Group
       gap={0}
       bg={selected ? "blue.2" : bgColor}
-      onClick={() => {
+      onMouseDown={() => {
         onClick(id);
       }}
       onDoubleClick={() => {

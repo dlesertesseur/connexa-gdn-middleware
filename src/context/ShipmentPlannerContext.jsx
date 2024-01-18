@@ -78,7 +78,7 @@ const ShipmentPlannerProvier = ({ children }) => {
     getShipmentsPlanBySidomkeys();
   }, [user, reloadData]);
 
-  function reaload() {
+  function reload() {
     setReloadData(Date.now());
   }
 
@@ -160,7 +160,7 @@ const ShipmentPlannerProvier = ({ children }) => {
         sortOrder,
         setSortOrder,
         shipmentPlanBySidomkeys,
-        reaload,
+        reload,
         hasPlan,
         getShipmentPlanById,
         getAssociatedEventById,

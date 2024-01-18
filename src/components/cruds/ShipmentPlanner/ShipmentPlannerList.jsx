@@ -23,18 +23,19 @@ const ShipmentPlannerList = () => {
 
   const columns = [
     { label: "", field: "hasPlan", type: "icon", width: 30, iconOn: <IconCalendarMonth size={16} />, iconOff: null },
-    { label: cols[col++], field: "referencia", align: "left", width: 150 },
+    { label: cols[col++], field: "referencia", align: "left", width: 120 },
     { label: cols[col++], field: "producto", align: "left", width: 200 },
     { label: cols[col++], field: "analista", align: "left", width: 200 },
     { label: cols[col++], field: "evento", align: "left", width: 200 },
-    { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
-    { label: cols[col++], field: "valor", align: "right", width: 200, default: 0 },
-    { label: cols[col++], field: "moneda", align: "center", width: 200, default: "---" },
-    { label: cols[col++], field: "incoterm", align: "left", width: 200 },
-    { label: cols[col++], field: "feus", align: "right", width: 200 },
-    { label: cols[col++], field: "proveedor", align: "left", width: 200 },
+    { label: cols[col++], field: "estado", align: "left", width: 200 },
     { label: cols[col++], field: "necesidadEnCd", align: "center", width: 160 },
-    { label: cols[col++], field: "canal", align: "centerleft", width: 160 },
+    { label: cols[col++], field: "proveedor", align: "left", width: 300 },
+    { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
+    { label: cols[col++], field: "valor", align: "right", width: 100, default: 0 },
+    { label: cols[col++], field: "moneda", align: "center", width: 100, default: "---" },  
+    { label: cols[col++], field: "incoterm", align: "left", width: 100 },
+    { label: cols[col++], field: "feus", align: "right", width: 100 },
+    { label: cols[col++], field: "canal", align: "centerleft", width: 100 },
   ];
 
   const {
@@ -50,7 +51,7 @@ const ShipmentPlannerList = () => {
     shipmentPlanBySidomkeys,
     hasPlan,
     removePlan,
-    reaload,
+    reload,
   } = useShipmentPlannerContext();
 
   const onRowClick = (id) => {
@@ -62,7 +63,7 @@ const ShipmentPlannerList = () => {
 
   const deleteRow = async () => {
     setRemoving(true);
-    setConfirmation(null)
+    setConfirmation(null);
     try {
       await removePlan();
     } catch (error) {
@@ -70,8 +71,10 @@ const ShipmentPlannerList = () => {
     } finally {
       setRemoving(false);
     }
-    reaload();
+    reload();
   };
+
+  console.log("ShipmentPlannerList render");
 
   return (
     <Stack gap={"xs"}>
