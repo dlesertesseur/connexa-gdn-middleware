@@ -2,7 +2,27 @@ import { API_GDNAR } from "./config";
 
 const baseUrl = API_GDNAR;
 
-async function findAllDocuments(params) {
+async function getAllDocuments(params) {
+  try {
+    const requestOptions = {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        token: params.token,
+      },
+    };
+
+    const url = `${baseUrl}/documents?analyst=${params.sidomkeys}`;
+    const res = await fetch(url, requestOptions);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function getDocumentById(params) {
   try {
     const requestOptions = {
       method: "GET",
@@ -41,7 +61,6 @@ async function findItemsByDocument(params) {
   return data;
 }
 
-
 async function findAsociateShipmentsByDocument(params) {
   const requestOptions = {
     method: "GET",
@@ -78,4 +97,63 @@ async function findDocumentByReference(params) {
   return data;
 }
 
-export { findDocumentByReference, findItemsByDocument, findAllDocuments, findAsociateShipmentsByDocument };
+async function assignBuyer(params) {
+  const apiUrl = `${API_GDNAR}/documents`;
+
+  const body = JSON.stringify({
+    buyerName: params.buyerName,
+    documentReference: params.documentReference,
+  });
+
+  const requestOptions = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+    body: body,
+  };
+
+  const res = await fetch(apiUrl, requestOptions);
+  let data = null;
+
+  if (res.status === 200) {
+    data = await res.json();
+  } else {
+    throw new Error(`${res.status}`);
+  }
+
+  return data;
+}
+
+async function unassignBuyer(params) {
+  const apiUrl = `${API_GDNAR}/documents/${params.id}`;
+
+  const requestOptions = {
+    method: "DELETE",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+  };
+
+  const res = await fetch(apiUrl, requestOptions);
+  let data = null;
+
+  if (res.status !== 200) {
+    throw new Error(`${res.status}`);
+  }
+
+  return data;
+}
+export {
+  findDocumentByReference,
+  findItemsByDocument,
+  getAllDocuments,
+  findAsociateShipmentsByDocument,
+  getDocumentById,
+  assignBuyer,
+  unassignBuyer,
+};

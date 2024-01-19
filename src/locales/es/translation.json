@@ -97,6 +97,7 @@
       "save": "Salvar",
       "account": "Informacion de usuario",
       "changePassword": "Cambiar clave",
+      "assign":"Asignar",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -468,14 +469,14 @@
         "receptionPeriod": "Periodo de recepción",
         "shippingPeriod": "Periodo de transporte",
         "preparationPeriod": "Periodo de preparación",
-        "shipmentInfo":"Información de embarque",
-        "reference":"Referencia",
-        "product":"Producto",
-        "analyst":"Analista",
-        "event":"Evento",
-        "requiredInWarehouse":"Requerido en CD",
-        "provider":"Proveedor",
-        "countryOfOrigin":"País de origen"
+        "shipmentInfo": "Información de embarque",
+        "reference": "Referencia",
+        "product": "Producto",
+        "analyst": "Analista",
+        "event": "Evento",
+        "requiredInWarehouse": "Requerido en CD",
+        "provider": "Proveedor",
+        "countryOfOrigin": "País de origen"
       },
       "placeholder": {
         "event": "seleccione un objetivo de negocio",
@@ -484,6 +485,80 @@
       "description": {
         "period": "Indicar el periodo en cantidad de días"
       }
+    },
+    "buyers": {
+      "title": "Administrador de compradores",
+      "create": "Crear un nuevo comprador",
+      "update": "Modificar un comprador",
+      "delete": "Eliminar un comprador",
+      "errors": {
+        "create": "Error al intentar crear un comprador",
+        "update": "Error al intentar modificar un comprador",
+        "delete": "Error al intentar eliminar un comprador"
+      },
+      "label": {
+        "firstname": "Nombres",
+        "lastname": "Apellidos"
+      },
+      "placeholder": {
+        "firstname": "nombres",
+        "lastname": "apellidos"
+      },
+      "description": {},
+
+      "columns": ["Nombre/s", "Apellido/s"]
+    },
+    "documents": {
+      "title": "Administrador de documentos",
+      "assign": "Asignar un comprador",
+      "unassigned": "¿Esta seguro de remover el comprador?",
+
+      "button":{
+        "assignBuyer": "Asignar comprador",
+        "removeBuyer": "Remover comprador"
+      },
+
+      "errors": {
+        "update": "Error al intentar asignar un comprador",
+        "delete": "Error al intentar remover el comprador"
+      },
+      "label": {
+        "agent": "Agente",
+        "supplier": "Proveedor",
+        "type": "Tipo",
+        "reference": "Referencia",
+        "date": "Fecha",
+        "incoterm": "Incoterm",
+        "currency": "Monada",
+        "worth": "Valor",
+        "fob": "FOB",
+        "supplierCode": "Codigo de proveedor",
+        "state": "Estado",
+        "shipments": "Embarques",
+        "analyst": "Analista",
+        "buyerList": "Lista de compradores"
+      },
+      "placeholder": {
+        "selectAbuyer": "seleccione un comprador"
+      },
+      "description": {},
+
+      "columns": [
+        "Agente",
+        "Proveedor",
+        "Tipo",
+        "Referencia",
+        "Fecha",
+        "Incoterm",
+        "Moneda",
+        "Valor",
+        "Fob",
+        "Codigo De Proveedor",
+        "Estado",
+        "Embarques",
+        "Analista",
+        "Comprador"
+      ]
     }
   },
 

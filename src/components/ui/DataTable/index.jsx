@@ -78,8 +78,13 @@ const DataTable = ({
       setObjRows(rows);
     }
 
-    setSelectedColumnId(selectedColumnId);
-    setSortOrder(sortOrder);
+    if (setSelectedColumnId) {
+      setSelectedColumnId(selectedColumnId);
+    }
+
+    if (setSortOrder) {
+      setSortOrder(sortOrder);
+    }
   }, [selectedColumnId, sortOrder]);
 
   useLayoutEffect(() => {

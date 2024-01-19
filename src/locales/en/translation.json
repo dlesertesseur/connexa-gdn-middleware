@@ -96,6 +96,7 @@
       "save": "Save",
       "account": "User data",
       "changePassword": "Change password",
+      "assign":"Assign",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -110,7 +111,7 @@
       "noData": "Unassigned",
       "notification": "Notification",
       "confirmation": "Confirmation",
-      "to":"to"
+      "to": "to"
     },
     "message": {
       "changePassword": "The password was changed successfully.\nPlease log in again.",
@@ -459,29 +460,105 @@
     "createShipmentPlanner": {
       "title": "Craete shipment planner",
       "label": {
-        "businessObjective":"Business goal",
-        "salesPeriodStartDate":"Sales period start date",
-        "salesPeriod":"Sales period",
-        "distributionPeriod":"Distribution period",
-        "receptionPeriod":"Reception period",
-        "shippingPeriod":"Shipping period",
-        "preparationPeriod":"Preparation period",
-        "shipmentInfo":"Shipping information",
-        "reference":"Reference",
-        "product":"Product",
-        "analyst":"Analyst",
-        "event":"Event",
-        "requiredInWarehouse":"Required in warehouse",
-        "provider":"Supplier",
-        "countryOfOrigin":"Country of origin"
+        "businessObjective": "Business goal",
+        "salesPeriodStartDate": "Sales period start date",
+        "salesPeriod": "Sales period",
+        "distributionPeriod": "Distribution period",
+        "receptionPeriod": "Reception period",
+        "shippingPeriod": "Shipping period",
+        "preparationPeriod": "Preparation period",
+        "shipmentInfo": "Shipping information",
+        "reference": "Reference",
+        "product": "Product",
+        "analyst": "Analyst",
+        "event": "Event",
+        "requiredInWarehouse": "Required in warehouse",
+        "provider": "Supplier",
+        "countryOfOrigin": "Country of origin"
       },
       "placeholder": {
         "event": "select a business objective",
-        "salesPeriodStartDate":"start date"
+        "salesPeriodStartDate": "start date"
       },
-      "description":{
-        "period":"Indicate the period in number of days"
+      "description": {
+        "period": "Indicate the period in number of days"
       }
+    },
+    "buyers": {
+      "title": "Buyers manager",
+      "create": "Create a new buyer",
+      "update": "Modify an buyer",
+      "delete": "Delete an buyer",
+      "errors": {
+        "create": "Error when trying to create buyer",
+        "update": "Error when trying to update buyer",
+        "delete": "Error when trying to delete buyer"
+      },
+      "label": {
+        "firstname": "Name",
+        "lastname": "Last name"
+      },
+      "placeholder": {
+        "firstname": "a name",
+        "lastname": "a last name"
+      },
+      "description": {},
+
+      "columns": ["Name", "Last name"]
+    },
+
+    "documents": {
+      "title": "Documents manager",
+      "assign": "Assign a buyer",
+      "unassigned": "Are you sure to remove the buyer?",
+      "errors": {
+        "create": "Error when trying to create document",
+        "update": "Error when trying to update document",
+        "delete": "Error when trying to delete document"
+      },
+
+      "button": {
+        "assignBuyer": "Asignar comprador",
+        "removeBuyer": "Eliminar comprador"
+      },
+
+      "label": {
+        "agent": "Agent",
+        "supplier": "Supplier",
+        "type": "Type",
+        "reference": "Reference",
+        "date": "Date",
+        "incoterm": "Incoterm",
+        "currency": "Currency",
+        "worth": "Worth",
+        "fob": "FOB",
+        "supplierCode": "Supplier code",
+        "state": "State",
+        "shipments": "Shipments",
+        "analyst": "Analyst",
+        "buyerList": "buyers list"
+      },
+      "placeholder": {
+        "selectAbuyer": "select a buyer"
+      },
+      "description": {},
+
+      "columns": [
+        "Agent",
+        "Supplier",
+        "Type",
+        "Reference",
+        "Date",
+        "Incoterm",
+        "Currency",
+        "Worth",
+        "Fob",
+        "Supplier Code",
+        "State",
+        "Shipments",
+        "Analyst",
+        "Buyer"
+      ]
     }
   },
 

@@ -16,7 +16,7 @@ const ModalConfirmation = ({ opened, text, onAccept, onCancel }) => {
         <Modal.Body>
           <Stack gap={0} mih={100} justify="space-between">
             <Group align="flex-start" mb={"sm"} wrap="nowrap">
-              <IconAlertCircle color="blue" size={48} />
+              <IconAlertCircle color={"blue"} size={48} />
               <Text size="md">{text}</Text>
             </Group>
             <Group justify="flex-end">

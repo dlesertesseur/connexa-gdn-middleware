@@ -1,10 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Box } from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+import { Box, Stack } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-const DeckPanel = ({ w, h, children, activeComponent }) => {
-  const { height, width } = useViewportSize();
+const DeckPanel = ({ w, h, bg, children, activeComponent }) => {
   const [component, setComponent] = useState(null);
   const [componentBykey, setComponentBykey] = useState(null);
 
@@ -28,8 +26,10 @@ const DeckPanel = ({ w, h, children, activeComponent }) => {
   }, [activeComponent, componentBykey]);
 
   return (
-    <Box h = {h ? h : height} w={w ? w : width} >
-      {component}
+    <Box>
+      <Stack h={h ? h : null} w={w ? w : null} bg={bg}>
+        {component}
+      </Stack>
     </Box>
   );
 };

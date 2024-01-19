@@ -24,9 +24,11 @@ import ShipmentPlanner from "../components/cruds/ShipmentPlanner";
 import ShipmentPlannerProvier from "../context/ShipmentPlannerContext";
 import ShipmentPlannerList from "../components/cruds/ShipmentPlanner/ShipmentPlannerList";
 import ShipmentPlannerEditor from "../components/cruds/ShipmentPlanner/ShipmentPlannerEditor";
+import CreateShipmentPlanner from "../components/cruds/ShipmentPlanner/CreateShipmentPlanner";
+import BuyerCrud from "../components/cruds/BuyerCrud";
 
 import { Title } from "@mantine/core";
-import CreateShipmentPlanner from "../components/cruds/ShipmentPlanner/CreateShipmentPlanner";
+import DocumentsCrud from "../components/cruds/DocumentsCrud";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -135,7 +137,7 @@ const AppsModules = () => {
             },
             {
               path: `${MODULE_APPS_ROOT}/crud/shipment-planner/createPlan`,
-              element: <CreateShipmentPlanner/>,
+              element: <CreateShipmentPlanner />,
               errorElement: <ErrorPage />,
             },
             {
@@ -144,6 +146,16 @@ const AppsModules = () => {
               errorElement: <ErrorPage />,
             },
           ],
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/crud/buyers`,
+          element: <BuyerCrud />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/crud/purchase-orders`,
+          element: <DocumentsCrud />,
+          errorElement: <ErrorPage />,
         },
         {
           path: `${MODULE_APPS_ROOT}/shipments`,

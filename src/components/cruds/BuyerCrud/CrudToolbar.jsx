@@ -1,27 +1,24 @@
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-// import { MODULE_APPS_ROOT } from "../../data/config";
-// import { useAppContext } from "../../context/AppContext";
+import { useBuyerCrudContext } from "../../../context/BuyerCrudContext";
 
 const CrudToolbar = ({ title, rowSelected }) => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
-  // const { setSelectedMenu } = useAppContext();
+  const {setActiveComponent} = useBuyerCrudContext(); 
   
   // const onBack = () => {
-  //   setSelectedMenu(null);
-  //   navigate(`${MODULE_APPS_ROOT}`);
+  //   setActiveComponent("list");
   // };
+  
   const onCreate = () => {
-    navigate("create");
+    setActiveComponent("create");
   };
   const onUpdate = () => {
-    navigate("update");
+    setActiveComponent("update");
   };
   const onDelete = () => {
-    navigate("delete");
+    setActiveComponent("delete");
   };
 
   return (
