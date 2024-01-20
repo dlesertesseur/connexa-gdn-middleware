@@ -74,8 +74,6 @@ const ShipmentPlannerList = () => {
     reload();
   };
 
-  console.log("ShipmentPlannerList render");
-
   return (
     <Stack gap={"xs"}>
       <ModalNotification

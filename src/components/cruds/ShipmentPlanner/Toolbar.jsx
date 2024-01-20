@@ -1,18 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { IconCalendarCheck, IconCalendarMinus, IconCalendarPlus, IconReload } from "@tabler/icons-react";
 import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
+import { useAppContext } from "../../../context/AppContext";
+import { useEffect, useState } from "react";
 
-const Toolbar = ({ title, rowSelected, hasPlan, onDelete }) => {
+const Toolbar = ({ rowSelected, hasPlan, onDelete }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { activeApp } = useAppContext();
+  const [app, setApp] = useState(null);
 
-  // const onBack = () => {
-  //   setSelectedMenu(null);
-  //   navigate(`${MODULE_APPS_ROOT}`);
-  // };
+  useEffect(() => {
+    const app = activeApp();
+    setApp(app);
+  }, []);
 
   const onUpdate = () => {
     navigate("editPlan");
@@ -27,7 +32,7 @@ const Toolbar = ({ title, rowSelected, hasPlan, onDelete }) => {
   return (
     <Group justify="space-between">
       <Group gap={0} wrap="nowrap">
-        <Title size={"h5"}>{title}</Title>
+        <Title size={"h5"}>{app?.name}</Title>
       </Group>
       <Group gap={"xs"} wrap="nowrap">
         <Button

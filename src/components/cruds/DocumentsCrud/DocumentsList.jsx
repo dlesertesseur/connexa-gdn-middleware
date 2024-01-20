@@ -65,11 +65,12 @@ const DocumentsList = () => {
     reloadData();
   };
 
-  const unassignBuyer = async (documentBuyerRelationId) => {
-    await unassignBuyerToDocument(documentBuyerRelationId);
+  const unassignBuyer = async () => {
+    await unassignBuyerToDocument();
     setConfirmation(false);
     reloadData();
   };
+
   return (
     <Stack gap={"xs"}>
       <AsignBuyerModal opened={opened} onCancel={close} onAccept={save} />

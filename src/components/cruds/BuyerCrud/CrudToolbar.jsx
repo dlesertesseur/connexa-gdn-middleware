@@ -1,16 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useBuyerCrudContext } from "../../../context/BuyerCrudContext";
+import { useAppContext } from "../../../context/AppContext";
+import { useEffect, useState } from "react";
 
-const CrudToolbar = ({ title, rowSelected }) => {
+const CrudToolbar = ({ rowSelected }) => {
   const { t } = useTranslation();
-  const {setActiveComponent} = useBuyerCrudContext(); 
-  
-  // const onBack = () => {
-  //   setActiveComponent("list");
-  // };
-  
+  const { setActiveComponent } = useBuyerCrudContext();
+  const { activeApp } = useAppContext();
+  const [app, setApp] = useState(null);
+
+  useEffect(() => {
+    const app = activeApp();
+    setApp(app);
+  }, []);
+
   const onCreate = () => {
     setActiveComponent("create");
   };
@@ -24,7 +30,7 @@ const CrudToolbar = ({ title, rowSelected }) => {
   return (
     <Group justify="space-between">
       <Group gap={0} wrap="nowrap">
-        <Title size={"h5"}>{title}</Title>
+        <Title size={"h5"}>{app?.name}</Title>
       </Group>
       <Group gap={"xs"} wrap="nowrap">
         <Button size="xs" onClick={onCreate} disabled={onCreate ? false : true}>

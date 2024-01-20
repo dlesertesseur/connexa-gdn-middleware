@@ -99,6 +99,7 @@ const UserInfo = () => {
                 />
                 <TextInput
                   w={ms}
+                  disabled
                   {...form.getInputProps("sidomkey")}
                   label={t("crud.users.label.sidomkey")}
                   placeholder={t("crud.users.placeholder.sidomkey")}

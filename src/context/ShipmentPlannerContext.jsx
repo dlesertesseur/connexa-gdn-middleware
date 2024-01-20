@@ -16,7 +16,7 @@ export const useShipmentPlannerContext = () => {
 // eslint-disable-next-line react/prop-types
 const ShipmentPlannerProvier = ({ children }) => {
   const [error, setError] = useState(null);
-  const [loadingData, setLoadingData] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [businessObjectives, setBusinessObjectives] = useState(null);
   const [timeFrame, setTimeFrame] = useState([null, null]);
 
@@ -32,7 +32,7 @@ const ShipmentPlannerProvier = ({ children }) => {
   const { user } = useUserContext();
 
   const getData = async () => {
-    setLoadingData(true);
+    setLoading(true);
     try {
       const params = { token: user.token };
       const events = await getAllEvents(params);
@@ -41,7 +41,7 @@ const ShipmentPlannerProvier = ({ children }) => {
     } catch (error) {
       setError(error.message);
     }
-    setLoadingData(false);
+    setLoading(false);
   };
 
   const getShipmentsPlanBySidomkeys = async () => {
@@ -145,7 +145,7 @@ const ShipmentPlannerProvier = ({ children }) => {
     <ShipmentPlannerContext.Provider
       value={{
         initData,
-        loadingData,
+        loading,
         user,
         error,
         businessObjectives,

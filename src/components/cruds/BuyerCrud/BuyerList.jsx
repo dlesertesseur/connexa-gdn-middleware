@@ -38,12 +38,11 @@ const BuyerList = ({setActiveComponent}) => {
 
   useEffect(() => {
     getAll();
-    console.log("reload ->", reload);
   }, [reload]);
 
   return (
     <Stack gap={"xs"}>
-      <CrudToolbar title={t("crud.buyers.title")} rowSelected={selectedRowId} setActiveComponent={setActiveComponent}/>
+      <CrudToolbar rowSelected={selectedRowId} setActiveComponent={setActiveComponent}/>
       <DataTable
         data={buyers}
         columns={columns}

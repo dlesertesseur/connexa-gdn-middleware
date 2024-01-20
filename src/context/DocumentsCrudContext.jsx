@@ -14,6 +14,7 @@ export const useDocumentsCrudContext = () => {
 // eslint-disable-next-line react/prop-types
 const DocumentsCrudProvider = ({ children }) => {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(null);
   const [documents, setDocuments] = useState(null);
   const [reload, setReload] = useState(Date.now());
   const [selectedRowId, setSelectedRowId] = useState(null);
@@ -23,11 +24,16 @@ const DocumentsCrudProvider = ({ children }) => {
   const { user } = useUserContext();
 
   async function getAll() {
-    const params = { token: user.token, sidomkeys: user.sidomkeys};
+    setLoading(true);
+    const params = { token: user.token, sidomkeys: user.sidomkeys };
     const list = await getAllDocuments(params);
 
     const ret = list.map((d) => {
-      const doc = { ...d.document, documentBuyer: d.documentBuyer?.buyerName, documentBuyerRelationId: d.documentBuyer?.id };
+      const doc = {
+        ...d.document,
+        documentBuyer: d.documentBuyer?.buyerName,
+        documentBuyerRelationId: d.documentBuyer?.id,
+      };
       return doc;
     });
 
@@ -36,12 +42,12 @@ const DocumentsCrudProvider = ({ children }) => {
     }
 
     setDocuments(ret);
+    setLoading(false);
   }
 
   async function assignBuyerToDocument(buyerName) {
-
     const doc = getDocument(selectedRowId);
-    
+
     const params = { token: user.token, buyerName: buyerName, documentReference: doc.referencia };
     const res = await assignBuyer(params);
 
@@ -50,12 +56,15 @@ const DocumentsCrudProvider = ({ children }) => {
     }
   }
 
-  async function unassignBuyerToDocument(documentBuyerRelationId) {
-    const params = { token: user.token, id: documentBuyerRelationId };
-    const res = await unassignBuyer(params);
-
-    if (!res.id) {
-      throw new Error(`${res.status}`);
+  async function unassignBuyerToDocument() {
+    const doc = getDocument(selectedRowId);
+    if (doc) {
+      try {
+        const params = { token: user.token, id: doc.documentBuyerRelationId };
+        await unassignBuyer(params);
+      } catch (error) {
+        setError(error)
+      }
     }
   }
 
@@ -83,7 +92,6 @@ const DocumentsCrudProvider = ({ children }) => {
 
     return ret;
   }
-
 
   function getDocument(id) {
     let ret = null;
@@ -127,7 +135,8 @@ const DocumentsCrudProvider = ({ children }) => {
         setActiveComponent,
         hasBuyer,
         assignBuyerToDocument,
-        unassignBuyerToDocument
+        unassignBuyerToDocument,
+        loading
       }}
     >
       {children}

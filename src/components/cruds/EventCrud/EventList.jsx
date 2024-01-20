@@ -43,7 +43,7 @@ const EventList = () => {
 
   return (
     <Stack gap={"xs"}>
-      <CrudToolbar title={t("crud.events.title")} rowSelected={selectedRowId} />
+      <CrudToolbar rowSelected={selectedRowId} />
       <DataTable
         data={events}
         columns={columns}

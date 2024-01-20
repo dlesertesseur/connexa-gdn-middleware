@@ -1,19 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../context/AppContext";
+import { useState } from "react";
+import { useEffect } from "react";
 // import { MODULE_APPS_ROOT } from "../../data/config";
 // import { useAppContext } from "../../context/AppContext";
 
-const CrudToolbar = ({ title, rowSelected }) => {
+const CrudToolbar = ({ rowSelected }) => {
+  const { activeApp } = useAppContext();
+  const [app, setApp] = useState(null);
+
+  useEffect(() => {
+    const app = activeApp();
+    setApp(app);
+  }, []);
+
   const navigate = useNavigate();
   const { t } = useTranslation();
-  // const { setSelectedMenu } = useAppContext();
-  
-  // const onBack = () => {
-  //   setSelectedMenu(null);
-  //   navigate(`${MODULE_APPS_ROOT}`);
-  // };
+
   const onCreate = () => {
     navigate("create");
   };
@@ -27,7 +34,7 @@ const CrudToolbar = ({ title, rowSelected }) => {
   return (
     <Group justify="space-between">
       <Group gap={0} wrap="nowrap">
-        <Title size={"h5"}>{title}</Title>
+        <Title size={"h5"}>{app?.name}</Title>
       </Group>
       <Group gap={"xs"} wrap="nowrap">
         <Button size="xs" onClick={onCreate} disabled={onCreate ? false : true}>

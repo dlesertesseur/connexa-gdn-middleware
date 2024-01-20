@@ -11,13 +11,26 @@ export const useAppContext = () => {
 
 // eslint-disable-next-line react/prop-types
 const AppProvier = ({ children }) => {
-  const [selectedMenu, setSelectedMenu] = useState(null);
+  const [menuItem, setMenuItem] = useState(null);
+  const [appById, setAppById] = useState(null);
+
+  function activeApp(){
+    let app = null;
+    if(appById){
+      app = appById.get(menuItem);
+    }
+
+    return(app);
+  }
 
   return (
     <AppContext.Provider
       value={{
-        selectedMenu,
-        setSelectedMenu,
+        menuItem,
+        setMenuItem,
+        appById,
+        setAppById,
+        activeApp
       }}
     >
       {children}

@@ -12,10 +12,11 @@ const AppMenu = () => {
   const [roleDefault, setRoleDefault] = useState(null);
   const { user } = useUserContext();
 
-  const {selectedMenu, setSelectedMenu} = useAppContext();
+  const {setMenuItem, menuItem, setAppById } = useAppContext();
 
   useEffect(() => {
     if (user && user.roles) {
+      const appById = new Map();
       const menu = [];
       const roles = user.roles;
 
@@ -34,10 +35,12 @@ const AppMenu = () => {
                       name={app.name}
                       description={app.description}
                       href={`${MODULE_APPS_ROOT}${app.path}`}
-                      selected={app.id === selectedMenu}
-                      setSelected={setSelectedMenu}
+                      selected={app.id === menuItem}
+                      setSelected={setMenuItem}
                     />
                   );
+
+                  appById.set(app.id, app);
                   return ret;
                 })}
               </Stack>
@@ -52,8 +55,9 @@ const AppMenu = () => {
       }
 
       setMenu(menu);
+      setAppById(appById);
     }
-  }, [user, selectedMenu]);
+  }, [user, menuItem]);
 
   return (
     <ScrollArea w={"100%"} h={"100%"}>

@@ -140,14 +140,12 @@ async function unassignBuyer(params) {
   };
 
   const res = await fetch(apiUrl, requestOptions);
-  let data = null;
 
   if (res.status !== 200) {
     throw new Error(`${res.status}`);
   }
-
-  return data;
 }
+
 export {
   findDocumentByReference,
   findItemsByDocument,
