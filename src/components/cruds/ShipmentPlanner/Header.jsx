@@ -2,15 +2,12 @@
 import { Button, Group, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../../../context/AppContext";
 
 const Header = ({ title, subTitle}) => {
   const { t } = useTranslation();
-  const { setSelectedMenu } = useAppContext();
   const navigate = useNavigate();
 
   const onBack = () => {
-    setSelectedMenu(null);
     navigate(-1);
   };
 

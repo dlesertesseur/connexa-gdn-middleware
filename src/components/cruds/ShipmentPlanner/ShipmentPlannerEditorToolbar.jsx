@@ -1,18 +1,17 @@
 /* eslint-disable react/prop-types */
 import { Button, Group, Skeleton, Text, Title } from "@mantine/core";
 import { IconDeviceFloppy } from "@tabler/icons-react";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { convertMilisegToYYYYMMDD } from "../../../utils/utils";
 
-const ShipmentPlannerEditorToolbar = ({ save, shipment, event, saving }) => {
+const ShipmentPlannerEditorToolbar = ({ save, event, saving }) => {
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (shipment) {
-      //console.log("ShipmentPlannerEditorToolbar shipment ->", shipment);
-    }
-  }, [shipment]);
+  // useEffect(() => {
+  //   if (shipment) {
+  //     //console.log("ShipmentPlannerEditorToolbar shipment ->", shipment);
+  //   }
+  // }, [shipment]);
 
   const onSave = () => {
     save();
