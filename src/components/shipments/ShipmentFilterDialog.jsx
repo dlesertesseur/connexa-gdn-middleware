@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { IconFilter } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import { useShipmentContext } from "../../context/ShipmentContext";
+import { useUserContext } from "../../context/UserContext";
 
 const ShipmentFilterDialog = ({ opened, open, close }) => {
   const { t } = useTranslation();
@@ -18,6 +19,8 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
     setFilterData,
     loadingTotalsData,
   } = useShipmentContext();
+
+  const {user} = useUserContext();
 
   const [businessObjectiveSelectedLocal, setBusinessObjectiveSelectedLocal] = useState(null);
   const [analystSelectedLocal, setAnalystSelectedLocal] = useState(null);
@@ -63,6 +66,7 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
           />
 
           <Select
+            disabled={user?.sidomkeys !== "*"}
             label={t("shipments.label.analyst")}
             searchable
             data={analysts ? analysts : []}

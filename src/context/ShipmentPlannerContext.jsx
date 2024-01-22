@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useUserContext } from "./UserContext";
 import { getAllEvents, getEventById } from "../data/events";
 import { sortData } from "../utils/utils";
-import { getAllShipmentPlanBySidomkeys, removeShipmentPlan, updateShipmentPlan } from "../data/shipmentPlanner";
+import { getAllShipmentPlanBySidomkeys, getShipmentPlanByEvent, removeShipmentPlan, updateShipmentPlan } from "../data/shipmentPlanner";
 
 const ShipmentPlannerContext = createContext();
 
@@ -141,6 +141,19 @@ const ShipmentPlannerProvier = ({ children }) => {
     }
   }
 
+  const getShipmentsPlanByEvent = async (eventId) => {
+    let ret = null;
+    try {
+      const params = { token: user.token, id: eventId };
+      ret = await getShipmentPlanByEvent(params);
+
+    } catch (error) {
+      setError(error.message);
+    }
+
+    return(ret);
+  };
+
   return (
     <ShipmentPlannerContext.Provider
       value={{
@@ -166,6 +179,7 @@ const ShipmentPlannerProvier = ({ children }) => {
         getAssociatedEventById,
         update,
         removePlan,
+        getShipmentsPlanByEvent
       }}
     >
       {children}

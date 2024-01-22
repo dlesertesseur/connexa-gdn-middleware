@@ -33,7 +33,7 @@ const ShipmentProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [processControl, setProcessControl] = useState(null);
   const [businessObjectiveSelected, setBusinessObjectiveSelected] = useState(t("importations.label.all"));
-  const [analystSelected, setAnalystSelected] = useState(user?.sidomkeys ? user .sidomkeys : t("importations.label.all"));
+  const [analystSelected, setAnalystSelected] = useState(user?.sidomkeys !== "*" ? user.sidomkeys : t("importations.label.all"));
   const [statusSelected, setStatusSelected] = useState(null);
   const [shipmentsByStatus, setShipmentsByStatus] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(Date.now());

@@ -24,6 +24,31 @@ export async function getAllEvents(params) {
   return data;
 }
 
+export async function getEventsByYear(params) {
+  const apiUrl = `${API_GDNAR}/events/yearly/${params.year}`;
+
+  const requestOptions = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token
+    },
+  };
+
+  const res = await fetch(apiUrl, requestOptions);
+  let data = null;
+
+  if (res.status === 200) {
+    data = await res.json();
+  } else {
+    throw new Error(`${res.status}`);
+  }
+
+  return data;
+}
+
+
 export async function getEventById(params) {
   const apiUrl = `${API_GDNAR}/events/${params.id}`;
 

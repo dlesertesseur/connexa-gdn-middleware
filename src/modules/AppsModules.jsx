@@ -29,6 +29,7 @@ import BuyerCrud from "../components/cruds/BuyerCrud";
 
 import { Title } from "@mantine/core";
 import DocumentsCrud from "../components/cruds/DocumentsCrud";
+import Masterplan from "../components/masterplan/MasterPlan";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -56,6 +57,11 @@ const AppsModules = () => {
         {
           path: `${MODULE_APPS_ROOT}/change-password`,
           element: <ChangePassword />,
+          errorElement: <ErrorPage />,
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/masterplan`,
+          element: <Masterplan />,
           errorElement: <ErrorPage />,
         },
         {

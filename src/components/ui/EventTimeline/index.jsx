@@ -110,9 +110,6 @@ const EventTimeline = ({
       });
       setObjLayers(ret);
     }
-
-    bodyRef.current.scrollTo({ left: 600 });
-
   }, [layers]);
 
   function createObjLayers(layer, index) {
@@ -248,7 +245,7 @@ const EventTimeline = ({
   };
 
   return (
-    <div style={{ height: h }}>
+    <div style={{ height: h}}>
       <SplitPane split="vertical" sizes={sizes} onChange={setSizes}>
         <Pane minSize={minItemWidth} maxSize="50%">
           <Stack h={h} gap={0} style={{ borderTop: "1px solid #C5C5C5", borderLeft: "1px solid #C5C5C5" }}>
@@ -271,6 +268,7 @@ const EventTimeline = ({
 
         <Stack ref={targetRef} gap={"xs"} h={h} style={{ borderLeft: "1px solid #C5C5C5" }}>
           <ScrollArea
+            offsetScrollbars
             scrollbars={"x"}
             onScrollPositionChange={(e) => {
               setScrollXPos(e.x);

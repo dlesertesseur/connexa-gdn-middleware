@@ -600,5 +600,12 @@
       "description": "Sprint de preparación",
       "color": "blue"
     }
+  },
+  "masterPlan": {
+    "label": {
+      "seeYear": "Ver año"
+    },
+    "placeholder": {
+    }
   }
 }

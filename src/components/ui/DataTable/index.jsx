@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Center, Group, Loader, LoadingOverlay, ScrollArea, Stack } from "@mantine/core";
+import { LoadingOverlay, ScrollArea, Stack } from "@mantine/core";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Body from "./Body";

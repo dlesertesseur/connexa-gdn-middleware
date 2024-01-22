@@ -601,5 +601,12 @@
       "description": "Preparation sprint",
       "color": "blue"
     }
+  },
+  "masterPlan": {
+    "label": {
+      "seeYear": "See year"
+    },
+    "placeholder": {
+    }
   }
 }
