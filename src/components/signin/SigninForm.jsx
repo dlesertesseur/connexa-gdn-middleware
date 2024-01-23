@@ -1,16 +1,4 @@
-import {
-  TextInput,
-  PasswordInput,
-  Paper,
-  Group,
-  Button,
-  Alert,
-  Stack,
-  Text,
-  Container,
-  Title,
-  Select,
-} from "@mantine/core";
+import { TextInput, PasswordInput, Paper, Group, Button, Alert, Stack, Text, Container, Title } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
@@ -19,17 +7,17 @@ import { useUserContext } from "../../context/UserContext";
 import Logo from "../ui/Logo";
 
 export function SigninForm() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [loading] = useState(false);
-  const [language, setLanguage] = useState(i18n.language);
-  const [localeSelected, setLocaleSelected] = useState(null);
+  // const [language, setLanguage] = useState(i18n.language);
+  const [localeSelected] = useState("es");
 
   const { authenticate, error } = useUserContext();
 
-  const languages = [
-    { value: "es", label: "Español" },
-    { value: "en", label: "English" },
-  ];
+  // const languages = [
+  //   { value: "es", label: "Español" },
+  //   { value: "en", label: "English" },
+  // ];
 
   const form = useForm({
     initialValues: {
@@ -61,7 +49,8 @@ export function SigninForm() {
         </Group>
         <Paper withBorder shadow="md" px={30} pb={30} radius="md" bg={"gray.1"} w={400}>
           <Group justify="center" py={20}>
-            <Logo image={"/logos/logo.png"} size={70} />
+            <Logo image={"/logos/logo.png"} size={50} />
+            <Title order={2}>{t("general.appTitle")}</Title>
           </Group>
           <form
             autoComplete="false"
@@ -84,7 +73,7 @@ export function SigninForm() {
               error={form.errors.password}
             />
 
-            <Select
+            {/* <Select
               mt="md"
               label={t("auth.label.language")}
               value={language}
@@ -93,7 +82,7 @@ export function SigninForm() {
                 setLocaleSelected(e);
               }}
               data={languages}
-            />
+            /> */}
 
             <Button type="submit" fullWidth mt="xl" loading={loading}>
               {t("auth.button.signIn")}

@@ -132,6 +132,15 @@ const ShipmentProvider = ({ children }) => {
   }, [statusSelected]);
 
   const getInfoCards = async () => {
+    const params = {
+      token: user.token,
+    };
+    
+    const processControl = await getProcessStatus(params);
+    if (processControl && processControl.length > 0) {
+      setProcessControl(processControl[0]);
+    }
+    
     if (statuses) {
       const totalsByStatus = new Map();
 

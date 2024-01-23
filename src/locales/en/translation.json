@@ -287,18 +287,19 @@
         "embarques"
       ],
       "label": {
-        "agente": "Agente",
-        "proveedor": "Proveedor",
-        "tipo": "Tipo",
-        "referencia": "Referencia",
-        "fecha": "Fecha",
+        "agente": "Agent",
+        "proveedor": "Supplier",
+        "tipo": "Type",
+        "referencia": "Reference",
+        "fecha": "Date",
         "incoterm": "Incoterm",
-        "moneda": "Moneda",
-        "valor": "Valor",
-        "fob": "FOB|",
-        "codigoDeProveedor": "Codigo de proveedor",
-        "estado": "Estado",
-        "embarques": "Embarques"
+        "moneda": "Currency",
+        "valor": "Shipping value",
+        "valorDoc": "Purchase order value",
+        "fob": "FOB",
+        "codigoDeProveedor": "Supplier code",
+        "estado": "State",
+        "embarques": "Shipments"
       }
     }
   },
@@ -604,7 +605,12 @@
   },
   "masterPlan": {
     "label": {
-      "seeYear": "See year"
+      "seeYear": "See year",
+      "sales": "Sales",
+      "distribution": "Distribution",
+      "reception": "Reception",
+      "shipping": "Shipping",
+      "preparation": "Preparation"
     },
     "placeholder": {
     }

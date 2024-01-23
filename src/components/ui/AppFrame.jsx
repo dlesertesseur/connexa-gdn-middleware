@@ -24,13 +24,13 @@ export default function AppFrame() {
         padding="xs"
       >
         <AppShell.Header>
-          <Group justify="space-between" align="center" px={"xs"}>
+          <Group gap={0} justify="space-between" align="center" px={"xs"} h={"100%"}>
             <Group>
               <Burger opened={mobileOpened} onClick={toggleMobile.toggle} hiddenFrom="sm" size="sm" />
               <Burger opened={desktopOpened} onClick={toggleDesktop.toggle} visibleFrom="sm" size="sm" />
             </Group>
-            <Group>
-              <Logo image={"/logos/logo.png"} size={60} />
+            <Group justify="center" >
+              <Logo image={"/logos/logo.png"} size={50} />
               <AppTitle />
             </Group>
             <Group>

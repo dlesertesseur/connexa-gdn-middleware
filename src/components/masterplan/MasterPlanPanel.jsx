@@ -60,14 +60,22 @@ const MasterPlanPanel = () => {
   return (
     <Stack spacing={0} h={height - 80}>
       <Header title={t("crud.shipmentPlanner.title")} />
-      <Toolbar setValue={setSelectedYear} value={selectedYear}/>
+      <Toolbar setValue={setSelectedYear} value={selectedYear} />
 
-      <InspectEventModal opened={opened} close={close} event={selectedEvent}/>
-
+      {opened ? (
+        <InspectEventModal
+          opened={opened}
+          close={close}
+          event={selectedEvent}
+          startYear={selectedYear?.getFullYear() - 1}
+          endYear={selectedYear?.getFullYear() + 1}
+        />
+      ) : null}
+      
       {data ? (
         <EventTimeline
-          startYear={(selectedYear?.getFullYear() - 1)}
-          endYear={(selectedYear?.getFullYear() + 1)}
+          startYear={selectedYear?.getFullYear() - 1}
+          endYear={selectedYear?.getFullYear() + 1}
           data={data}
           h={totalHeight}
           monthLabels={monthLabels}

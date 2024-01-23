@@ -295,8 +295,9 @@
         "fecha": "Fecha",
         "incoterm": "Incoterm",
         "moneda": "Moneda",
-        "valor": "Valor",
-        "fob": "FOB|",
+        "valor": "Valor embarque",
+        "valorDoc": "Valor ord. compra",
+        "fob": "FOB",
         "codigoDeProveedor": "Codigo de proveedor",
         "estado": "Estado",
         "embarques": "Embarques"
@@ -603,7 +604,12 @@
   },
   "masterPlan": {
     "label": {
-      "seeYear": "Ver año"
+      "seeYear": "Ver año",
+      "sales": "Ventas",
+      "distribution": "Distribución",
+      "reception": "Recepción",
+      "shipping": "Transporte",
+      "preparation": "Preparación"
     },
     "placeholder": {
     }

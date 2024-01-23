@@ -3,7 +3,13 @@
 /* eslint-disable react/prop-types */
 import { Box, Group, ScrollArea, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import { daysInMonth, daysInTimeFrame, daysInYear, diffBetweenDays } from "../../../utils/utils";
+import {
+  convertMilisegToYYYYMMDD,
+  daysInMonth,
+  daysInTimeFrame,
+  daysInYear,
+  diffBetweenDays,
+} from "../../../utils/utils";
 import Header from "./Header";
 import Body from "./Body";
 import Column from "./Column";
@@ -26,7 +32,7 @@ const EventTimeline = ({
   relationPixeDay = 5,
   onInspect,
   layers,
-  center
+  center,
 }) => {
   const targetRef = useRef();
   const itemRef = useRef();
@@ -181,6 +187,83 @@ const EventTimeline = ({
   };
 
   const createRows = (r, index) => {
+    let ret = null;
+    if (r.parts) {
+      ret = createRowsInParts(r, index);
+    } else {
+      ret = createRowsInBlock(r, index);
+    }
+
+    return ret;
+  };
+
+  const createRowsInParts = (r, index) => {
+    const parts = createParts(r.parts);
+
+    const ret = (
+      <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
+        {parts}
+      </Row>
+    );
+    return ret;
+  };
+
+  function createParts(parts) {
+    const blocks = [];
+    let posX = -1;
+
+    const ret = parts.forEach((p, index) => {
+      const startDate = new Date(startYear, 0, 1);
+      const day1 = p.startDateTime < startDate.getTime() ? startDate.getTime() : p.startDateTime;
+
+      const diffInDays = diffBetweenDays(day1, p.endDateTime);
+
+      const blockW = diffInDays * relationPixeDay;
+
+      if (posX < 0) {
+        if (p.startDateTime < startDate.getTime()) {
+          posX = 0;
+        } else {
+          posX = diffBetweenDays(startDate, p.startDateTime) * relationPixeDay;
+        }
+      }
+
+      const ret = createPart(p, posX, blockW);
+      blocks.push(ret);
+    });
+
+    return blocks;
+  }
+
+  function createPart(r, posX, blockW) {
+    const ret = (
+      <Box py={2} pos={"relative"} h={rowHeight} w={blockW} left={posX}>
+        <UnstyledButton
+          onClick={() => {
+            onInspect ? onInspect(r) : null;
+          }}
+          h={"100%"}
+          w={"100%"}
+          bg={r.color ? r.color : "orange"}
+          style={{ borderRadius: 0 }}
+        >
+          <Box pos={"absolute"} top={5} left={0} h={rowHeight - 10} w={`${r.percentage}%`} bg={"rgba( 0, 0, 0, 0.1 )"}>
+          </Box>
+
+          <Group gap={0} px={5} justify="center">
+            <Text fw={500} size="sm" mr={"xs"}>
+              {r.name}
+            </Text>
+            <Text fw={500} size="lg">{`${r.percentage}%`}</Text>
+          </Group>
+        </UnstyledButton>
+      </Box>
+    );
+
+    return ret;
+  }
+
+  const createRowsInBlock = (r, index) => {
     let posX = 0;
     const startDate = new Date(startYear, 0, 1);
 
@@ -245,7 +328,8 @@ const EventTimeline = ({
   };
 
   return (
-    <div style={{ height: h}}>
+    // <div style={{ height: h}}>
+    <Group grow gap={0} h={h}>
       <SplitPane split="vertical" sizes={sizes} onChange={setSizes}>
         <Pane minSize={minItemWidth} maxSize="50%">
           <Stack h={h} gap={0} style={{ borderTop: "1px solid #C5C5C5", borderLeft: "1px solid #C5C5C5" }}>
@@ -290,7 +374,8 @@ const EventTimeline = ({
           </ScrollArea>
         </Stack>
       </SplitPane>
-    </div>
+    </Group>
+    // </div>
   );
 };
 

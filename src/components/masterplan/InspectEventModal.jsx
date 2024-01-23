@@ -1,40 +1,152 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Button, Group, Modal, Stack, Text } from "@mantine/core";
-import { useEffect } from "react";
+import { Button, Center, Group, Loader, Modal, Stack, Title } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMasterPlanContext } from "../../context/MasterPlanContext";
+import EventTimeline from "../ui/EventTimeline";
 
-const InspectEventModal = ({ opened, close, event }) => {
+const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   const { t } = useTranslation();
-  const {getShipmentsPlanByEvent} = useMasterPlanContext();
+  const { getShipmentsPlanByEvent } = useMasterPlanContext();
 
+  const [plans, setPlans] = useState(null);
+  const totalHeight = 400;
+  const rowHeight = 64;
 
-  async function getData(event){
-    if(event){
+  async function getData(event) {
+    if (event) {
       const plans = await getShipmentsPlanByEvent(event.id);
-      console.log(plans);
+      if (plans) {
+        const plansWithParts = createPartsFromPlansData(plans);
+        setPlans(plansWithParts);
+      }
     }
   }
 
+  function createPartsFromPlansData(plans) {
+    const ret = plans.map((p) => createPartsFromPlan(p));
+    return ret;
+  }
+
+  function createPartsFromPlan(p) {
+    const ret = {
+      label: p.shipment.documentId,
+      name: p.shipment.producto,
+      description: p.shipment.despachante,
+      id: p.shipment.id,
+      parts: [
+        createPart(
+          "preparation",
+          t("sprints.preparation.label"),
+          t("sprints.preparation.color"),
+          p.shipmentPlan.preparationStart,
+          p.shipmentPlan.preparationEnd,
+          p.shipmentPlan.preparationDurationInDays,
+          p.shipmentPlan.preparationPercentage
+        ),
+        createPart(
+          "shipping",
+          t("sprints.shipping.label"),
+          t("sprints.shipping.color"),
+          p.shipmentPlan.shippingStart,
+          p.shipmentPlan.shippingEnd,
+          p.shipmentPlan.shippingDurationInDays,
+          p.shipmentPlan.shippingPercentage
+        ),
+        createPart(
+          "reception",
+          t("sprints.reception.label"),
+          t("sprints.reception.color"),
+          p.shipmentPlan.receptionStart,
+          p.shipmentPlan.receptionEnd,
+          p.shipmentPlan.receptionDurationInDays,
+          p.shipmentPlan.receptionPercentage
+        ),
+        createPart(
+          "distribution",
+          t("sprints.distribution.label"),
+          t("sprints.distribution.color"),
+          p.shipmentPlan.distributionStart,
+          p.shipmentPlan.distributionEnd,
+          p.shipmentPlan.distributionDurationInDays,
+          p.shipmentPlan.distributionPercentage
+        ),
+        createPart(
+          "sales",
+          t("sprints.sales.label"),
+          t("sprints.sales.color"),
+          p.shipmentPlan.salesStart,
+          p.shipmentPlan.salesEnd,
+          p.shipmentPlan.salesDurationInDays,
+          p.shipmentPlan.salesPercentage
+        ),
+      ],
+    };
+    return ret;
+  }
+
+  function createPart(id, name, color, startDate, endDate, durationInDays, percentage) {
+    const ret = {
+      id: id,
+      name: name,
+      color: color,
+      startDateTime: startDate,
+      endDateTime: endDate,
+      percentage: percentage,
+      durationInDays: durationInDays,
+    };
+
+    return ret;
+  }
+
   useEffect(() => {
-    if(event){
+    if (event) {
       getData(event);
     }
   }, [event]);
 
-  return (
-    <Modal opened={opened} onClose={close} size="sm" title={event?.name} centered>
-      <Stack>
-        <Group>
-          <Text>{event?.description}</Text>
-        </Group>
+  const months = t("months", { returnObjects: true });
+  const monthLabels = months.map((m) => m.name);
 
-        <Group justify="flex-end" mt={"md"}>
-          <Button>{t("general.button.update")}</Button>
-        </Group>
-      </Stack>
-    </Modal>
+  return (
+    <Modal.Root opened={opened} onClose={close} size={"100%"}>
+      <Modal.Overlay />
+      <Modal.Content>
+        <Modal.Header>
+          <Modal.Title>{event?.name}</Modal.Title>
+          <Modal.CloseButton />
+        </Modal.Header>
+        <Modal.Body>
+          <Stack justify="space-between">
+            <Group gap={0} wrap="nowrap">
+              <Title size={"h5"} mb={"xs"}>
+                {event?.description}
+              </Title>
+            </Group>
+            {plans ? (
+              <Group gap={0} grow>
+                <EventTimeline
+                  startYear={startYear}
+                  endYear={endYear}
+                  data={plans}
+                  h={totalHeight}
+                  monthLabels={monthLabels}
+                  rowHeight={rowHeight}
+                />
+              </Group>
+            ) : (
+              <Center h={totalHeight} w={"100%"}>
+                <Loader />
+              </Center>
+            )}
+            <Group justify="flex-end" mt={"md"}>
+              <Button onClick={() => {close()}}>{t("general.button.close")}</Button>
+            </Group>
+          </Stack>
+        </Modal.Body>
+      </Modal.Content>
+    </Modal.Root>
   );
 };
 
