@@ -18,18 +18,19 @@ import UserList from "../components/cruds/UserCrud/UserList";
 import UserPanel from "../components/cruds/UserCrud/UserPanel";
 import UserCrudProvider from "../context/UserCrudContext";
 import CreateUserPanel from "../components/cruds/UserCrud/CreateUserPanel";
-import UserInfo from "../components/userInfo";
-import ChangePassword from "../components/changePassword";
 import ShipmentPlanner from "../components/cruds/ShipmentPlanner";
 import ShipmentPlannerProvier from "../context/ShipmentPlannerContext";
 import ShipmentPlannerList from "../components/cruds/ShipmentPlanner/ShipmentPlannerList";
 import ShipmentPlannerEditor from "../components/cruds/ShipmentPlanner/ShipmentPlannerEditor";
 import CreateShipmentPlanner from "../components/cruds/ShipmentPlanner/CreateShipmentPlanner";
 import BuyerCrud from "../components/cruds/BuyerCrud";
+import DocumentsList from "../components/cruds/DocumentsCrud/DocumentsList";
 
 import { Title } from "@mantine/core";
 import DocumentsCrud from "../components/cruds/DocumentsCrud";
 import Masterplan from "../components/masterplan/MasterPlan";
+import AppProvier from "../context/AppContext";
+import ShipmentProvider from "../context/ShipmentContext";
 
 const AppsModules = () => {
   const router = createBrowserRouter([
@@ -37,7 +38,9 @@ const AppsModules = () => {
       path: `${MODULE_APPS_ROOT}/`,
       element: (
         <ProtectRoute>
-          <AppFrame />
+          <AppProvier>
+            <AppFrame />
+          </AppProvier>
         </ProtectRoute>
       ),
       errorElement: <ErrorPage />,
@@ -45,18 +48,6 @@ const AppsModules = () => {
         {
           path: `${MODULE_APPS_ROOT}/`,
           element: <></>,
-          errorElement: <ErrorPage />,
-        },
-
-        {
-          path: `${MODULE_APPS_ROOT}/user-info`,
-          element: <UserInfo />,
-          errorElement: <ErrorPage />,
-        },
-
-        {
-          path: `${MODULE_APPS_ROOT}/change-password`,
-          element: <ChangePassword />,
           errorElement: <ErrorPage />,
         },
         {
@@ -162,6 +153,22 @@ const AppsModules = () => {
           path: `${MODULE_APPS_ROOT}/crud/purchase-orders`,
           element: <DocumentsCrud />,
           errorElement: <ErrorPage />,
+          children: [
+            {
+              path: `${MODULE_APPS_ROOT}/crud/purchase-orders/`,
+              element: <DocumentsList />,
+              errorElement: <ErrorPage />,
+            },
+            {
+              path: `${MODULE_APPS_ROOT}/crud/purchase-orders/documentDetail`,
+              element: (
+                <ShipmentProvider>
+                  <DocumentDetail />
+                </ShipmentProvider>
+              ),
+              errorElement: <ErrorPage />,
+            },
+          ],
         },
         {
           path: `${MODULE_APPS_ROOT}/shipments`,

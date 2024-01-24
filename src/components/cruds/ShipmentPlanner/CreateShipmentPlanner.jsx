@@ -159,6 +159,7 @@ const CreateShipmentPlanner = () => {
                   <Label w={ms} title={t("crud.createShipmentPlanner.label.requiredInWarehouse")} value={shipmentData?.shipment.necesidadEnCd} />
                   <Label w={ms} title={t("crud.createShipmentPlanner.label.provider")} value={shipmentData?.shipment.proveedor} />
                   <Label w={ms} title={t("crud.createShipmentPlanner.label.countryOfOrigin")} value={shipmentData?.shipment.paisOrigen} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.shipmentValue")} value={shipmentData?.shipment.valorDelEmbarque} />
                 </Stack>
               </Fieldset>
               <Stack align="flex-start">

@@ -1,10 +1,10 @@
+import { Outlet } from "react-router-dom";
 import DocumentsCrudProvider from "../../../context/DocumentsCrudContext";
-import DocumentsList from "./DocumentsList";
 
 const DocumentsCrud = () => {
   return (
     <DocumentsCrudProvider>
-      <DocumentsList />
+      <Outlet/>
     </DocumentsCrudProvider>
   );
 };

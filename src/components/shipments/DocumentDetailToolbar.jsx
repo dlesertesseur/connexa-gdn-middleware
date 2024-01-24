@@ -11,27 +11,31 @@ const DocumentDetailToolbar = ({ disabled, statusSelected, reference }) => {
   return (
     <Stack spacing={"xs"}>
       <Group justify="space-between">
-        <Group gap={0} wrap="nowrap">
-          <Text size={"md"} fw={600}>
-            {`${statusSelected} / `}
-          </Text>
-
-          <Anchor ml={5} disabled={disabled} href={`${config.SIDOM_URL}${reference}`} target="_blank">
-            <Text fw={600} size="md" c={"blue"}>
-              {reference}
+        {statusSelected ? (
+          <Group gap={0} wrap="nowrap">
+            <Text size={"md"} fw={600}>
+              {`${statusSelected} / `}
             </Text>
-          </Anchor>
-        </Group>
 
+            <Anchor ml={5} disabled={disabled} href={`${config.SIDOM_URL}${reference}`} target="_blank">
+              <Text fw={600} size="md" c={"blue"}>
+                {reference}
+              </Text>
+            </Anchor>
+          </Group>
+        ) : (
+          <Group gap={"xs"}>
+            <Text fw={600} size="md">
+              {t("crud.documents.label.viewDocInSidom")}
+            </Text>
+            <Anchor ml={5} disabled={disabled} href={`${config.SIDOM_URL}${reference}`} target="_blank">
+              <Text fw={600} size="md" c={"blue"}>
+                {reference}
+              </Text>
+            </Anchor>
+          </Group>
+        )}
         <Group>
-          {/* <Button
-            onClick={() => {
-              navigate(-1);
-            }}
-            size="xs"
-          >
-            <Text size="xs">{t("shipments.button.purchaseOrder")}</Text>
-          </Button> */}
           <Button
             onClick={() => {
               navigate(-1);

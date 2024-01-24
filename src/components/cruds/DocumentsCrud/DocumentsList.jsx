@@ -11,12 +11,14 @@ import DataTable from "../../ui/DataTable";
 import Toolbar from "./Toolbar";
 import AsignBuyerModal from "./AsignBuyerModal";
 import ModalConfirmation from "../../ui/ModalConfirmation";
+import { useNavigate } from "react-router-dom";
 
 const DocumentsList = () => {
   const { t } = useTranslation();
   const [opened, { open, close }] = useDisclosure(false);
   const [confirmation, setConfirmation] = useState(false);
   const wSize = useWindowSize();
+  const navigate = useNavigate();
 
   const {
     getAll,
@@ -49,7 +51,7 @@ const DocumentsList = () => {
     { label: cols[col++], field: "valor", align: "right", width: 100 },
     { label: cols[col++], field: "fob", align: "right", width: 100 },
     { label: cols[col++], field: "codigoDeProveedor", align: "left", width: 200 },
-    { label: cols[col++], field: "estado", align: "left", width: 250 },
+    // { label: cols[col++], field: "estado", align: "left", width: 250 },
     { label: cols[col++], field: "embarques", align: "right", width: 100 },
     { label: cols[col++], field: "analista", align: "left", width: 300 },
     { label: cols[col++], field: "documentBuyer", align: "left", width: 300 },
@@ -70,6 +72,20 @@ const DocumentsList = () => {
     setConfirmation(false);
     reloadData();
   };
+
+  function onViewDetail(id) {
+    const doc = documents.find((d) => d.id === id);
+
+    if (doc) {
+      const params = {
+        state: {
+          reference: doc.referencia,
+        },
+        options: { replace: true },
+      };
+      navigate("documentDetail", params);
+    }
+  }
 
   return (
     <Stack gap={"xs"}>
@@ -92,6 +108,7 @@ const DocumentsList = () => {
         confirm={() => {
           setConfirmation(true);
         }}
+        onViewDetail={onViewDetail}
       />
       <DataTable
         data={documents}

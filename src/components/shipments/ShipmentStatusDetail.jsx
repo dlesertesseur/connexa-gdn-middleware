@@ -22,6 +22,8 @@ const ShipmentStatusDetail = () => {
     { label: cols[col++], field: "analista", align: "left", width: 200 },
     { label: cols[col++], field: "evento", align: "left", width: 200 },
     { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
+    { label: cols[col++], field: "valorDelEmbarque", align: "right", width: 150, default: 0 },
+    { label: cols[col++], field: "valorDeLaOrdenDeCompra", align: "right", width: 150, default: 0 },
     { label: cols[col++], field: "valor", align: "right", width: 200, default: 0 },
     { label: cols[col++], field: "moneda", align: "center", width: 200, default: "---" },
     { label: cols[col++], field: "incoterm", align: "left", width: 200 },

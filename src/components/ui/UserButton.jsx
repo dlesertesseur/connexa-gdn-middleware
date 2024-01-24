@@ -5,12 +5,14 @@ import { useUserContext } from "../../context/UserContext";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MODULE_APPS_ROOT } from "../../data/config";
+import { useAppContext } from "../../context/AppContext";
 
 export function UserButton() {
-  const { user, logOut } = useUserContext();
   const [opened, setOpened] = useState(false);
-  const navigate = useNavigate();
+  const { user, logOut } = useUserContext();
+  const { setChangePasswordOpened, setUserInfoOpened } = useAppContext();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const onLogout = () => {
     logOut();
@@ -20,12 +22,12 @@ export function UserButton() {
 
   const onUserInfo = () => {
     setOpened(false);
-    navigate(`${MODULE_APPS_ROOT}/user-info`);
+    setUserInfoOpened(true);
   };
 
   const onChangePassword = () => {
     setOpened(false);
-    navigate(`${MODULE_APPS_ROOT}/change-password`);
+    setChangePasswordOpened(true);
   };
 
   return (

@@ -13,14 +13,16 @@ export const useAppContext = () => {
 const AppProvier = ({ children }) => {
   const [menuItem, setMenuItem] = useState(null);
   const [appById, setAppById] = useState(null);
+  const [changePasswordOpened, setChangePasswordOpened] = useState(false);
+  const [userInfoOpened, setUserInfoOpened] = useState(false);
 
-  function activeApp(){
+  function activeApp() {
     let app = null;
-    if(appById){
+    if (appById) {
       app = appById.get(menuItem);
     }
 
-    return(app);
+    return app;
   }
 
   return (
@@ -30,7 +32,11 @@ const AppProvier = ({ children }) => {
         setMenuItem,
         appById,
         setAppById,
-        activeApp
+        activeApp,
+        changePasswordOpened,
+        setChangePasswordOpened,
+        userInfoOpened,
+        setUserInfoOpened,
       }}
     >
       {children}

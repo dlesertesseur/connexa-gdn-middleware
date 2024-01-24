@@ -1,20 +1,18 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Alert, Center, Group, LoadingOverlay, ScrollArea, Stack, TextInput } from "@mantine/core";
+import { Alert, Center, Group, LoadingOverlay, Modal, ScrollArea, Stack, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmail, isNotEmpty, useForm } from "@mantine/form";
-import { useViewportSize } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
-import { HEADER_HIGHT, MODULE_APPS_ROOT } from "../../data/config";
+import { MODULE_APPS_ROOT } from "../../data/config";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { getUserById, updateUser } from "../../data/user";
 import { useUserContext } from "../../context/UserContext";
-import AppHeader from "../ui/AppHeader";
 import CrudButton from "../cruds/CrudButton";
 
-const UserInfo = () => {
+const UserInfo = ({opened, close}) => {
   const { t } = useTranslation();
-  const { height } = useViewportSize();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -64,67 +62,68 @@ const UserInfo = () => {
   };
 
   return (
-    <Stack gap={"xs"}>
-      <AppHeader title={t("general.userInfoTitle")} />
-      <Center mt={"lg"}>
-        <form
-          onSubmit={form.onSubmit((values) => {
-            onSave(values);
-          })}
-        >
-          <ScrollArea h={height - HEADER_HIGHT - 40} offsetScrollbars>
-            {loading ? (
-              <Group w={mw} h={"100%"}>
-                <LoadingOverlay visible />
-              </Group>
-            ) : (
-              <Stack align="flex-start">
-                <TextInput
-                  w={mw}
-                  {...form.getInputProps("lastname")}
-                  label={t("crud.users.label.lastname")}
-                  placeholder={t("crud.users.placeholder.lastname")}
-                />
-                <TextInput
-                  w={mw}
-                  {...form.getInputProps("firstname")}
-                  label={t("crud.users.label.firstname")}
-                  placeholder={t("crud.users.placeholder.firstname")}
-                />
-                <TextInput
-                  w={mw}
-                  {...form.getInputProps("email")}
-                  label={t("crud.users.label.email")}
-                  placeholder={t("crud.users.placeholder.email")}
-                />
-                <TextInput
-                  w={ms}
-                  disabled
-                  {...form.getInputProps("sidomkey")}
-                  label={t("crud.users.label.sidomkey")}
-                  placeholder={t("crud.users.placeholder.sidomkey")}
-                  description={t("crud.users.description.sidomkey")}
-                />
-
-                <CrudButton mode={"update"} />
-                {error ? (
-                  <Alert
-                    mt={"xs"}
+    <Modal opened={opened} onClose={close} size="auto" title={t("general.userInfoTitle")} centered>
+      <Stack gap={"xs"}>
+        <Center mt={"lg"}>
+          <form
+            onSubmit={form.onSubmit((values) => {
+              onSave(values);
+            })}
+          >
+            <ScrollArea offsetScrollbars>
+              {loading ? (
+                <Group w={mw} h={"100%"}>
+                  <LoadingOverlay visible />
+                </Group>
+              ) : (
+                <Stack align="flex-start">
+                  <TextInput
                     w={mw}
-                    icon={<IconAlertCircle size={16} />}
-                    title={t("general.title.error")}
-                    color="red"
-                    variant="filled"
-                  >
-                    {t(`crud.users.errors.update`)}
-                  </Alert>
-                ) : null}
-              </Stack>
-            )}
-          </ScrollArea>
-        </form>
-      </Center>
-    </Stack>
+                    {...form.getInputProps("lastname")}
+                    label={t("crud.users.label.lastname")}
+                    placeholder={t("crud.users.placeholder.lastname")}
+                  />
+                  <TextInput
+                    w={mw}
+                    {...form.getInputProps("firstname")}
+                    label={t("crud.users.label.firstname")}
+                    placeholder={t("crud.users.placeholder.firstname")}
+                  />
+                  <TextInput
+                    w={mw}
+                    {...form.getInputProps("email")}
+                    label={t("crud.users.label.email")}
+                    placeholder={t("crud.users.placeholder.email")}
+                  />
+                  <TextInput
+                    w={ms}
+                    disabled
+                    {...form.getInputProps("sidomkey")}
+                    label={t("crud.users.label.sidomkey")}
+                    placeholder={t("crud.users.placeholder.sidomkey")}
+                    description={t("crud.users.description.sidomkey")}
+                  />
+
+                  <CrudButton mode={"update"} />
+                  {error ? (
+                    <Alert
+                      mt={"xs"}
+                      w={mw}
+                      icon={<IconAlertCircle size={16} />}
+                      title={t("general.title.error")}
+                      color="red"
+                      variant="filled"
+                    >
+                      {t(`crud.users.errors.update`)}
+                    </Alert>
+                  ) : null}
+                </Stack>
+              )}
+            </ScrollArea>
+          </form>
+        </Center>
+      </Stack>
+    </Modal>
   );
 };
 

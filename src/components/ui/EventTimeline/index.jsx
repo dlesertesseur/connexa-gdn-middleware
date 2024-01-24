@@ -32,11 +32,13 @@ const EventTimeline = ({
   relationPixeDay = 5,
   onInspect,
   layers,
-  center,
+  centered = true,
+  offsetDays = 30,
 }) => {
   const targetRef = useRef();
   const itemRef = useRef();
   const bodyRef = useRef();
+  const horizontalRef = useRef();
 
   const [totalWidth, setTotalWidth] = useState(0);
   const [objCols, setObjCols] = useState(null);
@@ -47,6 +49,7 @@ const EventTimeline = ({
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [totalDays, setTotalDays] = useState(0);
   const [daysByYearMonth, setDaysByYearMonth] = useState(null);
+  const [firstPosx, setFirstPosX] = useState(null);
 
   const [scrollXPos, setScrollXPos] = useState(null);
   const [scrollYPos, setScrollYPos] = useState(null);
@@ -64,8 +67,14 @@ const EventTimeline = ({
         const columns = createMonthsList(startYear, endYear, ret.daysByYearMonth);
         setObjCols(columns);
 
-        const rows = data?.map((r, index) => createRows(r, index));
+        const arrPosX = [];
+        const rows = data?.map((r, index) => createRows(r, index, arrPosX));
         setObjRows(rows);
+
+        if (arrPosX?.length > 0) {
+          arrPosX.sort();
+          setFirstPosX(arrPosX[0]);
+        }
 
         const items = data?.map((r, index) => createItems(r, index));
         setObjItems(items);
@@ -82,8 +91,14 @@ const EventTimeline = ({
           const columns = createMonthsListFromYear(startYear);
           setObjCols(columns);
 
-          const rows = data?.map((r, index) => createRows(r, index));
+          const arrPosX = [];
+          const rows = data?.map((r, index) => createRows(r, index, arrPosX));
           setObjRows(rows);
+
+          if (arrPosX?.length > 0) {
+            arrPosX.sort();
+            setFirstPosX(arrPosX[0]);
+          }
 
           const items = data?.map((r, index) => createItems(r, index));
           setObjItems(items);
@@ -94,6 +109,13 @@ const EventTimeline = ({
       }
     }
   }, [startYear, endYear, relationPixeDay, data]);
+
+  useEffect(() => {
+    if (centered && firstPosx !== null) {
+      const posX = firstPosx - relationPixeDay * offsetDays;
+      horizontalRef?.current.scrollTo({ left: posX });
+    }
+  }, [firstPosx]);
 
   useEffect(() => {
     if (selectedRowId) {
@@ -125,9 +147,12 @@ const EventTimeline = ({
 
     const day1 = layer.startDateTime < startDate.getTime() ? startDate.getTime() : layer.startDateTime;
 
-    if (layer.endDateTime.getTime() > day1) {
-      const diffInDays = diffBetweenDays(day1, layer.endDateTime);
+    if (layer.endDateTime.getTime() >= day1) {
+      let diffInDays = diffBetweenDays(day1, layer.endDateTime);
 
+      if (diffInDays === 0) {
+        diffInDays = 1;
+      }
       const blockW = diffInDays * relationPixeDay;
 
       if (layer.startDateTime < startDate.getTime()) {
@@ -186,19 +211,19 @@ const EventTimeline = ({
     }
   };
 
-  const createRows = (r, index) => {
+  const createRows = (r, index, arrPosX) => {
     let ret = null;
     if (r.parts) {
-      ret = createRowsInParts(r, index);
+      ret = createRowsInParts(r, index, arrPosX);
     } else {
-      ret = createRowsInBlock(r, index);
+      ret = createRowsInBlock(r, index, arrPosX);
     }
 
     return ret;
   };
 
-  const createRowsInParts = (r, index) => {
-    const parts = createParts(r.parts);
+  const createRowsInParts = (r, index, arrPosX) => {
+    const parts = createParts(r.parts, arrPosX);
 
     const ret = (
       <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
@@ -208,7 +233,7 @@ const EventTimeline = ({
     return ret;
   };
 
-  function createParts(parts) {
+  function createParts(parts, arrPosX) {
     const blocks = [];
     let posX = -1;
 
@@ -226,6 +251,7 @@ const EventTimeline = ({
         } else {
           posX = diffBetweenDays(startDate, p.startDateTime) * relationPixeDay;
         }
+        arrPosX?.push(posX);
       }
 
       const ret = createPart(p, posX, blockW);
@@ -247,14 +273,22 @@ const EventTimeline = ({
           bg={r.color ? r.color : "orange"}
           style={{ borderRadius: 0 }}
         >
-          <Box pos={"absolute"} top={5} left={0} h={rowHeight - 10} w={`${r.percentage}%`} bg={"rgba( 0, 0, 0, 0.1 )"}>
-          </Box>
+          <Box
+            pos={"absolute"}
+            top={5}
+            left={0}
+            h={rowHeight - 10}
+            w={`${r.percentage}%`}
+            bg={"rgba( 0, 0, 0, 0.1 )"}
+          ></Box>
 
           <Group gap={0} px={5} justify="center">
-            <Text fw={500} size="sm" mr={"xs"}>
-              {r.name}
-            </Text>
-            <Text fw={500} size="lg">{`${r.percentage}%`}</Text>
+            <Stack gap={0} align="center">
+              <Text truncate="end" fw={500} size="sm" mr={"xs"}>
+                {r.name}
+              </Text>
+              <Text fw={500} size="lg">{`${r.percentage}%`}</Text>
+            </Stack>
           </Group>
         </UnstyledButton>
       </Box>
@@ -263,7 +297,7 @@ const EventTimeline = ({
     return ret;
   }
 
-  const createRowsInBlock = (r, index) => {
+  const createRowsInBlock = (r, index, arrPosX) => {
     let posX = 0;
     const startDate = new Date(startYear, 0, 1);
 
@@ -278,6 +312,8 @@ const EventTimeline = ({
     } else {
       posX = diffBetweenDays(startDate, r.startDateTime) * relationPixeDay;
     }
+
+    arrPosX?.push(posX);
 
     const ret = (
       <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
@@ -321,6 +357,23 @@ const EventTimeline = ({
               {r.description}
             </Text>
           </Group>
+
+          {r.values
+            ? r.values.map((v) => {
+                const ret = (
+                  <Group gap={5} px={3} justify="flex-start" align="center">
+                    <Text fw={700} size="xs" truncate="end">
+                      {v.label}
+                    </Text>
+                    <Text fw={600} size="xs" truncate="end">
+                      {v.value}
+                    </Text>
+                  </Group>
+                );
+
+                return ret;
+              })
+            : null}
         </Stack>
       </Item>
     );
@@ -328,8 +381,7 @@ const EventTimeline = ({
   };
 
   return (
-    // <div style={{ height: h}}>
-    <Group grow gap={0} h={h}>
+    <div style={{ height: h }}>
       <SplitPane split="vertical" sizes={sizes} onChange={setSizes}>
         <Pane minSize={minItemWidth} maxSize="50%">
           <Stack h={h} gap={0} style={{ borderTop: "1px solid #C5C5C5", borderLeft: "1px solid #C5C5C5" }}>
@@ -352,7 +404,8 @@ const EventTimeline = ({
 
         <Stack ref={targetRef} gap={"xs"} h={h} style={{ borderLeft: "1px solid #C5C5C5" }}>
           <ScrollArea
-            offsetScrollbars
+            viewportRef={horizontalRef}
+            //offsetScrollbars
             scrollbars={"x"}
             onScrollPositionChange={(e) => {
               setScrollXPos(e.x);
@@ -368,14 +421,15 @@ const EventTimeline = ({
                 itemRef?.current.scrollTo({ top: e.y });
               }}
             >
-              {objLayers}
-              <Body h={h - headerHeight}>{objRows}</Body>
+              {<Body h={h - headerHeight}>
+                {objRows}
+                {objLayers}
+              </Body>}
             </ScrollArea>
           </ScrollArea>
         </Stack>
       </SplitPane>
-    </Group>
-    // </div>
+    </div>
   );
 };
 

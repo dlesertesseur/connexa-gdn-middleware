@@ -3,6 +3,7 @@ import { createContext, useContext, useState } from "react";
 import { useUserContext } from "./UserContext";
 import { getShipmentPlanByEvent } from "../data/shipmentPlanner";
 import { sortData } from "../utils/utils";
+import { getEventById } from "../data/events";
 
 const MasterPlanContext = createContext();
 
@@ -38,6 +39,12 @@ const MasterPlanProvider = ({ children }) => {
     return plans;
   };
 
+  async function getAssociatedEventById(id) {
+    const params = { token: user.token, id: id };
+    const ret = await getEventById(params);
+    return ret;
+  }
+
   return (
     <MasterPlanContext.Provider
       value={{
@@ -45,6 +52,7 @@ const MasterPlanProvider = ({ children }) => {
         error,
         plansByEvent,
         getShipmentsPlanByEvent,
+        getAssociatedEventById
       }}
     >
       {children}

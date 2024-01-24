@@ -145,7 +145,8 @@
       "Analista",
       "Evento",
       "Pais origen",
-      "Valor",
+      "Valor (embarque)",
+      "Valor (ord. compra)",
       "Moneda",
       "Incoterm",
       "FEUS",
@@ -212,7 +213,39 @@
         "puertoDestino",
         "moneda",
         "modoDeTransporte",
-        "feus"
+        "feus",
+
+        "interno",
+        "destinacion",
+        "medioDeTransporte",
+        "via",
+        "ocm",
+        "transportista",
+        "comentarios",
+        "sediFechaOficializacion",
+        "sediEstado",
+        "psiLenor",
+        "psiGs",
+        "containerSize",
+        "valorFobDivisa",
+        "condicionDePago",
+        "estampilla",
+        "aptoEstimado",
+        "fechaDeAperturaLc",
+        "numeroLc",
+        "produccionFechaDeInicio",
+        "produccionFechaDeFinEstimada",
+        "motivoDeNoEmbarqueODemora",
+        "psiEstado",
+        "totalCbm",
+        "fechaDeEmbarque",
+        "fechaLimiteDeDevolucionDeVacios",
+        "fechaDeRecepcionDeEstampillas",
+        "estampillasColocadas",
+        "depositoActual",
+        "depositoActualTipo",
+        "fechaRecepcionCd"
+
       ],
       "label": {
         "ordenDeCompra": "Orden de compra",
@@ -242,7 +275,38 @@
         "puertoDestino": "Puerto destino",
         "moneda": "Moneda",
         "modoDeTransporte": "Modo de transporte",
-        "feus": "FEUS"
+        "feus": "FEUS",
+
+        "interno":"Interno",
+        "destinacion":"Destinacion",
+        "medioDeTransporte":"Medio de Transporte",
+        "via":"Via",
+        "ocm":"Ocm",
+        "transportista":"Transportista",
+        "comentarios":"Comentarios",
+        "sediFechaOficializacion":"Sedi ( fecha de oficializacion )",
+        "sediEstado":"Sedi ( estado )",
+        "psiLenor":"Psi Lenor",
+        "psiGs":"Psi GS",
+        "containerSize":"Container (Dim.)",
+        "valorFobDivisa":"Valor Fob Divisa",
+        "condicionDePago":"Condicion de Pago",
+        "estampilla":"Estampilla",
+        "aptoEstimado":"Apto Estimado",
+        "fechaDeAperturaLc":"Fecha de Apertura LC",
+        "numeroLc":"Numero de LC",
+        "produccionFechaDeInicio":"Produccion ( fecha de inicio )",
+        "produccionFechaDeFinEstimada":"Produccion ( fecha de fin estimada )",
+        "motivoDeNoEmbarqueODemora":"Motivo de no embarque o demora",
+        "psiEstado":"Psi Estado",
+        "totalCbm":"Total CBM",
+        "fechaDeEmbarque":"Fecha de Embarque",
+        "fechaLimiteDeDevolucionDeVacios":"Fecha Limite de Devolucion de Vacios",
+        "fechaDeRecepcionDeEstampillas":"Fecha de Recepcion de Estampillas",
+        "estampillasColocadas":"Estampillas colocadas",
+        "depositoActual":"Deposito Actual",
+        "depositoActualTipo":"Deposito Actual ( Tipo )",
+        "fechaRecepcionCd":"Fecha de Recepcion en CD"
       }
     }
   },
@@ -253,7 +317,7 @@
     "shipmentsTitle": "Embarques asociados",
 
     "items": {
-      "columns": ["Image", "Code", "Description", "UPC", "FOB", "Unit", "Amount", "Price", "Date"]
+      "columns": ["Imagen", "Codigo", "Descripcion", "UPC", "FOB", "Unidades", "Cantidad", "Precio", "Fecha"]
     },
 
     "shipments": {
@@ -449,7 +513,8 @@
         "Requerido en CD",
         "Proveedor",
         "Pais origen",
-        "Valor",
+        "Valor (empbarque)",
+        "Valor (ord. compra)",
         "Moneda",
         "Incoterm",
         "FEUS",
@@ -477,7 +542,8 @@
         "event": "Evento",
         "requiredInWarehouse": "Requerido en CD",
         "provider": "Proveedor",
-        "countryOfOrigin": "País de origen"
+        "countryOfOrigin": "País de origen",
+        "shipmentValue": "Valor (embarque)"
       },
       "placeholder": {
         "event": "seleccione un objetivo de negocio",
@@ -537,7 +603,9 @@
         "state": "Estado",
         "shipments": "Embarques",
         "analyst": "Analista",
-        "buyerList": "Lista de compradores"
+        "buyerList": "Lista de compradores",
+        "viewDocInSidom":"Ver documento en SIDOM"
+
       },
       "placeholder": {
         "selectAbuyer": "seleccione un comprador"
@@ -555,7 +623,6 @@
         "Valor",
         "Fob",
         "Codigo De Proveedor",
-        "Estado",
         "Embarques",
         "Analista",
         "Comprador"

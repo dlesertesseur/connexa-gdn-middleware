@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Button, Center, Group, Loader, Modal, Stack, Title } from "@mantine/core";
+import { Center, Group, Loader, Modal, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMasterPlanContext } from "../../context/MasterPlanContext";
@@ -9,10 +9,11 @@ import EventTimeline from "../ui/EventTimeline";
 const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   const { t } = useTranslation();
   const { getShipmentsPlanByEvent } = useMasterPlanContext();
+  const [layers, setLayers] = useState(null);
 
   const [plans, setPlans] = useState(null);
-  const totalHeight = 400;
-  const rowHeight = 64;
+  const rowHeight = 80;
+  const totalHeight = rowHeight * 5;
 
   async function getData(event) {
     if (event) {
@@ -21,8 +22,38 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
         const plansWithParts = createPartsFromPlansData(plans);
         setPlans(plansWithParts);
       }
+
+      createLayers(event);
     }
   }
+
+  const createLayers = (event) => {
+    let layers = [];
+
+    if (event) {
+      const ret = {
+        id: event.id,
+        startDateTime: new Date(event.startDateTime),
+        endDateTime: new Date(event.endDateTime),
+        color: "rgba( 255, 0, 0, 0.2 )",
+        name: event.name,
+        h: totalHeight,
+      };
+      layers.push(ret);
+
+      const date = new Date();
+      const actualDate = {
+        id: event.id,
+        startDateTime: date,
+        endDateTime: date,
+        color: "rgba( 0, 0, 0, 0.2 )",
+        name: "actualDay",
+        h: totalHeight,
+      };
+      layers.push(actualDate);
+    }
+    setLayers(layers);
+  };
 
   function createPartsFromPlansData(plans) {
     const ret = plans.map((p) => createPartsFromPlan(p));
@@ -33,7 +64,12 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
     const ret = {
       label: p.shipment.documentId,
       name: p.shipment.producto,
-      description: p.shipment.despachante,
+      //description: p.shipment.despachante,
+      values: [
+        { label: "Ord.Comp", value: p.shipment.ordenDeCompra },
+        { label: "Analista", value: p.shipment.analista },
+        { label: "Valor", value: p.shipment.valorDelEmbarque },
+      ],
       id: p.shipment.id,
       parts: [
         createPart(
@@ -133,6 +169,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
                   h={totalHeight}
                   monthLabels={monthLabels}
                   rowHeight={rowHeight}
+                  layers={layers}
                 />
               </Group>
             ) : (
@@ -140,9 +177,15 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
                 <Loader />
               </Center>
             )}
-            <Group justify="flex-end" mt={"md"}>
-              <Button onClick={() => {close()}}>{t("general.button.close")}</Button>
-            </Group>
+            {/* <Group justify="flex-end" mt={"md"}>
+              <Button
+                onClick={() => {
+                  close();
+                }}
+              >
+                {t("general.button.close")}
+              </Button>
+            </Group> */}
           </Stack>
         </Modal.Body>
       </Modal.Content>
