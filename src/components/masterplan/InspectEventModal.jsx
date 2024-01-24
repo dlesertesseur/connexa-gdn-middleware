@@ -13,7 +13,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
 
   const [plans, setPlans] = useState(null);
   const rowHeight = 80;
-  const totalHeight = rowHeight * 5;
+  const totalHeight = rowHeight * 6;
 
   async function getData(event) {
     if (event) {
@@ -146,7 +146,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   const monthLabels = months.map((m) => m.name);
 
   return (
-    <Modal.Root opened={opened} onClose={close} size={"100%"}>
+    <Modal.Root opened={opened} onClose={close} size={"100%"} centered>
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
