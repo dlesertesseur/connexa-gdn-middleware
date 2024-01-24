@@ -187,7 +187,7 @@
     "detail": {
       "fields": [
         "ordenDeCompra",
-        "referencia",
+        "comprador",
         "facturaProforma",
         "spo",
         "estado",
@@ -250,6 +250,7 @@
       "label": {
         "ordenDeCompra": "Orden de compra",
         "referencia": "Referencia",
+        "comprador":"Comprador",
         "facturaProforma": "Factura proforma",
         "spo": "SPO",
         "estado": "Estado",
