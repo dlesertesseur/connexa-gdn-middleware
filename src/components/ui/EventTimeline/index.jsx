@@ -108,7 +108,18 @@ const EventTimeline = ({
         }
       }
     }
-  }, [startYear, endYear, relationPixeDay, data]);
+
+    if (layers) {
+      const ret = [];
+      layers?.forEach((l, index) => {
+        const obj = createObjLayers(l, index);
+        if (obj) {
+          ret.push(obj);
+        }
+      });
+      setObjLayers(ret);
+    }
+  }, [startYear, endYear, relationPixeDay, data, layers]);
 
   useEffect(() => {
     if (centered && firstPosx !== null) {
@@ -127,18 +138,18 @@ const EventTimeline = ({
     }
   }, [selectedRowId]);
 
-  useEffect(() => {
-    if (layers) {
-      const ret = [];
-      layers?.forEach((l) => {
-        const obj = createObjLayers(l);
-        if (obj) {
-          ret.push(obj);
-        }
-      });
-      setObjLayers(ret);
-    }
-  }, [layers]);
+  // useEffect(() => {
+  //   if (layers) {
+  //     const ret = [];
+  //     layers?.forEach((l) => {
+  //       const obj = createObjLayers(l);
+  //       if (obj) {
+  //         ret.push(obj);
+  //       }
+  //     });
+  //     setObjLayers(ret);
+  //   }
+  // }, [layers]);
 
   function createObjLayers(layer, index) {
     let posX = 0;
@@ -161,7 +172,7 @@ const EventTimeline = ({
         posX = diffBetweenDays(startDate, layer.startDateTime) * relationPixeDay;
       }
 
-      ret = <Layer key={layer.id} id={layer.id} order={index} h={layer.h} w={blockW} left={posX} color={layer.color} />;
+      ret = <Layer key={layer.id} id={layer.id} order={index} h={layer.h ? layer.h : h} w={blockW} left={posX} color={layer.color} />;
     }
 
     return ret;

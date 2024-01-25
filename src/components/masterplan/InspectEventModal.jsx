@@ -4,15 +4,15 @@ import { Center, Group, Loader, Modal, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMasterPlanContext } from "../../context/MasterPlanContext";
-import EventTimeline from "../ui/EventTimeline";
 import { useViewportSize } from "@mantine/hooks";
+import EventTimeline from "../ui/EventTimeline";
 
 const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   const { t } = useTranslation();
   const { getShipmentsPlanByEvent } = useMasterPlanContext();
-  const [layers, setLayers] = useState(null);
   const {height} = useViewportSize();
-
+  
+  const [layers, setLayers] = useState(null);
   const [plans, setPlans] = useState(null);
   const rowHeight = 80;
   const totalHeight = height - 150;//rowHeight * 6;
@@ -34,7 +34,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
 
     if (event) {
       const ret = {
-        id: event.id,
+        id: "event",
         startDateTime: new Date(event.startDateTime),
         endDateTime: new Date(event.endDateTime),
         color: "rgba( 255, 0, 0, 0.2 )",
@@ -45,7 +45,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
 
       const date = new Date();
       const actualDate = {
-        id: event.id,
+        id: "actual-day",
         startDateTime: date,
         endDateTime: date,
         color: "rgba( 0, 0, 0, 0.2 )",
@@ -66,7 +66,6 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
     const ret = {
       label: p.shipment.documentId,
       name: p.shipment.producto,
-      //description: p.shipment.despachante,
       values: [
         { label: "Ord.Comp", value: p.shipment.ordenDeCompra },
         { label: "Analista", value: p.shipment.analista },
@@ -139,10 +138,10 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   }
 
   useEffect(() => {
-    if (event) {
+    if (event && height > 0) {
       getData(event);
     }
-  }, [event]);
+  }, [event, height]);
 
   const months = t("months", { returnObjects: true });
   const monthLabels = months.map((m) => m.name);
@@ -162,7 +161,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
                 {event?.description}
               </Title>
             </Group>
-            {plans ? (
+            {plans && layers && totalHeight > 0? (
               <Group gap={0} grow>
                 <EventTimeline
                   startYear={startYear}
