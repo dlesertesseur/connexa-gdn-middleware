@@ -63,7 +63,7 @@ const UserProvier = ({ children }) => {
             : `${config.APP_PUBLIC_URL}/images/user.png`,
           token: data.token,
           roles: data.user.roles,
-          sidomkeys:data.user.sidomkey,
+          sidomkeys: data.user.sidomkey,
           id: data.user.id,
         };
 
@@ -106,6 +106,7 @@ const UserProvier = ({ children }) => {
     setError(null);
     setUser(null);
     localStorage.removeItem("user");
+    userLog("logout");
   };
 
   const getAll = async () => {
@@ -113,6 +114,27 @@ const UserProvier = ({ children }) => {
     const users = await getAllUsers(params);
     setUsers(users);
   };
+
+  async function userLog(message) {
+    const body = JSON.stringify({
+      dateAndTime: new Date(),
+      source: `${user.lastname}, ${user.firstname}`,
+      message: message,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        token:user.token
+      },
+      body: body,
+    };
+
+    const url = `${API_GDNAR}/log`;
+    await fetch(url, requestOptions);
+  }
 
   return (
     <UserContext.Provider
@@ -125,6 +147,7 @@ const UserProvier = ({ children }) => {
         logOut,
         getAll,
         users,
+        userLog,
       }}
     >
       {children}

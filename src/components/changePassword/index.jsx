@@ -15,7 +15,7 @@ const ChangePassword = ({opened, close}) => {
   const [error, setError] = useState(false);
   const [notificationOpen, setNotificationOpen] = useState(false);
 
-  const { user, logOut } = useUserContext();
+  const { user, logOut, userLog } = useUserContext();
   const navigate = useNavigate();
   const mw = 500;
 
@@ -54,6 +54,7 @@ const ChangePassword = ({opened, close}) => {
           onClick={() => {
             setNotificationOpen(false);
             if (!error) {
+              userLog("changePassword");
               logOut();
               navigate(`${MODULE_APPS_ROOT}`);
             }

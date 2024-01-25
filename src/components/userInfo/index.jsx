@@ -16,7 +16,7 @@ const UserInfo = ({opened, close}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { user, logOut } = useUserContext();
+  const { user, logOut, userLog } = useUserContext();
   const navigate = useNavigate();
   const mw = 500;
   const ms = 300;
@@ -54,6 +54,7 @@ const UserInfo = ({opened, close}) => {
     try {
       ret = await updateUser(params);
       logOut();
+      userLog("save user info");
       navigate(`${MODULE_APPS_ROOT}`);
     } catch (error) {
       setError(error);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { MODULE_APPS_ROOT } from "../data/config";
 import ErrorPage from "./ErrorPage";
@@ -31,8 +32,23 @@ import DocumentsCrud from "../components/cruds/DocumentsCrud";
 import Masterplan from "../components/masterplan/MasterPlan";
 import AppProvier from "../context/AppContext";
 import ShipmentProvider from "../context/ShipmentContext";
+import { useEffect } from "react";
+import { useUserContext } from "../context/UserContext";
 
 const AppsModules = () => {
+
+  const {user, userLog} = useUserContext();
+  
+  useEffect(() => {
+    const log = async () => {
+      await userLog("access to app");
+    };
+
+    if (user) {
+      log();
+    }
+  }, [user]);
+
   const router = createBrowserRouter([
     {
       path: `${MODULE_APPS_ROOT}/`,

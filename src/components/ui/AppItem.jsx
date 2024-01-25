@@ -1,15 +1,18 @@
 import { Grid, Group, Paper, Stack, Text, UnstyledButton } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
 const AppItem = ({ id, name, description, href, selected, setSelected }) => {
   const navigate = useNavigate();
+  const {userLog} = useUserContext();
   return (
     <UnstyledButton
       onClick={() => {
         setSelected(id);
         navigate(href, {options:{replace: true}});
+        userLog(href);
       }}
     >
       <Paper

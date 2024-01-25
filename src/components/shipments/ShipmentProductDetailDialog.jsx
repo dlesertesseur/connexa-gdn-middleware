@@ -6,7 +6,7 @@ const ShipmentProductDetailDialog = ({ title, open, setOpen, product }) => {
     <Modal
       opened={open}
       onClose={() => {
-        setOpen(false);
+        setOpen(null);
       }}
       title={title}
       centered

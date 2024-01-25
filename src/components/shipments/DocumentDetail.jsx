@@ -23,7 +23,6 @@ const DocumentDetail = () => {
   const [items, setItems] = useState(null);
   const [shipments, setShipments] = useState(null);
 
-  const [rowSelected, setRowSelected] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -34,7 +33,13 @@ const DocumentDetail = () => {
   let cols = t("document.items.columns", { returnObjects: true });
 
   const onImageClick = (item) => {
-    setRowSelected(item.id );
+
+    if (item.id) {
+      const product = items.find((r) => r.id === item.id);
+      if (product) {
+        setSelectedProduct(product);
+      }
+    }
   };
 
   const itemsColumns = [
@@ -118,15 +123,15 @@ const DocumentDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reference]);
 
-  useEffect(() => {
-    if (rowSelected) {
-      const product = items.find((r) => r.id === rowSelected);
-      if (product) {
-        setSelectedProduct(product);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowSelected]);
+  // useEffect(() => {
+  //   if (rowSelected) {
+  //     const product = items.find((r) => r.id === rowSelected);
+  //     if (product) {
+  //       setSelectedProduct(product);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [rowSelected]);
 
   return (
     <Stack gap={"xs"}>
@@ -196,11 +201,9 @@ const DocumentDetail = () => {
         </ScrollArea>
       )}
       <ShipmentProductDetailDialog
-        title={rowSelected}
+        title={""}
         open={selectedProduct}
-        setOpen={() => {
-          setSelectedProduct(null);
-        }}
+        setOpen={setSelectedProduct}
         product={selectedProduct}
       />
     </Stack>

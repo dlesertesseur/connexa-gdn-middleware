@@ -19,19 +19,30 @@ const ShipmentProductsDetail = () => {
   const [loading, setLoading] = useState(false);
   const [rowSelected, setRowSelected] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const { setError, statusSelected } = useShipmentContext();
-
   const { reference } = location.state;
+
   const wSize = useWindowSize();
 
   let col = 0;
   const cols = t("importations.items.columns", { returnObjects: true });
 
+  const onImageClick = (item) => {
+
+    if (item.id) {
+      const product = rows.find((r) => r.id === item.id);
+      if (product) {
+        setSelectedProduct(product);
+      }
+    }
+  };
+
   const columns = [
-    { label: cols[col++], field: "image", align: "center", width: 100, type: "image" },
+    { label: cols[col++], field: "image", align: "center", width: 100, type: "image", onClick: onImageClick },
     { label: cols[col++], field: "codigo", align: "right", width: 140 },
     { label: cols[col++], field: "descripcion", align: "left", width: 300 },
     { label: cols[col++], field: "upc", align: "right", width: 150 },
@@ -107,11 +118,9 @@ const ShipmentProductsDetail = () => {
         />
 
         <ShipmentProductDetailDialog
-          title={rowSelected}
+          title={""}
           open={selectedProduct}
-          setOpen={() => {
-            setSelectedProduct(null);
-          }}
+          setOpen={setSelectedProduct}
           product={selectedProduct}
         />
       </Stack>

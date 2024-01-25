@@ -5,15 +5,17 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useMasterPlanContext } from "../../context/MasterPlanContext";
 import EventTimeline from "../ui/EventTimeline";
+import { useViewportSize } from "@mantine/hooks";
 
 const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   const { t } = useTranslation();
   const { getShipmentsPlanByEvent } = useMasterPlanContext();
   const [layers, setLayers] = useState(null);
+  const {height} = useViewportSize();
 
   const [plans, setPlans] = useState(null);
   const rowHeight = 80;
-  const totalHeight = rowHeight * 6;
+  const totalHeight = height - 150;//rowHeight * 6;
 
   async function getData(event) {
     if (event) {
@@ -146,7 +148,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   const monthLabels = months.map((m) => m.name);
 
   return (
-    <Modal.Root opened={opened} onClose={close} size={"100%"} centered>
+    <Modal.Root opened={opened} onClose={close} size={"100%"} centered fullScreen>
       <Modal.Overlay />
       <Modal.Content>
         <Modal.Header>
