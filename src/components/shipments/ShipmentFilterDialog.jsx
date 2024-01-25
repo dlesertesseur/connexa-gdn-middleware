@@ -43,7 +43,9 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
   const disabledIndicator = () => {
     let ret = true;
 
-    if (businessObjectiveSelected !== t("shipments.label.all") || analystSelected !== t("shipments.label.all")) {
+    if (businessObjectiveSelected !== t("shipments.label.all") 
+    || analystSelected !== t("shipments.label.all") 
+    || buyerSelected !== t("shipments.label.all")) {
       ret = false;
     }
 

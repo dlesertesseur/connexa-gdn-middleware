@@ -1,4 +1,4 @@
-import { API_GDNAR} from "./config";
+import { API_GDNAR } from "./config";
 
 const baseUrl = API_GDNAR;
 
@@ -54,7 +54,9 @@ async function findShipmentsByStatus(params) {
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
   const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
 
-  const url = `${baseUrl}/shipments?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}`;
+  const url = `${baseUrl}/shipments?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${
+    buyer ? buyer : ""
+  }`;
 
   console.log("findShipmentsByStatus url -> ", url);
 
@@ -77,7 +79,9 @@ async function findShipmentStatusCount(params) {
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
   const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
 
-  const url = `${baseUrl}/shipments/count?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}`;
+  const url = `${baseUrl}/shipments/count?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${
+    buyer ? buyer : ""
+  }`;
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();
@@ -99,8 +103,10 @@ async function findShipmentsIndicatorsByStatus(params) {
 
   const event = params.event ? `&event=${params.event}` : null;
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
-  const url = `${baseUrl}/shipments/indicators?status=${params.status}${event ? event : ""}${
-    analyst ? analyst : ""
+  const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
+
+  const url = `${baseUrl}/shipments/indicators?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${
+    buyer ? buyer : ""
   }`;
 
   const res = await fetch(url, requestOptions);
@@ -244,5 +250,5 @@ export {
   findAllBuyers,
   findShipmentsItemsByReference,
   findShipmentsByReference,
-  markShipmentAsModied
+  markShipmentAsModied,
 };

@@ -141,7 +141,7 @@ const ShipmentProvider = ({ children }) => {
       getImportatiosByStatus();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusSelected]);
+  }, [statusSelected, analystSelected, analystSelected, buyerSelected]);
 
   const getInfoCards = async () => {
     const params = {
@@ -172,7 +172,6 @@ const ShipmentProvider = ({ children }) => {
           params.analyst = analystSelected;
         }
 
-        
         if (buyerSelected !== t("importations.label.all")) {
           params.buyer = buyerSelected;
         }
