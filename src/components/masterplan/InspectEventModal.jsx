@@ -67,7 +67,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
       label: p.shipment.documentId,
       name: p.shipment.producto,
       values: [
-        { label: "Ord.Comp", value: p.shipment.ordenDeCompra },
+        { label: "Embarque", value: p.shipment.referencia },
         { label: "Analista", value: p.shipment.analista },
         { label: "Valor", value: p.shipment.valorDelEmbarque },
       ],
