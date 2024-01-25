@@ -18,20 +18,24 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
     refreshData,
     setFilterData,
     loadingTotalsData,
+    buyers,
+    buyerSelected,
   } = useShipmentContext();
 
-  const {user} = useUserContext();
+  const { user } = useUserContext();
 
   const [businessObjectiveSelectedLocal, setBusinessObjectiveSelectedLocal] = useState(null);
   const [analystSelectedLocal, setAnalystSelectedLocal] = useState(null);
+  const [buyerSelectedLocal, setBuyerSelectedLocal] = useState(null);
 
   useEffect(() => {
     setBusinessObjectiveSelectedLocal(businessObjectiveSelected);
     setAnalystSelectedLocal(analystSelected);
+    setBuyerSelectedLocal(buyerSelected);
   }, [opened]);
 
   const onAccept = () => {
-    setFilterData(businessObjectiveSelectedLocal, analystSelectedLocal);
+    setFilterData(businessObjectiveSelectedLocal, analystSelectedLocal, buyerSelectedLocal);
     refreshData();
     close();
   };
@@ -63,6 +67,14 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
             data={businessObjectives ? businessObjectives : []}
             value={businessObjectiveSelectedLocal}
             onChange={setBusinessObjectiveSelectedLocal}
+          />
+
+          <Select
+            label={t("shipments.label.buyer")}
+            searchable
+            data={buyers ? buyers : []}
+            value={buyerSelectedLocal}
+            onChange={setBuyerSelectedLocal}
           />
 
           <Select

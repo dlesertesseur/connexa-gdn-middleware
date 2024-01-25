@@ -52,8 +52,11 @@ async function findShipmentsByStatus(params) {
   };
   const event = params.event ? `&event=${params.event}` : null;
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
+  const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
 
-  const url = `${baseUrl}/shipments?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}`;
+  const url = `${baseUrl}/shipments?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}`;
+
+  console.log("findShipmentsByStatus url -> ", url);
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();
@@ -72,8 +75,9 @@ async function findShipmentStatusCount(params) {
 
   const event = params.event ? `&event=${params.event}` : null;
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
+  const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
 
-  const url = `${baseUrl}/shipments/count?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}`;
+  const url = `${baseUrl}/shipments/count?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}`;
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();
@@ -158,6 +162,25 @@ async function findAllAnalysts(params) {
   return data;
 }
 
+async function findAllBuyers(params) {
+  const requestOptions = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+  };
+
+  const url = `${baseUrl}/shipments/buyers`;
+  const res = await fetch(url, requestOptions);
+  const data = await res.json();
+  if (data.error) {
+    throw new Error(data.error);
+  }
+  return data;
+}
+
 async function findShipmentsItemsByReference(params) {
   const requestOptions = {
     method: "GET",
@@ -218,6 +241,7 @@ export {
   findShipmentsIndicatorsByStatus,
   findAllBusinessObjectives,
   findAllAnalysts,
+  findAllBuyers,
   findShipmentsItemsByReference,
   findShipmentsByReference,
   markShipmentAsModied

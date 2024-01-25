@@ -6,6 +6,7 @@ import { useUserContext } from "./UserContext";
 import {
   findAllAnalysts,
   findAllBusinessObjectives,
+  findAllBuyers,
   findAllShipmentStatuses,
   findShipmentStatusCount,
   findShipmentsByStatus,
@@ -29,11 +30,13 @@ const ShipmentProvider = ({ children }) => {
   const [statuses, setStatuses] = useState(null);
   const [businessObjectives, setBusinessObjectives] = useState(null);
   const [analysts, setAnalysts] = useState(null);
+  const [buyers, setBuyers] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [processControl, setProcessControl] = useState(null);
   const [businessObjectiveSelected, setBusinessObjectiveSelected] = useState(t("importations.label.all"));
   const [analystSelected, setAnalystSelected] = useState(user?.sidomkeys !== "*" ? user.sidomkeys : t("importations.label.all"));
+  const [buyerSelected, setbuyerSelected] = useState(t("importations.label.all"));
   const [statusSelected, setStatusSelected] = useState(null);
   const [shipmentsByStatus, setShipmentsByStatus] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
@@ -78,6 +81,11 @@ const ShipmentProvider = ({ children }) => {
         analysts = analysts.filter((e) => e !== "");
         analysts.unshift(t("importations.label.all"));
         setAnalysts(analysts);
+
+        let buyers = await findAllBuyers(params);
+        buyers = buyers.filter((e) => e !== "");
+        buyers.unshift(t("importations.label.all"));
+        setBuyers(buyers);
       }
     } catch (error) {
       setError(error);
@@ -106,6 +114,10 @@ const ShipmentProvider = ({ children }) => {
 
     if (analystSelected !== t("importations.label.all")) {
       params.analyst = analystSelected;
+    }
+
+    if (buyerSelected !== t("importations.label.all")) {
+      params.buyer = buyerSelected;
     }
 
     try {
@@ -160,6 +172,11 @@ const ShipmentProvider = ({ children }) => {
           params.analyst = analystSelected;
         }
 
+        
+        if (buyerSelected !== t("importations.label.all")) {
+          params.buyer = buyerSelected;
+        }
+
         try {
           const value = await findShipmentStatusCount(params);
           if (!value.message) {
@@ -188,9 +205,10 @@ const ShipmentProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statuses, lastUpdate]);
 
-  const setFilterData = (event, analyst) => {
+  const setFilterData = (event, analyst, buyer) => {
     setBusinessObjectiveSelected(event);
     setAnalystSelected(analyst);
+    setbuyerSelected(buyer);
     setLoadingTotalsData(true);
   }
 
@@ -232,7 +250,9 @@ const ShipmentProvider = ({ children }) => {
         setScrollYPos,
         markAsModified,
         selectedColumnId, setSelectedColumnId,
-        sortOrder, setSortOrder
+        sortOrder, setSortOrder,
+        buyers, setBuyers,
+        buyerSelected, setbuyerSelected
       }}
     >
       {children}

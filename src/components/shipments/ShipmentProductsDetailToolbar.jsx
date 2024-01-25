@@ -8,9 +8,6 @@ const ShipmentProductsDetailToolbar = ({ back = null, statusSelected, reference 
 
   const openSidomApp = () => {
     const url = `${config.SIDOM_URL} ${reference}`;
-
-    console.log("openSidomApp url -> ", url);
-    
     const win = window.open(url, '_blank');
     win.focus();
   };
