@@ -7,7 +7,7 @@ import { useUserContext } from "../../context/UserContext";
 import { useEffect, useState } from "react";
 import { findAsociateShipmentsByDocument, findDocumentByReference, findItemsByDocument } from "../../data/documents";
 import { IconAlertOctagonFilled } from "@tabler/icons-react";
-import { BASE_IMAGE_URl } from "../../data/config";
+import { BASE_IMAGE_URl, getSidomShipmentUrl } from "../../data/config";
 import DocumentDetailToolbar from "./DocumentDetailToolbar";
 import ShipmentProductDetailDialog from "./ShipmentProductDetailDialog";
 import SimpleTable from "../ui/SimpleTable/SimpleTable";
@@ -18,11 +18,11 @@ const DocumentDetail = () => {
   const { height } = useViewportSize();
   const { statusSelected } = useShipmentContext();
   const { user } = useUserContext();
-  const { reference } = location.state;
+  const { reference, accessSidom } = location.state;
+
   const [values, setValues] = useState(null);
   const [items, setItems] = useState(null);
   const [shipments, setShipments] = useState(null);
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -33,13 +33,22 @@ const DocumentDetail = () => {
   let cols = t("document.items.columns", { returnObjects: true });
 
   const onImageClick = (item) => {
-
     if (item.id) {
       const product = items.find((r) => r.id === item.id);
       if (product) {
         setSelectedProduct(product);
       }
     }
+  };
+
+  const onLink = (item) => {
+
+    const url = getSidomShipmentUrl(item.interno, item.referencia, item.destinacion);
+    const win = window.open(url, '_blank');
+
+    console.log("onLink -> ", url);
+
+    win.focus();
   };
 
   const itemsColumns = [
@@ -57,7 +66,7 @@ const DocumentDetail = () => {
   cols = t("document.shipments.columns", { returnObjects: true });
   col = 0;
   const shipmentColumns = [
-    { label: cols[col++], field: "referencia", align: "left", width: 150 },
+    { label: cols[col++], field: "referencia", align: "left", width: 150, type: !accessSidom ? "link" : null, onClick: onLink },
     { label: cols[col++], field: "producto", align: "left", width: 200 },
     { label: cols[col++], field: "analista", align: "left", width: 200 },
     { label: cols[col++], field: "evento", align: "left", width: 200 },
@@ -135,7 +144,12 @@ const DocumentDetail = () => {
 
   return (
     <Stack gap={"xs"}>
-      <DocumentDetailToolbar disabled={loading} statusSelected={statusSelected} reference={reference} />
+      <DocumentDetailToolbar
+        disabled={loading}
+        statusSelected={statusSelected}
+        reference={reference}
+        accessSidom={accessSidom}
+      />
       {error ? (
         <Group justify="center">
           <Alert

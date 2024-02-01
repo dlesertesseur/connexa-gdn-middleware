@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Image, Table, UnstyledButton } from "@mantine/core";
+import { Image, Table, Text, UnstyledButton } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 const SimpleTable = ({ columns, data }) => {
@@ -36,13 +36,30 @@ const SimpleTable = ({ columns, data }) => {
               </UnstyledButton>
             </Table.Td>
           );
-
           break;
+
         case "money":
           fields.push(<Table.Td>{item[c.field]}</Table.Td>);
           break;
+
         case "timestampToYYYYMMDD":
           fields.push(<Table.Td>{convertMilisegToYYYYMMDD(item[c.field])}</Table.Td>);
+          break;
+
+        case "link":
+          fields.push(
+            <Table.Td key={item.id}>
+              <UnstyledButton
+                onClick={() => {
+                  c.onClick ? c.onClick(item) : null;
+                }}
+              >
+                <Text fw={600} size="md" c={"blue"}>
+                  {item[c.field]}
+                </Text>
+              </UnstyledButton>
+            </Table.Td>
+          );
           break;
 
         default:

@@ -58,7 +58,7 @@ async function findShipmentsByStatus(params) {
     buyer ? buyer : ""
   }`;
 
-  console.log("findShipmentsByStatus url -> ", url);
+  // console.log("findShipmentsByStatus url -> ", url);
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();

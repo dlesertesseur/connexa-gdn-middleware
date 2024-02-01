@@ -28,6 +28,7 @@ const ShipmentDetailToolbar = ({ disabled, statusSelected, reference, anchorUrl 
               const params = {
                 state: {
                   reference: reference,
+                  accessSidom:true
                 },
                 options: { replace: true },
               };

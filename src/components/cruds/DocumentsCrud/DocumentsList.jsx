@@ -80,6 +80,7 @@ const DocumentsList = () => {
       const params = {
         state: {
           reference: doc.referencia,
+          accessSidom:false
         },
         options: { replace: true },
       };
