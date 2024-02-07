@@ -30,12 +30,17 @@ const MasterPlanPanel = () => {
     const events = await getEventsByYear(params);
     sortData(events, "startDateTime", "asc");
     setData(events);
-    createLayers();
   }
 
   useEffect(() => {
     getData();
   }, [selectedYear]);
+
+  useEffect(() => {
+    if(totalH > 0){
+      createLayers();
+    }
+  }, [totalH]);
 
   const createLayers = () => {
     let layers = [];
