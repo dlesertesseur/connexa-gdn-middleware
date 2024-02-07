@@ -14,7 +14,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   
   const [layers, setLayers] = useState(null);
   const [plans, setPlans] = useState(null);
-  const rowHeight = 80;
+  const rowHeight = 100;
   const totalHeight = height - 150;//rowHeight * 6;
 
   async function getData(event) {
@@ -65,10 +65,12 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
   function createPartsFromPlan(p) {
     const ret = {
       label: p.shipment.documentId,
-      name: p.shipment.producto,
+      //name: p.shipment.producto,
       values: [
+        { label: "Producto", value: p.shipment.producto },
         { label: "Embarque", value: p.shipment.referencia },
         { label: "Analista", value: p.shipment.analista },
+        { label: "Estado", value: p.shipment.estado },
         { label: "Valor", value: p.shipment.valorDelEmbarque },
       ],
       id: p.shipment.id,
@@ -171,6 +173,7 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
                   monthLabels={monthLabels}
                   rowHeight={rowHeight}
                   layers={layers}
+                  minItemWidth={250}
                 />
               </Group>
             ) : (

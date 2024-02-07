@@ -365,6 +365,10 @@
         "estado": "State",
         "embarques": "Shipments"
       }
+    },
+
+    "error":{
+      "documentNotFound":"Purchase order not found"
     }
   },
 

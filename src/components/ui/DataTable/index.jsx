@@ -152,6 +152,7 @@ const DataTable = ({
           align={c.align}
           order={index}
           type={c.type}
+          format={c.format}
           action={c.action}
           selected={selected}
           defaultValue={c.default}

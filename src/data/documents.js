@@ -16,7 +16,15 @@ async function getAllDocuments(params) {
     const url = `${baseUrl}/documents?analyst=${params.sidomkeys}`;
     const res = await fetch(url, requestOptions);
     const data = await res.json();
-    return data;
+
+    const l = data.map((d) => {
+      const ret = {...d};
+      ret.document.valor = Number(ret.document.valor);
+      ret.document.fob = Number(ret.document.fob);
+      return ret;
+    });
+
+    return l;
   } catch (error) {
     return error;
   }

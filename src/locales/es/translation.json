@@ -97,7 +97,7 @@
       "save": "Salvar",
       "account": "Informacion de usuario",
       "changePassword": "Cambiar clave",
-      "assign":"Asignar",
+      "assign": "Asignar",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -172,7 +172,7 @@
       "nextUpdate": "Próxima actualización",
       "businessObjective": "Objetivo de negocio",
       "analyst": "Analista",
-      "buyer":"Comprador",
+      "buyer": "Comprador",
       "feus": "FEUS",
       "all": "Todos",
       "seeOnMap": "Ver en mapa"
@@ -246,12 +246,11 @@
         "depositoActual",
         "depositoActualTipo",
         "fechaRecepcionCd"
-
       ],
       "label": {
         "ordenDeCompra": "Orden de compra",
         "referencia": "Referencia",
-        "comprador":"Comprador",
+        "comprador": "Comprador",
         "facturaProforma": "Factura proforma",
         "spo": "SPO",
         "estado": "Estado",
@@ -279,36 +278,36 @@
         "modoDeTransporte": "Modo de transporte",
         "feus": "FEUS",
 
-        "interno":"Interno",
-        "destinacion":"Destinacion",
-        "medioDeTransporte":"Medio de Transporte",
-        "via":"Via",
-        "ocm":"Ocm",
-        "transportista":"Transportista",
-        "comentarios":"Comentarios",
-        "sediFechaOficializacion":"Sedi ( fecha de oficializacion )",
-        "sediEstado":"Sedi ( estado )",
-        "psiLenor":"Psi Lenor",
-        "psiGs":"Psi GS",
-        "containerSize":"Container (Dim.)",
-        "valorFobDivisa":"Valor Fob Divisa",
-        "condicionDePago":"Condicion de Pago",
-        "estampilla":"Estampilla",
-        "aptoEstimado":"Apto Estimado",
-        "fechaDeAperturaLc":"Fecha de Apertura LC",
-        "numeroLc":"Numero de LC",
-        "produccionFechaDeInicio":"Produccion ( fecha de inicio )",
-        "produccionFechaDeFinEstimada":"Produccion ( fecha de fin estimada )",
-        "motivoDeNoEmbarqueODemora":"Motivo de no embarque o demora",
-        "psiEstado":"Psi Estado",
-        "totalCbm":"Total CBM",
-        "fechaDeEmbarque":"Fecha de Embarque",
-        "fechaLimiteDeDevolucionDeVacios":"Fecha Limite de Devolucion de Vacios",
-        "fechaDeRecepcionDeEstampillas":"Fecha de Recepcion de Estampillas",
-        "estampillasColocadas":"Estampillas colocadas",
-        "depositoActual":"Deposito Actual",
-        "depositoActualTipo":"Deposito Actual ( Tipo )",
-        "fechaRecepcionCd":"Fecha de Recepcion en CD"
+        "interno": "Interno",
+        "destinacion": "Destinacion",
+        "medioDeTransporte": "Medio de Transporte",
+        "via": "Via",
+        "ocm": "Ocm",
+        "transportista": "Transportista",
+        "comentarios": "Comentarios",
+        "sediFechaOficializacion": "Sedi ( fecha de oficializacion )",
+        "sediEstado": "Sedi ( estado )",
+        "psiLenor": "Psi Lenor",
+        "psiGs": "Psi GS",
+        "containerSize": "Container (Dim.)",
+        "valorFobDivisa": "Valor Fob Divisa",
+        "condicionDePago": "Condicion de Pago",
+        "estampilla": "Estampilla",
+        "aptoEstimado": "Apto Estimado",
+        "fechaDeAperturaLc": "Fecha de Apertura LC",
+        "numeroLc": "Numero de LC",
+        "produccionFechaDeInicio": "Produccion ( fecha de inicio )",
+        "produccionFechaDeFinEstimada": "Produccion ( fecha de fin estimada )",
+        "motivoDeNoEmbarqueODemora": "Motivo de no embarque o demora",
+        "psiEstado": "Psi Estado",
+        "totalCbm": "Total CBM",
+        "fechaDeEmbarque": "Fecha de Embarque",
+        "fechaLimiteDeDevolucionDeVacios": "Fecha Limite de Devolucion de Vacios",
+        "fechaDeRecepcionDeEstampillas": "Fecha de Recepcion de Estampillas",
+        "estampillasColocadas": "Estampillas colocadas",
+        "depositoActual": "Deposito Actual",
+        "depositoActualTipo": "Deposito Actual ( Tipo )",
+        "fechaRecepcionCd": "Fecha de Recepcion en CD"
       }
     }
   },
@@ -368,6 +367,9 @@
         "estado": "Estado",
         "embarques": "Embarques"
       }
+    },
+    "error": {
+      "documentNotFound": "Orden de compra no encontrada"
     }
   },
 
@@ -582,7 +584,7 @@
       "assign": "Asignar un comprador",
       "unassigned": "¿Esta seguro de remover el comprador?",
 
-      "button":{
+      "button": {
         "assignBuyer": "Asignar comprador",
         "removeBuyer": "Remover comprador"
       },
@@ -606,8 +608,7 @@
         "shipments": "Embarques",
         "analyst": "Analista",
         "buyerList": "Lista de compradores",
-        "viewDocInSidom":"Ver documento en SIDOM"
-
+        "viewDocInSidom": "Ver documento en SIDOM"
       },
       "placeholder": {
         "selectAbuyer": "seleccione un comprador"
@@ -680,7 +681,6 @@
       "shipping": "Transporte",
       "preparation": "Preparación"
     },
-    "placeholder": {
-    }
+    "placeholder": {}
   }
 }

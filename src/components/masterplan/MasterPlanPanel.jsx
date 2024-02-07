@@ -19,7 +19,7 @@ const MasterPlanPanel = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [totalHeight, setTotalHeight] = useState(0);
   const [opened, { close, open }] = useDisclosure(false);
-
+  const [layers, setLayers] = useState(null);
   const { user } = useUserContext();
 
   const totalH = height - 200;
@@ -30,11 +30,28 @@ const MasterPlanPanel = () => {
     const events = await getEventsByYear(params);
     sortData(events, "startDateTime", "asc");
     setData(events);
+    createLayers();
   }
 
   useEffect(() => {
     getData();
   }, [selectedYear]);
+
+  const createLayers = () => {
+    let layers = [];
+
+    const date = new Date();
+    const actualDate = {
+      id: "actual-day",
+      startDateTime: date,
+      endDateTime: date,
+      color: "rgba( 0, 0, 0, 0.2 )",
+      name: "actualDay",
+      h: totalH,
+    };
+    layers.push(actualDate);
+    setLayers(layers);
+  };
 
   useEffect(() => {
     if (data && height) {
@@ -71,7 +88,7 @@ const MasterPlanPanel = () => {
           endYear={selectedYear?.getFullYear() + 1}
         />
       ) : null}
-      
+
       {data ? (
         <EventTimeline
           startYear={selectedYear?.getFullYear() - 1}
@@ -81,6 +98,7 @@ const MasterPlanPanel = () => {
           monthLabels={monthLabels}
           rowHeight={rowHeight}
           onInspect={onInspect}
+          layers={layers}
         />
       ) : (
         <Center h={totalH} w={"100%"}>

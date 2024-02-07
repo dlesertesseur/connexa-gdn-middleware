@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
 import { HEADER_HIGHT } from "../../../data/config";
 import { useViewportSize } from "@mantine/hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconCalendarMonth } from "@tabler/icons-react";
 import DataTable from "../../ui/DataTable";
 import ModalNotification from "../../ui/ModalNotification";
@@ -17,27 +17,10 @@ const ShipmentPlannerList = () => {
   const [error, setError] = useState(null);
   const [confirmation, setConfirmation] = useState(false);
   const [removing, setRemoving] = useState(false);
+  const [filtredData, setFiltredData] = useState([]);
 
   let col = 0;
   const cols = t("crud.shipmentPlanner.columns", { returnObjects: true });
-
-  const columns = [
-    { label: "", field: "hasPlan", type: "icon", width: 30, iconOn: <IconCalendarMonth size={16} />, iconOff: null },
-    { label: cols[col++], field: "referencia", align: "left", width: 120 },
-    { label: cols[col++], field: "producto", align: "left", width: 200 },
-    { label: cols[col++], field: "analista", align: "left", width: 200 },
-    { label: cols[col++], field: "evento", align: "left", width: 200 },
-    { label: cols[col++], field: "estado", align: "left", width: 200 },
-    { label: cols[col++], field: "necesidadEnCd", align: "center", width: 160 },
-    { label: cols[col++], field: "proveedor", align: "left", width: 300 },
-    { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
-    { label: cols[col++], field: "valorDeEmbarque", align: "right", width: 150, default: 0 },
-    { label: cols[col++], field: "valorDeLaOrdenDeCompra", align: "right", width: 150, default: 0 },
-    { label: cols[col++], field: "moneda", align: "center", width: 100, default: "---" },  
-    { label: cols[col++], field: "incoterm", align: "left", width: 100 },
-    { label: cols[col++], field: "feus", align: "right", width: 100 },
-    { label: cols[col++], field: "canal", align: "centerleft", width: 100 },
-  ];
 
   const {
     loading,
@@ -49,11 +32,61 @@ const ShipmentPlannerList = () => {
     setSelectedColumnId,
     sortOrder,
     setSortOrder,
-    shipmentPlanBySidomkeys,
     hasPlan,
     removePlan,
     reload,
+    shipmentPlanYears,
+    yearSelected,
+    setYearSelected,
+    shipmentPlanByYear,
   } = useShipmentPlannerContext();
+
+  useEffect(() => {
+    if (shipmentPlanYears && shipmentPlanYears.length > 0 && yearSelected == null) {
+      setYearSelected(shipmentPlanYears[0]);
+    }
+  }, [shipmentPlanYears]);
+
+  useEffect(() => {
+    if (yearSelected) {
+      const data = shipmentPlanByYear.get(yearSelected);
+      setFiltredData(data);
+    }
+  }, [yearSelected]);
+
+  const columns = [
+    { label: "", field: "hasPlan", type: "icon", width: 30, iconOn: <IconCalendarMonth size={16} />, iconOff: null },
+    { label: cols[col++], field: "referencia", align: "left", width: 120 },
+    { label: cols[col++], field: "producto", align: "left", width: 200 },
+    { label: cols[col++], field: "analista", align: "left", width: 200 },
+    { label: cols[col++], field: "evento", align: "left", width: 200 },
+    { label: cols[col++], field: "estado", align: "left", width: 200 },
+    { label: cols[col++], field: "necesidadEnCd", align: "center", width: 160 },
+    { label: cols[col++], field: "proveedor", align: "left", width: 300 },
+    { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
+    {
+      label: cols[col++],
+      field: "valorDeEmbarque",
+      align: "right",
+      width: 150,
+      default: 0,
+      type: "strToFloat",
+      format: "es-ES",
+    },
+    {
+      label: cols[col++],
+      field: "valorDeLaOrdenDeCompra",
+      align: "right",
+      width: 150,
+      default: 0,
+      type: "strToFloat",
+      format: "es-ES",
+    },
+    { label: cols[col++], field: "moneda", align: "center", width: 100, default: "---" },
+    { label: cols[col++], field: "incoterm", align: "left", width: 100 },
+    { label: cols[col++], field: "feus", align: "right", width: 100 },
+    { label: cols[col++], field: "canal", align: "centerleft", width: 100 },
+  ];
 
   const onRowClick = (id) => {
     if (id) {
@@ -104,7 +137,7 @@ const ShipmentPlannerList = () => {
         onDelete={() => setConfirmation(true)}
       />
       <DataTable
-        data={shipmentPlanBySidomkeys}
+        data={filtredData}
         columns={columns}
         h={height - HEADER_HIGHT}
         setSelectedRowId={onRowClick}

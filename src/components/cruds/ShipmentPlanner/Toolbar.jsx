@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Button, Group, Text, Title } from "@mantine/core";
+import { Button, Group, Select, Text, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { IconCalendarCheck, IconCalendarMinus, IconCalendarPlus, IconReload } from "@tabler/icons-react";
+import { IconCalendar, IconCalendarCheck, IconCalendarMinus, IconCalendarPlus, IconReload } from "@tabler/icons-react";
 import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
 import { useAppContext } from "../../../context/AppContext";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ const Toolbar = ({ rowSelected, hasPlan, onDelete }) => {
   const { t } = useTranslation();
   const { activeApp } = useAppContext();
   const [app, setApp] = useState(null);
+  const { reload, shipmentPlanYears, yearSelected, setYearSelected } = useShipmentPlannerContext();
 
   useEffect(() => {
     const app = activeApp();
@@ -27,14 +28,14 @@ const Toolbar = ({ rowSelected, hasPlan, onDelete }) => {
     navigate("createPlan");
   };
 
-  const { reload } = useShipmentPlannerContext();
-
   return (
     <Group justify="space-between">
       <Group gap={0} wrap="nowrap">
         <Title size={"h5"}>{app?.name}</Title>
       </Group>
+
       <Group gap={"xs"} wrap="nowrap">
+        <Select leftSection={<IconCalendar size={20} color="#1c7ed6"/>} w={140} size="xs" data={shipmentPlanYears} value={yearSelected} onChange={setYearSelected} />
         <Button
           size="xs"
           onClick={onCreate}
@@ -61,9 +62,6 @@ const Toolbar = ({ rowSelected, hasPlan, onDelete }) => {
         >
           <Text size="xs">{t("crud.shipmentPlanner.button.deletePlan")}</Text>
         </Button>
-        {/* <Button onClick={onBack} disabled={onBack === null ? true : false} size="xs">
-          <Text size="xs">{t("general.button.back")}</Text>
-        </Button> */}
 
         <Button onClick={reload} size="xs" leftSection={<IconReload size={20} />}>
           <Text size="xs">{t("general.button.refresh")}</Text>

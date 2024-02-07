@@ -4,7 +4,6 @@
 import { Box, Group, ScrollArea, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import {
-  convertMilisegToYYYYMMDD,
   daysInMonth,
   daysInTimeFrame,
   daysInYear,
@@ -18,6 +17,8 @@ import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 import Item from "./Item";
 import Layer from "./Layer";
+
+const barColor = "gray.5";
 
 const EventTimeline = ({
   startYear,
@@ -281,7 +282,7 @@ const EventTimeline = ({
           }}
           h={"100%"}
           w={"100%"}
-          bg={r.color ? r.color : "orange"}
+          bg={r.color ? r.color : barColor}
           style={{ borderRadius: 0 }}
         >
           <Box
@@ -335,7 +336,7 @@ const EventTimeline = ({
             }}
             h={"100%"}
             w={"100%"}
-            bg={r.color ? r.color : "orange"}
+            bg={r.color ? r.color : barColor}
             style={{ borderRadius: 0 }}
           ></UnstyledButton>
         </Box>
@@ -372,12 +373,12 @@ const EventTimeline = ({
           {r.values
             ? r.values.map((v) => {
                 const ret = (
-                  <Group gap={5} px={3} justify="flex-start" align="center">
-                    <Text fw={700} size="xs" truncate="end">
+                  <Group wrap="nowrap" gap={5} px={3} justify="flex-start" align="center">
+                    <Text miw={"25%"} fw={700} size="xs" truncate="end">
                       {v.label}
                     </Text>
                     <Text fw={600} size="xs" truncate="end">
-                      {v.value}
+                      {v.value ? v.value : "(NO DEFINIDO)"}
                     </Text>
                   </Group>
                 );

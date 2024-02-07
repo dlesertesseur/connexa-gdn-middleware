@@ -28,6 +28,9 @@ const ShipmentPlannerProvier = ({ children }) => {
   const [data, setData] = useState(null);
 
   const [shipmentPlanBySidomkeys, setShipmentPlanBySidomkeys] = useState(null);
+  const [shipmentPlanByYear, setShipmentPlanByYear] = useState(null);
+  const [shipmentPlanYears, setShipmentPlanYears] = useState(null);
+  const [yearSelected, setYearSelected] = useState(null);
 
   const { user } = useUserContext();
 
@@ -47,22 +50,42 @@ const ShipmentPlannerProvier = ({ children }) => {
   const getShipmentsPlanBySidomkeys = async () => {
     try {
       const planById = new Map();
+      const shipmentPlanByYear = new Map();
       const params = { token: user.token, sidomkeys: user.sidomkeys };
       const ret = await getAllShipmentPlanBySidomkeys(params);
 
       const list = ret.map((o) => {
         planById.set(o.id, o);
         const ret = { ...o.shipment, hasPlan: o.shipmentPlan ? true : false };
+
+        const year = o.shipment.necesidadEnCd ? o.shipment.necesidadEnCd.substring(0, 4) : "SIN DEFINIR";
+        let arr = shipmentPlanByYear.get(year);
+        if(!arr){
+          arr = [];
+          shipmentPlanByYear.set(year, arr);
+        }
+        arr.push(ret);
+
         return ret;
       });
 
       setData(ret);
       setShipmentPlanBySidomkeys(list);
+      setShipmentPlanByYear(shipmentPlanByYear);
     } catch (error) {
       setError(error.message);
     }
   };
 
+  useEffect(() => {
+    if (shipmentPlanByYear) {
+      const keys = [...shipmentPlanByYear.keys()];
+
+      keys.sort((a, b) => b - a);
+      setShipmentPlanYears(keys);
+    }  
+  }, [shipmentPlanByYear])
+  
   async function initData() {
     const start = new Date();
     start.setFullYear(start.getFullYear() - 1);
@@ -77,6 +100,11 @@ const ShipmentPlannerProvier = ({ children }) => {
   useEffect(() => {
     getShipmentsPlanBySidomkeys();
   }, [user, reloadData]);
+
+  useEffect(() => {
+    getShipmentsPlanBySidomkeys();
+  }, [yearSelected]);
+  
 
   function reload() {
     setReloadData(Date.now());
@@ -179,7 +207,10 @@ const ShipmentPlannerProvier = ({ children }) => {
         getAssociatedEventById,
         update,
         removePlan,
-        getShipmentsPlanByEvent
+        getShipmentsPlanByEvent,
+        shipmentPlanByYear,
+        yearSelected, setYearSelected,
+        shipmentPlanYears
       }}
     >
       {children}

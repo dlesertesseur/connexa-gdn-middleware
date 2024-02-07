@@ -48,7 +48,7 @@ const DocumentsList = () => {
     { label: cols[col++], field: "fecha", align: "center", width: 100, type: "timestampToYYYYMMDD" },
     { label: cols[col++], field: "incoterm", align: "left", width: 100 },
     { label: cols[col++], field: "moneda", align: "left", width: 100 },
-    { label: cols[col++], field: "valor", align: "right", width: 100 },
+    { label: cols[col++], field: "valor", align: "right", width: 100, type:"strToFloat", format:"es-ES" },
     { label: cols[col++], field: "fob", align: "right", width: 100 },
     { label: cols[col++], field: "codigoDeProveedor", align: "left", width: 200 },
     // { label: cols[col++], field: "estado", align: "left", width: 250 },

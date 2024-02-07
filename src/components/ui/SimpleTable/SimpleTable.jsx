@@ -20,6 +20,20 @@ const SimpleTable = ({ columns, data }) => {
     return `${year}/${month}/${day}`;
   }
 
+  function convertStrToFloat(value, format, defaultValue) {
+    let n = defaultValue ? defaultValue : "0";
+    if(value){
+      const ret = parseFloat(value);
+      n = formatMumber(ret, format);
+    }
+    return(n);
+  }
+  
+  function formatMumber(value, locale){
+    const ret = value.toLocaleString(locale, {minimumFractionDigits: 2})
+    return(ret);
+  }
+
   const createRow = (item) => {
     const fields = [];
     columns.forEach((c) => {
@@ -39,11 +53,11 @@ const SimpleTable = ({ columns, data }) => {
           break;
 
         case "money":
-          fields.push(<Table.Td>{item[c.field]}</Table.Td>);
+          fields.push(<Table.Td align={c.align} >{item[c.field]}</Table.Td>);
           break;
 
         case "timestampToYYYYMMDD":
-          fields.push(<Table.Td>{convertMilisegToYYYYMMDD(item[c.field])}</Table.Td>);
+          fields.push(<Table.Td align={c.align} >{convertMilisegToYYYYMMDD(item[c.field])}</Table.Td>);
           break;
 
         case "link":
@@ -62,8 +76,17 @@ const SimpleTable = ({ columns, data }) => {
           );
           break;
 
+        case "number":
+          fields.push(<Table.Td align={c.align}>{formatMumber(item[c.field], c.format)}</Table.Td>);
+          break;
+
+        case "strToFloat":
+          fields.push(<Table.Td align={c.align}>{convertStrToFloat(item[c.field], c.format, c.defaultValue)}</Table.Td>);
+          break;
+  
+
         default:
-          fields.push(<Table.Td>{item[c.field]}</Table.Td>);
+          fields.push(<Table.Td align={c.align} >{item[c.field]}</Table.Td>);
           break;
       }
     });

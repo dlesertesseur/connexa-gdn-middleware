@@ -56,7 +56,7 @@ const DocumentDetail = () => {
     { label: cols[col++], field: "codigo", align: "right", width: 140 },
     { label: cols[col++], field: "descripcion", align: "left", width: 300 },
     { label: cols[col++], field: "upc", align: "right", width: 150 },
-    { label: cols[col++], field: "fob", align: "right", width: 140, type: "money" },
+    { label: cols[col++], field: "fob", align: "right", width: 140 },
     { label: cols[col++], field: "unidad", align: "left", width: 140 },
     { label: cols[col++], field: "cantidad", align: "right", width: 140 },
     { label: cols[col++], field: "valor", align: "right", width: 140 },
@@ -119,7 +119,7 @@ const DocumentDetail = () => {
         setShipments(shipments);
       }
     } catch (error) {
-      setError(error);
+      setError(t(`document.error.documentNotFound`));
     }
 
     setLoading(false);
