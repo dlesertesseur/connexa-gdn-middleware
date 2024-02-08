@@ -52,7 +52,7 @@ const ShipmentPlannerList = () => {
       const data = shipmentPlanByYear.get(yearSelected);
       setFiltredData(data);
     }
-  }, [yearSelected]);
+  }, [yearSelected, shipmentPlanByYear]);
 
   const columns = [
     { label: "", field: "hasPlan", type: "icon", width: 30, iconOn: <IconCalendarMonth size={16} />, iconOff: null },

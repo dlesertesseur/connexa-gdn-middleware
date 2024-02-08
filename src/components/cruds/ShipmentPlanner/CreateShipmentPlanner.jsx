@@ -9,7 +9,7 @@ import { HEADER_HIGHT } from "../../../data/config";
 import { useEffect } from "react";
 import { useShipmentPlannerContext } from "../../../context/ShipmentPlannerContext";
 import { DatePickerInput, DatesProvider } from "@mantine/dates";
-import { addDays, convertMilisegToYYYYMMDD, subtractDays } from "../../../utils/utils";
+import { addDays, convertMilisegToYYYYMMDD, sortData, subtractDays } from "../../../utils/utils";
 import ModalNotification from "../../ui/ModalNotification";
 import Header from "./Header";
 import CrudButton from "../CrudButton";
@@ -48,6 +48,7 @@ const CreateShipmentPlanner = () => {
         return ret;
       });
 
+      sortData(events, "label", "asc");
       setEvents(events);
     }
   }, [businessObjectives]);

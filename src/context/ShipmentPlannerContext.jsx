@@ -47,6 +47,18 @@ const ShipmentPlannerProvier = ({ children }) => {
     setLoading(false);
   };
 
+  function getYearOfEvent(str) {
+    // Expresión regular para buscar un año en formato yyyy
+    const regex = /\b\d{4}\b/g;
+    
+    // Buscar coincidencias en el string
+    const matches = str.match(regex);
+    
+    // Si se encontraron coincidencias, retornar el primer año encontrado
+    // De lo contrario, retornar null
+    return matches ? matches[0] : "SIN DEFINIR";
+  }
+
   const getShipmentsPlanBySidomkeys = async () => {
     try {
       const planById = new Map();
@@ -58,7 +70,8 @@ const ShipmentPlannerProvier = ({ children }) => {
         planById.set(o.id, o);
         const ret = { ...o.shipment, hasPlan: o.shipmentPlan ? true : false };
 
-        const year = o.shipment.necesidadEnCd ? o.shipment.necesidadEnCd.substring(0, 4) : "SIN DEFINIR";
+        //const year = o.shipment.necesidadEnCd ? o.shipment.necesidadEnCd.substring(0, 4) : "SIN DEFINIR";
+        const year = getYearOfEvent(o.shipment.evento);
         let arr = shipmentPlanByYear.get(year);
         if(!arr){
           arr = [];
@@ -77,11 +90,25 @@ const ShipmentPlannerProvier = ({ children }) => {
     }
   };
 
+
+  function eventOrder(arr) {
+    arr.sort((a, b) => {
+      // Si uno de los elementos es "SIN DEFINIR", lo colocamos al final
+      if (a === "SIN DEFINIR") return 1;
+      if (b === "SIN DEFINIR") return -1;
+      
+      // Convertimos los elementos a números y los comparamos
+      return parseInt(b) - parseInt(a);
+    });
+
+    return(arr);
+  }
+
   useEffect(() => {
     if (shipmentPlanByYear) {
       const keys = [...shipmentPlanByYear.keys()];
 
-      keys.sort((a, b) => b - a);
+      eventOrder(keys);
       setShipmentPlanYears(keys);
     }  
   }, [shipmentPlanByYear])
@@ -101,11 +128,10 @@ const ShipmentPlannerProvier = ({ children }) => {
     getShipmentsPlanBySidomkeys();
   }, [user, reloadData]);
 
-  useEffect(() => {
-    getShipmentsPlanBySidomkeys();
-  }, [yearSelected]);
+  // useEffect(() => {
+  //   getShipmentsPlanBySidomkeys();
+  // }, [yearSelected]);
   
-
   function reload() {
     setReloadData(Date.now());
   }
