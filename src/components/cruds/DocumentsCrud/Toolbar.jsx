@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
-import { IconUserMinus, IconUserPlus } from "@tabler/icons-react";
+import { IconUserMinus } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../../../context/AppContext";
 import { useEffect, useState } from "react";
 
-const Toolbar = ({ rowSelected, buyer, open, confirm, onViewDetail }) => {
+const Toolbar = ({ rowSelected, buyer, confirm, onViewDetail }) => {
   const { t } = useTranslation();
   const { activeApp } = useAppContext();
   const [app, setApp] = useState(null);
@@ -16,9 +16,10 @@ const Toolbar = ({ rowSelected, buyer, open, confirm, onViewDetail }) => {
     setApp(app);
   }, []);
 
-  const onUpdate = () => {
-    open();
-  };
+  // const onUpdate = () => {
+  //   open();
+  // };
+
   const onDelete = () => {
     confirm();
   };
@@ -32,14 +33,14 @@ const Toolbar = ({ rowSelected, buyer, open, confirm, onViewDetail }) => {
         <Button onClick={() => {onViewDetail(rowSelected)}} disabled={rowSelected ? false : true} size="xs">
           <Text size="xs">{t("general.button.viewDetail")}</Text>
         </Button>
-        <Button
+        {/* <Button
           size="xs"
           onClick={onUpdate}
           disabled={onUpdate && rowSelected && !buyer ? false : true}
           leftSection={<IconUserPlus size={16} />}
         >
           <Text size="xs">{t("crud.documents.button.assignBuyer")}</Text>
-        </Button>
+        </Button> */}
         <Button
           size="xs"
           onClick={onDelete}

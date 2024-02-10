@@ -212,6 +212,7 @@
         "terminoDePago",
         "paisDestino",
         "puertoDestino",
+        "valorDelEmbarque",
         "moneda",
         "modoDeTransporte",
         "feus",
@@ -306,7 +307,8 @@
         "estampillasColocadas":"Estampillas colocadas",
         "depositoActual":"Deposito Actual",
         "depositoActualTipo":"Deposito Actual ( Tipo )",
-        "fechaRecepcionCd":"Fecha de Recepcion en CD"
+        "fechaRecepcionCd":"Fecha de Recepcion en CD",
+        "valorDelEmbarque":"Shipping value"
       }
     }
   },

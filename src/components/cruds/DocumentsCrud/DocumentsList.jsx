@@ -6,16 +6,14 @@ import { Stack } from "@mantine/core";
 import { HEADER_HIGHT } from "../../../data/config";
 import { useEffect, useState } from "react";
 import { useDocumentsCrudContext } from "../../../context/DocumentsCrudContext";
-import { useDisclosure } from "@mantine/hooks";
+import { useNavigate } from "react-router-dom";
 import DataTable from "../../ui/DataTable";
 import Toolbar from "./Toolbar";
-import AsignBuyerModal from "./AsignBuyerModal";
 import ModalConfirmation from "../../ui/ModalConfirmation";
-import { useNavigate } from "react-router-dom";
 
 const DocumentsList = () => {
   const { t } = useTranslation();
-  const [opened, { open, close }] = useDisclosure(false);
+  //const [opened, { open, close }] = useDisclosure(false);
   const [confirmation, setConfirmation] = useState(false);
   const wSize = useWindowSize();
   const navigate = useNavigate();
@@ -32,7 +30,6 @@ const DocumentsList = () => {
     sortOrder,
     setSortOrder,
     hasBuyer,
-    assignBuyerToDocument,
     unassignBuyerToDocument,
     reloadData,
   } = useDocumentsCrudContext();
@@ -54,18 +51,18 @@ const DocumentsList = () => {
     // { label: cols[col++], field: "estado", align: "left", width: 250 },
     { label: cols[col++], field: "embarques", align: "right", width: 100 },
     { label: cols[col++], field: "analista", align: "left", width: 300 },
-    { label: cols[col++], field: "documentBuyer", align: "left", width: 300 },
+    //{ label: cols[col++], field: "documentBuyer", align: "left", width: 300 },
   ];
 
   useEffect(() => {
     getAll();
   }, [reload]);
 
-  const save = async (buyerId) => {
-    await assignBuyerToDocument(buyerId);
-    close();
-    reloadData();
-  };
+  // const save = async (buyerId) => {
+  //   await assignBuyerToDocument(buyerId);
+  //   close();
+  //   reloadData();
+  // };
 
   const unassignBuyer = async () => {
     await unassignBuyerToDocument();
@@ -90,7 +87,7 @@ const DocumentsList = () => {
 
   return (
     <Stack gap={"xs"}>
-      <AsignBuyerModal opened={opened} onCancel={close} onAccept={save} />
+      {/* <AsignBuyerModal opened={opened} onCancel={close} onAccept={save} /> */}
       <ModalConfirmation
         opened={confirmation}
         text={t("crud.documents.unassigned")}
