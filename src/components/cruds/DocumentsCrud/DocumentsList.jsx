@@ -4,17 +4,16 @@ import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../../utils/hooks";
 import { Stack } from "@mantine/core";
 import { HEADER_HIGHT } from "../../../data/config";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDocumentsCrudContext } from "../../../context/DocumentsCrudContext";
 import { useNavigate } from "react-router-dom";
 import DataTable from "../../ui/DataTable";
 import Toolbar from "./Toolbar";
-import ModalConfirmation from "../../ui/ModalConfirmation";
 
 const DocumentsList = () => {
   const { t } = useTranslation();
   //const [opened, { open, close }] = useDisclosure(false);
-  const [confirmation, setConfirmation] = useState(false);
+  //const [confirmation, setConfirmation] = useState(false);
   const wSize = useWindowSize();
   const navigate = useNavigate();
 
@@ -30,8 +29,6 @@ const DocumentsList = () => {
     sortOrder,
     setSortOrder,
     hasBuyer,
-    unassignBuyerToDocument,
-    reloadData,
   } = useDocumentsCrudContext();
 
   let col = 0;
@@ -45,7 +42,7 @@ const DocumentsList = () => {
     { label: cols[col++], field: "fecha", align: "center", width: 100, type: "timestampToYYYYMMDD" },
     { label: cols[col++], field: "incoterm", align: "left", width: 100 },
     { label: cols[col++], field: "moneda", align: "left", width: 100 },
-    { label: cols[col++], field: "valor", align: "right", width: 100, type:"strToFloat", format:"es-ES" },
+    { label: cols[col++], field: "valor", align: "right", width: 100, type: "strToFloat", format: "es-ES" },
     { label: cols[col++], field: "fob", align: "right", width: 100 },
     { label: cols[col++], field: "codigoDeProveedor", align: "left", width: 200 },
     // { label: cols[col++], field: "estado", align: "left", width: 250 },
@@ -64,11 +61,11 @@ const DocumentsList = () => {
   //   reloadData();
   // };
 
-  const unassignBuyer = async () => {
-    await unassignBuyerToDocument();
-    setConfirmation(false);
-    reloadData();
-  };
+  // const unassignBuyer = async () => {
+  //   await unassignBuyerToDocument();
+  //   setConfirmation(false);
+  //   reloadData();
+  // };
 
   function onViewDetail(id) {
     const doc = documents.find((d) => d.id === id);
@@ -77,7 +74,7 @@ const DocumentsList = () => {
       const params = {
         state: {
           reference: doc.referencia,
-          accessSidom:false
+          accessSidom: false,
         },
         options: { replace: true },
       };
@@ -88,7 +85,7 @@ const DocumentsList = () => {
   return (
     <Stack gap={"xs"}>
       {/* <AsignBuyerModal opened={opened} onCancel={close} onAccept={save} /> */}
-      <ModalConfirmation
+      {/* <ModalConfirmation
         opened={confirmation}
         text={t("crud.documents.unassigned")}
         onAccept={() => {
@@ -97,15 +94,15 @@ const DocumentsList = () => {
         onCancel={() => {
           setConfirmation(null);
         }}
-      />
+      /> */}
       <Toolbar
         title={t("crud.documents.title")}
         rowSelected={selectedRowId}
         buyer={hasBuyer(selectedRowId)}
         open={open}
-        confirm={() => {
-          setConfirmation(true);
-        }}
+        // confirm={() => {
+        //   setConfirmation(true);
+        // }}
         onViewDetail={onViewDetail}
       />
       <DataTable

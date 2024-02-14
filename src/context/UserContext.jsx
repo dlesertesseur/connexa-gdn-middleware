@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from "react";
 import { API_GDNAR, config } from "../data/config";
-import { getAllUsers } from "../data/user";
+import { getAllUsers, getUserById } from "../data/user";
 
 const UserContext = createContext();
 
@@ -17,15 +18,27 @@ const UserProvier = ({ children }) => {
   const [localDataLoaded, setLocalDataLoaded] = useState(false);
   const [users, setUsers] = useState(null);
 
-  useEffect(() => {
+  const getData = async () => {
     if (!user) {
       const localUserData = localStorage.getItem("user");
       if (localUserData) {
+        try {
+          const usr = await getUserById(user.id);
+          if (!usr) {
+            logOut();
+          }
+        } catch (error) {
+          logOut();
+        }
         setUser(JSON.parse(localUserData));
       }
     }
     setLocalDataLoaded(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   const authenticate = async (parameters) => {
@@ -83,7 +96,7 @@ const UserProvier = ({ children }) => {
     let active = false;
     try {
       const url = "/api/auth";
-      const res = await fetch(url, { cache: "no-store" });
+      const res = await fetch(url);
       const data = await res.json();
 
       if (data.error) {
@@ -127,7 +140,7 @@ const UserProvier = ({ children }) => {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        token:user.token
+        token: user.token,
       },
       body: body,
     };

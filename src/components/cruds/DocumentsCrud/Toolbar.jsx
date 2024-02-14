@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { Button, Group, Text, Title } from "@mantine/core";
-import { IconUserMinus } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { useAppContext } from "../../../context/AppContext";
 import { useEffect, useState } from "react";
 
-const Toolbar = ({ rowSelected, buyer, confirm, onViewDetail }) => {
+const Toolbar = ({ rowSelected, onViewDetail }) => {
   const { t } = useTranslation();
   const { activeApp } = useAppContext();
   const [app, setApp] = useState(null);
@@ -20,9 +19,9 @@ const Toolbar = ({ rowSelected, buyer, confirm, onViewDetail }) => {
   //   open();
   // };
 
-  const onDelete = () => {
-    confirm();
-  };
+  // const onDelete = () => {
+  //   confirm();
+  // };
 
   return (
     <Group justify="space-between">
@@ -41,14 +40,14 @@ const Toolbar = ({ rowSelected, buyer, confirm, onViewDetail }) => {
         >
           <Text size="xs">{t("crud.documents.button.assignBuyer")}</Text>
         </Button> */}
-        <Button
+        {/* <Button
           size="xs"
           onClick={onDelete}
           disabled={onDelete && rowSelected && buyer ? false : true}
           leftSection={<IconUserMinus size={16} />}
         >
           <Text size="xs">{t("crud.documents.button.removeBuyer")}</Text>
-        </Button>
+        </Button> */}
       </Group>
     </Group>
   );

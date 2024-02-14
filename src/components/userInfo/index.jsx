@@ -33,13 +33,19 @@ const UserInfo = ({opened, close}) => {
 
   async function getData() {
     setLoading(true);
-    const params = { id: user.id, token: user.token };
-    const ret = await getUserById(params);
 
-    form.setFieldValue("lastname", ret.lastname);
-    form.setFieldValue("firstname", ret.firstname);
-    form.setFieldValue("email", ret.username);
-    form.setFieldValue("sidomkey", ret.sidomkey);
+    try {
+      
+      const params = { id: user.id, token: user.token };
+      const ret = await getUserById(params);
+
+      form.setFieldValue("lastname", ret.lastname);
+      form.setFieldValue("firstname", ret.firstname);
+      form.setFieldValue("email", ret.username);
+      form.setFieldValue("sidomkey", ret.sidomkey);
+    } catch (error) {
+      console.log(error);
+    }
 
     setLoading(false);
   }
