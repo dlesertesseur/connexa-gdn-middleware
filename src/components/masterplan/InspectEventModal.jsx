@@ -40,6 +40,9 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
         color: "rgba( 255, 0, 0, 0.2 )",
         name: event.name,
         h: totalHeight,
+        border:true,
+        borderColor:"#ff0000",
+        borderWidth:3
       };
       layers.push(ret);
 

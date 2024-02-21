@@ -53,6 +53,7 @@ const MasterPlanPanel = () => {
       color: "rgba( 0, 0, 0, 0.2 )",
       name: "actualDay",
       h: totalH,
+      border: true
     };
     layers.push(actualDate);
     setLayers(layers);

@@ -3,12 +3,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Group, ScrollArea, Stack, Text, UnstyledButton } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
-import {
-  daysInMonth,
-  daysInTimeFrame,
-  daysInYear,
-  diffBetweenDays,
-} from "../../../utils/utils";
+import { daysInMonth, daysInTimeFrame, daysInYear, diffBetweenDays } from "../../../utils/utils";
 import Header from "./Header";
 import Body from "./Body";
 import Column from "./Column";
@@ -173,7 +168,20 @@ const EventTimeline = ({
         posX = diffBetweenDays(startDate, layer.startDateTime) * relationPixeDay;
       }
 
-      ret = <Layer key={layer.id} id={layer.id} order={index} h={layer.h ? layer.h : h} w={blockW} left={posX} color={layer.color} />;
+      ret = (
+        <Layer
+          key={layer.id}
+          id={layer.id}
+          order={index}
+          h={layer.h ? layer.h : h}
+          w={blockW}
+          left={posX}
+          color={layer.color}
+          border={layer.border}
+          borderColor={layer.borderColor}
+          borderWidth={layer.borderWidth}
+        />
+      );
     }
 
     return ret;
@@ -433,10 +441,12 @@ const EventTimeline = ({
                 itemRef?.current.scrollTo({ top: e.y });
               }}
             >
-              {<Body h={h - headerHeight}>
-                {objRows}
-                {objLayers}
-              </Body>}
+              {
+                <Body h={h - headerHeight}>
+                  {objRows}
+                  {objLayers}
+                </Body>
+              }
             </ScrollArea>
           </ScrollArea>
         </Stack>

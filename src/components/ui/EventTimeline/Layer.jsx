@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box } from "@mantine/core";
 
-const Layer = ({ h, w, left, color }) => {
+const Layer = ({ h, w, left, color, border = false, borderColor = "red", borderWidth=2 }) => {
   return (
     <Box
       left={left}
@@ -13,7 +13,11 @@ const Layer = ({ h, w, left, color }) => {
       h={h}
       gap={0}
       bg={color}
-      style={{ pointerEvents: "none" }}
+      style={{
+        pointerEvents: "none",
+        borderLeft: border ? `dashed ${borderWidth}px ${borderColor}` : "none",
+        borderRight: border ? `dashed ${borderWidth}px ${borderColor}` : "none",
+      }}
     ></Box>
   );
 };
