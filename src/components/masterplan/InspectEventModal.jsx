@@ -7,13 +7,16 @@ import { useMasterPlanContext } from "../../context/MasterPlanContext";
 import { useViewportSize } from "@mantine/hooks";
 import EventTimeline from "../ui/EventTimeline";
 
-const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
+const InspectEventModal = ({ opened, close, event }) => {
   const { t } = useTranslation();
   const { getShipmentsPlanByEvent } = useMasterPlanContext();
   const {height} = useViewportSize();
   
   const [layers, setLayers] = useState(null);
   const [plans, setPlans] = useState(null);
+  const [startDateTimeRange, setStartDateTimeRange] = useState(null);
+  const [endDateTimeRange, setEndDateTimeRange] = useState(null);
+  
   const rowHeight = 100;
   const totalHeight = height - 150;//rowHeight * 6;
 
@@ -21,6 +24,19 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
     if (event) {
       const plans = await getShipmentsPlanByEvent(event.id);
       if (plans) {
+
+        const maxMin = plans.reduce((acc, plan) => {
+          acc[0] = acc[0] === undefined || plan.shipmentPlan.preparationStart < acc[0] ? plan.shipmentPlan.preparationStart : acc[0];
+          acc[1] = acc[1] === undefined || plan.shipmentPlan.salesEnd > acc[1] ? plan.shipmentPlan.salesEnd : acc[1];
+          return acc;
+        }, []);
+
+        const start = new Date(maxMin[0]);
+        const end = new Date(maxMin[1]);
+
+        setStartDateTimeRange(start.getFullYear());
+        setEndDateTimeRange(end.getFullYear());
+
         const plansWithParts = createPartsFromPlansData(plans);
         setPlans(plansWithParts);
       }
@@ -169,8 +185,8 @@ const InspectEventModal = ({ opened, close, event, startYear, endYear }) => {
             {plans && layers && totalHeight > 0? (
               <Group gap={0} grow>
                 <EventTimeline
-                  startYear={startYear}
-                  endYear={endYear}
+                  startYear={startDateTimeRange}
+                  endYear={endDateTimeRange}
                   data={plans}
                   h={totalHeight}
                   monthLabels={monthLabels}

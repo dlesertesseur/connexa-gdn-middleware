@@ -29,7 +29,9 @@ const ShipmentStatusDetail = () => {
     { label: cols[col++], field: "feus", align: "right", width: 200 },
     { label: cols[col++], field: "proveedor", align: "left", width: 200 },
     { label: cols[col++], field: "necesidadEnCd", align: "center", width: 160 },
-    { label: cols[col++], field: "canal", align: "centerleft", width: 160 },
+    { label: cols[col++], field: "division", align: "left", width: 160 },
+    { label: cols[col++], field: "departamento", align: "left", width: 160 },
+    { label: cols[col++], field: "canal", align: "left", width: 160 },
   ];
 
   const {

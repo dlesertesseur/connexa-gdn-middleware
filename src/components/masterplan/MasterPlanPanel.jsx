@@ -20,6 +20,8 @@ const MasterPlanPanel = () => {
   const [totalHeight, setTotalHeight] = useState(0);
   const [opened, { close, open }] = useDisclosure(false);
   const [layers, setLayers] = useState(null);
+  const [startDateTimeRange, setStartDateTimeRange] = useState(null);
+  const [endDateTimeRange, setEndDateTimeRange] = useState(null);
   const { user } = useUserContext();
 
   const totalH = height - 200;
@@ -28,6 +30,24 @@ const MasterPlanPanel = () => {
   async function getData() {
     const params = { token: user.token, year: selectedYear?.getFullYear() };
     const events = await getEventsByYear(params);
+
+    if (events && events.length > 0) {
+      const maxMin = events.reduce((acc, evt) => {
+        acc[0] = acc[0] === undefined || evt.startDateTime < acc[0] ? evt.startDateTime : acc[0];
+        acc[1] = acc[1] === undefined || evt.endDateTime > acc[1] ? evt.endDateTime : acc[1];
+        return acc;
+      }, []);
+
+      const start = new Date(maxMin[0]);
+      const end = new Date(maxMin[1]);
+
+      setStartDateTimeRange(start.getFullYear());
+      setEndDateTimeRange(end.getFullYear());
+    } else {
+      setStartDateTimeRange(selectedYear?.getFullYear());
+      setEndDateTimeRange(selectedYear?.getFullYear());
+    }
+
     sortData(events, "startDateTime", "asc");
     setData(events);
   }
@@ -90,15 +110,13 @@ const MasterPlanPanel = () => {
           opened={opened}
           close={close}
           event={selectedEvent}
-          startYear={selectedYear?.getFullYear() - 1}
-          endYear={selectedYear?.getFullYear() + 1}
         />
       ) : null}
 
       {data ? (
         <EventTimeline
-          startYear={selectedYear?.getFullYear() - 1}
-          endYear={selectedYear?.getFullYear() + 1}
+          startYear={startDateTimeRange}
+          endYear={endDateTimeRange}
           data={data}
           h={totalHeight}
           monthLabels={monthLabels}
