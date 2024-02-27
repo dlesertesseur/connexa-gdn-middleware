@@ -311,7 +311,7 @@
         "depositoActual": "Deposito Actual",
         "depositoActualTipo": "Deposito Actual ( Tipo )",
         "fechaRecepcionCd": "Fecha de Recepcion en CD",
-        "valorDelEmbarque":"Valor del embarque"
+        "valorDelEmbarque": "Valor del embarque"
       }
     }
   },
@@ -686,5 +686,26 @@
       "preparation": "Preparación"
     },
     "placeholder": {}
+  },
+
+  "card": {
+    "title": {
+      "1": "Moneda",
+      "2": "Cumplimiento de plan",
+      "3": "Evento",
+      "4": "Pais",
+      "5": "Division",
+      "6": "Estado",
+      "7": "Comprador",
+      "8": "Departamento",
+      "9": "Sprint"
+    }
+  },
+  "label": {
+    "bad": "Embarque demorados",
+    "good": "Embarques a tiempo",
+    "regular": "Regular",
+    "shipments": "Embarques",
+    "unselectedShipment":"No hay un emnarque seleccionado"
   }
 }

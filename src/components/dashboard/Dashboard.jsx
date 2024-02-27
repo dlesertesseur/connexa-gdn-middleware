@@ -1,36 +1,92 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { Stack } from "@mantine/core";
-import { useViewportSize } from "@mantine/hooks";
+import { SimpleGrid, Stack } from "@mantine/core";
+import { useTranslation } from "react-i18next";
+import { useDisclosure } from "@mantine/hooks";
+import { useState } from "react";
+import HorizontalBarsPanel from "./HorizontalBarsPanel";
+import LightIndicatorsPanel from "./LightIndicatorsPanel";
+import InspectPanelModal from "./InspectPanelModal";
 
-const Dashboard = () => {
-  const { height } = useViewportSize();
-  // const { t } = useTranslation();
-  // const [data, setData] = useState(null);
+const Importations = () => {
+  const { t } = useTranslation();
 
-  // const { user } = useUserContext();
+  const [lightIndicatorOpened, { close, open }] = useDisclosure(false);
+  const [selectedPanel, setSelectedPanel] = useState(null);
 
-  // async function getData() {
-  //   const params = { token: user.token };
-  //   const data = await findAllBusinessGoals(params);
-  //   setData(data);
-  // }
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // const months = t("months", { returnObjects: true });
-  // const monthLabels = months.map(m => m.name);
+  const onPanelClick = (title, name, data) => {
+    const panel = { title: title, name: name, data: data };
+    setSelectedPanel(panel);
+    open();
+  };
 
   return (
-    <Stack spacing={0} h={height - 80}>
-      {/* <Group justify="flex-start" mb={"md"}>
-        <Group align="center">
-          <DashboardFilterPanel />
-        </Group>
-      </Group> */}
+    <Stack>
+      {lightIndicatorOpened ? (
+        <InspectPanelModal opened={lightIndicatorOpened} close={close} panel={selectedPanel} />
+      ) : null}
+
+      <SimpleGrid
+        cols={{ base: 1, xs: 2, sm: 3 }}
+        spacing={{ base: "xs", sm: "md" }}
+        verticalSpacing={{ base: "xs", sm: "md" }}
+      >
+        <HorizontalBarsPanel
+          title={t("card.title.1")}
+          name={"indicatorByCurrency"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+        <LightIndicatorsPanel
+          title={t("card.title.2")}
+          name={"indicatorByScheduleCompliance"}
+          onclick={onPanelClick}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.3")}
+          name={"indicatorByEvent"}
+          color="blue"
+          onclick={() => {
+            onPanelClick(3);
+          }}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.4")}
+          name={"indicatorByCountry"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.5")}
+          name={"indicatorByDivision"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.6")}
+          name={"indicatorByStatus"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.7")}
+          name={"indicatorByBuyer"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.8")}
+          name={"indicatorByDepartment"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+        <HorizontalBarsPanel
+          title={t("card.title.9")}
+          name={"indicatorBySprint"}
+          color="blue"
+          onclick={onPanelClick}
+        />
+      </SimpleGrid>
     </Stack>
   );
 };
 
-export default Dashboard;
+export default Importations;

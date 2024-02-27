@@ -34,11 +34,11 @@ import AppProvier from "../context/AppContext";
 import ShipmentProvider from "../context/ShipmentContext";
 import { useEffect } from "react";
 import { useUserContext } from "../context/UserContext";
+import Dashboard from "../components/dashboard/Dashboard";
 
 const AppsModules = () => {
+  const { user, userLog } = useUserContext();
 
-  const {user, userLog} = useUserContext();
-  
   useEffect(() => {
     const log = async () => {
       await userLog("access to app");
@@ -222,6 +222,12 @@ const AppsModules = () => {
               errorElement: <ErrorPage />,
             },
           ],
+        },
+        {
+          path: `${MODULE_APPS_ROOT}/dashboard`,
+          element: <Dashboard />,
+
+          errorElement: <ErrorPage />,
         },
       ],
     },
