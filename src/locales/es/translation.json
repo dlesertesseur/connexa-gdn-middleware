@@ -691,7 +691,7 @@
   "card": {
     "title": {
       "1": "Moneda",
-      "2": "Cumplimiento de plan",
+      "2": "Embarques en curso",
       "3": "Evento",
       "4": "Pais",
       "5": "Division",
@@ -702,8 +702,8 @@
     }
   },
   "label": {
-    "bad": "Embarque demorados",
-    "good": "Embarques a tiempo",
+    "bad": "Embarque inconsistentes",
+    "good": "Embarques consistentes",
     "regular": "Regular",
     "shipments": "Embarques",
     "unselectedShipment":"No hay un emnarque seleccionado"

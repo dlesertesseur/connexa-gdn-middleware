@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
-import { Badge, Stack, Tabs } from "@mantine/core";
+import { Badge, Stack, Tabs, Text } from "@mantine/core";
 import { IconMoodAngry, IconMoodSmile } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ShipmentStatusDetail from "./ShipmentStatusDetail";
 
-const headerHeight = 200;
+const headerHeight = 216;
 
 const ShipmentPanel = ({ panel, height }) => {
   const { t } = useTranslation();
@@ -36,8 +36,8 @@ const ShipmentPanel = ({ panel, height }) => {
   }, [panel]);
 
   return (
-    <Stack gap={4}>
-      <Tabs defaultValue="bad">
+    <Stack gap={0}>
+      <Tabs defaultValue="bad" variant="default">
         <Tabs.List>
           <Tabs.Tab
             value="bad"
@@ -48,7 +48,7 @@ const ShipmentPanel = ({ panel, height }) => {
               </Badge>
             }
           >
-            {t("label.bad")}
+            <Text c={"red"} fw={600}>{t("label.bad")}</Text>
           </Tabs.Tab>
           <Tabs.Tab
             value="good"
@@ -59,23 +59,15 @@ const ShipmentPanel = ({ panel, height }) => {
               </Badge>
             }
           >
-            {t("label.good")}
+            <Text c={"green"} fw={600}>{t("label.good")}</Text>
           </Tabs.Tab>
         </Tabs.List>
 
-        <Tabs.Panel value="good">
-          <ShipmentStatusDetail
-            data={shipmentGoodList}
-            shipmentMap={shipmentGoodMap}
-            height={height - headerHeight}
-          />
+        <Tabs.Panel value="good" py={"xs"}>
+          <ShipmentStatusDetail data={shipmentGoodList} shipmentMap={shipmentGoodMap} height={height - headerHeight} />
         </Tabs.Panel>
-        <Tabs.Panel value="bad">
-          <ShipmentStatusDetail
-            data={shipmentBadList}
-            shipmentMap={shipmentBadMap}
-            height={height - headerHeight}
-          />
+        <Tabs.Panel value="bad" py={"xs"}>
+          <ShipmentStatusDetail data={shipmentBadList} shipmentMap={shipmentBadMap} height={height - headerHeight} />
         </Tabs.Panel>
       </Tabs>
     </Stack>

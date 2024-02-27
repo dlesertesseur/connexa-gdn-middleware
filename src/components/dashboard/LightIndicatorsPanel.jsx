@@ -21,9 +21,9 @@ const LightIndicatorsPanel = ({ title = "NO TITLE", name, onclick }) => {
 
     const ret = await getIndicator(name, params);
     if (ret) {
-      list.push({ label: `${ret.numberOfShipmentsInRedColor} ${t("label.shipments")}`, data: ret.shipmentsInRedColor });
+      list.push({ label: `${ret.numberOfShipmentsInRedColor} ${t("label.bad")}`, data: ret.shipmentsInRedColor });
       list.push({
-        label: `${ret.numberOfShipmentsInGreenColor} ${t("label.shipments")}`,
+        label: `${ret.numberOfShipmentsInGreenColor} ${t("label.good")}`,
         data: ret.shipmentsInGreenColor,
       });
     }

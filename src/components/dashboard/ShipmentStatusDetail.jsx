@@ -182,6 +182,19 @@ const ShipmentStatusDetail = ({ data = [], height, shipmentMap }) => {
         };
         layers.push(ret);
       }
+
+      const date = new Date();
+      const actualDate = {
+        id: "actual-day",
+        startDateTime: date,
+        endDateTime: date,
+        color: "rgba( 0, 0, 0, 0.6 )",
+        name: "actualDay",
+        h: rowHeight,
+        border: false
+      };
+
+      layers.push(actualDate);
       setLayers(layers);
 
     } catch (error) {
@@ -228,6 +241,7 @@ const ShipmentStatusDetail = ({ data = [], height, shipmentMap }) => {
           monthLabels={monthLabels}
           rowHeight={rowHeight}
           layers={layers}
+          minItemWidth={250}
         />
       ) : (
         <Group h={planHeight} justify="center" align="center">
