@@ -20,6 +20,8 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
     loadingTotalsData,
     buyers,
     buyerSelected,
+    years,
+    yearSelected
   } = useShipmentContext();
 
   const { user } = useUserContext();
@@ -27,15 +29,17 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
   const [businessObjectiveSelectedLocal, setBusinessObjectiveSelectedLocal] = useState(null);
   const [analystSelectedLocal, setAnalystSelectedLocal] = useState(null);
   const [buyerSelectedLocal, setBuyerSelectedLocal] = useState(null);
+  const [yearSelectedLocal, setYearSelectedLocal] = useState(null);
 
   useEffect(() => {
     setBusinessObjectiveSelectedLocal(businessObjectiveSelected);
     setAnalystSelectedLocal(analystSelected);
     setBuyerSelectedLocal(buyerSelected);
+    setYearSelectedLocal(yearSelected);
   }, [opened]);
 
   const onAccept = () => {
-    setFilterData(businessObjectiveSelectedLocal, analystSelectedLocal, buyerSelectedLocal);
+    setFilterData(businessObjectiveSelectedLocal, analystSelectedLocal, buyerSelectedLocal, yearSelectedLocal);
     refreshData();
     close();
   };
@@ -43,9 +47,12 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
   const disabledIndicator = () => {
     let ret = true;
 
-    if (businessObjectiveSelected !== t("shipments.label.all") 
-    || analystSelected !== t("shipments.label.all") 
-    || buyerSelected !== t("shipments.label.all")) {
+    if (
+      businessObjectiveSelected !== t("shipments.label.all") ||
+      analystSelected !== t("shipments.label.all") ||
+      buyerSelected !== t("shipments.label.all")  ||
+      yearSelected !== t("shipments.label.all")
+    ) {
       ret = false;
     }
 
@@ -86,6 +93,14 @@ const ShipmentFilterDialog = ({ opened, open, close }) => {
             data={analysts ? analysts : []}
             value={analystSelectedLocal}
             onChange={setAnalystSelectedLocal}
+          />
+
+          <Select
+            label={t("shipments.label.necesidadEnCd")}
+            searchable
+            data={years ? years : []}
+            value={yearSelectedLocal}
+            onChange={setYearSelectedLocal}
           />
 
           <Group justify="right" mt={"xs"}>

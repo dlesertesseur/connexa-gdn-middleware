@@ -66,7 +66,8 @@
       "analyst": "Analista",
       "feus": "FEUS",
       "all": "Todos",
-      "seeOnMap": "Ver en mapa"
+      "seeOnMap": "Ver en mapa",
+      "noYear":"SIN AÑO"
     },
 
     "filter": {
@@ -177,7 +178,8 @@
       "buyer": "Comprador",
       "feus": "FEUS",
       "all": "Todos",
-      "seeOnMap": "Ver en mapa"
+      "seeOnMap": "Ver en mapa",
+      "necesidadEnCd": "Necesidad en CD"
     },
 
     "filter": {

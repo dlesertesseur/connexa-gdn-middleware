@@ -53,10 +53,9 @@ async function findShipmentsByStatus(params) {
   const event = params.event ? `&event=${params.event}` : null;
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
   const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
+  const year = params.year ? `&year=${params.year}` : null;
 
-  const url = `${baseUrl}/shipments?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${
-    buyer ? buyer : ""
-  }`;
+  const url = `${baseUrl}/shipments/new/?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}${year ? year : ""}`;
 
   // console.log("findShipmentsByStatus url -> ", url);
 
@@ -78,10 +77,9 @@ async function findShipmentStatusCount(params) {
   const event = params.event ? `&event=${params.event}` : null;
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
   const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
+  const year = params.year ? `&year=${params.year}` : null;
 
-  const url = `${baseUrl}/shipments/count?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${
-    buyer ? buyer : ""
-  }`;
+  const url = `${baseUrl}/shipments/count/new?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}${year ? year : ""}`;
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();
@@ -104,10 +102,9 @@ async function findShipmentsIndicatorsByStatus(params) {
   const event = params.event ? `&event=${params.event}` : null;
   const analyst = params.analyst ? `&analyst=${params.analyst}` : null;
   const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
+  const year = params.year ? `&year=${params.year}` : null;
 
-  const url = `${baseUrl}/shipments/indicators?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${
-    buyer ? buyer : ""
-  }`;
+  const url = `${baseUrl}/shipments/indicators/new?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}${year ? year : ""}`;
 
   const res = await fetch(url, requestOptions);
   const data = await res.json();
@@ -222,6 +219,25 @@ async function findShipmentsByReference(params) {
   return data;
 }
 
+async function findAllYears(params) {
+  const requestOptions = {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      token: params.token,
+    },
+  };
+
+  const url = `${baseUrl}/shipments/years`;
+  const res = await fetch(url, requestOptions);
+  const data = await res.json();
+  if (data.error) {
+    throw new Error(data.error);
+  }
+  return data;
+}
+
 async function markShipmentAsModied(params) {
   const requestOptions = {
     method: "PUT",
@@ -238,6 +254,7 @@ async function markShipmentAsModied(params) {
   return data;
 }
 
+
 export {
   getProcessStatus,
   findAllShipments,
@@ -250,5 +267,6 @@ export {
   findAllBuyers,
   findShipmentsItemsByReference,
   findShipmentsByReference,
+  findAllYears,
   markShipmentAsModied,
 };

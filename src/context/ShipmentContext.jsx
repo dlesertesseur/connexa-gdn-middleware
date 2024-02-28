@@ -8,6 +8,7 @@ import {
   findAllBusinessObjectives,
   findAllBuyers,
   findAllShipmentStatuses,
+  findAllYears,
   findShipmentStatusCount,
   findShipmentsByStatus,
   findShipmentsIndicatorsByStatus,
@@ -31,12 +32,16 @@ const ShipmentProvider = ({ children }) => {
   const [businessObjectives, setBusinessObjectives] = useState(null);
   const [analysts, setAnalysts] = useState(null);
   const [buyers, setBuyers] = useState(null);
+  const [years, setYears] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [processControl, setProcessControl] = useState(null);
   const [businessObjectiveSelected, setBusinessObjectiveSelected] = useState(t("importations.label.all"));
-  const [analystSelected, setAnalystSelected] = useState(user?.sidomkeys !== "*" ? user.sidomkeys : t("importations.label.all"));
-  const [buyerSelected, setbuyerSelected] = useState(t("importations.label.all"));
+  const [analystSelected, setAnalystSelected] = useState(
+    user?.sidomkeys !== "*" ? user.sidomkeys : t("importations.label.all")
+  );
+  const [buyerSelected, setBuyerSelected] = useState(t("importations.label.all"));
+  const [yearSelected, setYearSelected] = useState(`${new Date().getFullYear()}`);
   const [statusSelected, setStatusSelected] = useState(null);
   const [shipmentsByStatus, setShipmentsByStatus] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
@@ -86,6 +91,11 @@ const ShipmentProvider = ({ children }) => {
         buyers = buyers.filter((e) => e !== "");
         buyers.unshift(t("importations.label.all"));
         setBuyers(buyers);
+
+        let years = await findAllYears(params);
+        years = years.filter((e) => e !== "");
+        years.unshift(t("importations.label.all"));
+        setYears(years);
       }
     } catch (error) {
       setError(error);
@@ -120,6 +130,10 @@ const ShipmentProvider = ({ children }) => {
       params.buyer = buyerSelected;
     }
 
+    if (yearSelected !== t("importations.label.all")) {
+      params.year = yearSelected;
+    }
+
     try {
       setLoading(true);
       const list = await findShipmentsByStatus(params);
@@ -141,18 +155,18 @@ const ShipmentProvider = ({ children }) => {
       getImportatiosByStatus();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusSelected, analystSelected, analystSelected, buyerSelected]);
+  }, [statusSelected, analystSelected, analystSelected, buyerSelected, yearSelected]);
 
   const getInfoCards = async () => {
     const params = {
       token: user.token,
     };
-    
+
     const processControl = await getProcessStatus(params);
     if (processControl && processControl.length > 0) {
       setProcessControl(processControl[0]);
     }
-    
+
     if (statuses) {
       const totalsByStatus = new Map();
 
@@ -174,6 +188,10 @@ const ShipmentProvider = ({ children }) => {
 
         if (buyerSelected !== t("importations.label.all")) {
           params.buyer = buyerSelected;
+        }
+
+        if (yearSelected !== t("importations.label.all")) {
+          params.year = yearSelected;
         }
 
         try {
@@ -204,15 +222,16 @@ const ShipmentProvider = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statuses, lastUpdate]);
 
-  const setFilterData = (event, analyst, buyer) => {
+  const setFilterData = (event, analyst, buyer, year) => {
     setBusinessObjectiveSelected(event);
     setAnalystSelected(analyst);
-    setbuyerSelected(buyer);
+    setBuyerSelected(buyer);
+    setYearSelected(year);
     setLoadingTotalsData(true);
-  }
+  };
 
   const markAsModified = (id) => {
-    const shipment = shipmentsByStatus.find(s => s.id === id); 
+    const shipment = shipmentsByStatus.find((s) => s.id === id);
     shipment.led = "RED";
     setShipmentsByStatus([...shipmentsByStatus]);
 
@@ -220,9 +239,9 @@ const ShipmentProvider = ({ children }) => {
       token: user.token,
       reference: shipment.referencia,
     };
-    
+
     markShipmentAsModied(params);
-  }
+  };
 
   return (
     <ShipmentContext.Provider
@@ -232,6 +251,7 @@ const ShipmentProvider = ({ children }) => {
         statuses,
         businessObjectives,
         analysts,
+        years,
         loading,
         error,
         processControl,
@@ -248,10 +268,16 @@ const ShipmentProvider = ({ children }) => {
         scrollYPos,
         setScrollYPos,
         markAsModified,
-        selectedColumnId, setSelectedColumnId,
-        sortOrder, setSortOrder,
-        buyers, setBuyers,
-        buyerSelected, setbuyerSelected
+        selectedColumnId,
+        setSelectedColumnId,
+        sortOrder,
+        setSortOrder,
+        buyers,
+        setBuyers,
+        buyerSelected,
+        setBuyerSelected,
+        yearSelected,
+        setYearSelected,
       }}
     >
       {children}
