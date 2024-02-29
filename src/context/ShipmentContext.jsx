@@ -41,7 +41,7 @@ const ShipmentProvider = ({ children }) => {
     user?.sidomkeys !== "*" ? user.sidomkeys : t("importations.label.all")
   );
   const [buyerSelected, setBuyerSelected] = useState(t("importations.label.all"));
-  const [yearSelected, setYearSelected] = useState(`${new Date().getFullYear()}`);
+  const [yearSelected, setYearSelected] = useState(t("importations.label.all"));
   const [statusSelected, setStatusSelected] = useState(null);
   const [shipmentsByStatus, setShipmentsByStatus] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(Date.now());
