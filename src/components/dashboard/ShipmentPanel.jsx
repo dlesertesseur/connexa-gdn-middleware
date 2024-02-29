@@ -64,10 +64,10 @@ const ShipmentPanel = ({ panel, height }) => {
         </Tabs.List>
 
         <Tabs.Panel value="good" py={"xs"}>
-          <ShipmentStatusDetail data={shipmentGoodList} shipmentMap={shipmentGoodMap} height={height - headerHeight} />
+          <ShipmentStatusDetail data={shipmentGoodList} shipmentMap={shipmentGoodMap} height={height - headerHeight} advantageColor={"green"}/>
         </Tabs.Panel>
         <Tabs.Panel value="bad" py={"xs"}>
-          <ShipmentStatusDetail data={shipmentBadList} shipmentMap={shipmentBadMap} height={height - headerHeight} />
+          <ShipmentStatusDetail data={shipmentBadList} shipmentMap={shipmentBadMap} height={height - headerHeight} advantageColor={"red"}/>
         </Tabs.Panel>
       </Tabs>
     </Stack>

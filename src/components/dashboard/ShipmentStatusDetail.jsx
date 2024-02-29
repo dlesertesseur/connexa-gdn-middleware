@@ -4,15 +4,15 @@ import { Group, Stack, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../../context/UserContext";
+import { getEventById } from "../../data/events";
 import DataTable from "../ui/DataTable";
 import EventTimeline from "../ui/EventTimeline";
-import { getEventById } from "../../data/events";
 
 
 const rowHeight = 100;
 const planHeight = 146;
 
-const ShipmentStatusDetail = ({ data = [], height, shipmentMap }) => {
+const ShipmentStatusDetail = ({ data = [], height, shipmentMap, advantageColor }) => {
   const { t } = useTranslation();
 
   const [selectedColumnId, setSelectedColumnId] = useState(null);
@@ -242,6 +242,7 @@ const ShipmentStatusDetail = ({ data = [], height, shipmentMap }) => {
           rowHeight={rowHeight}
           layers={layers}
           minItemWidth={250}
+          advantageColor={advantageColor}
         />
       ) : (
         <Group h={planHeight} justify="center" align="center">

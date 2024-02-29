@@ -55,8 +55,7 @@ async function findShipmentsByStatus(params) {
   const buyer = params.buyer ? `&buyer=${params.buyer}` : null;
   const year = params.year ? `&year=${params.year}` : null;
 
-  const url = `${baseUrl}/shipments/new/?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}${year ? year : ""}`;
-
+  const url = `${baseUrl}/shipments/new?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}${year ? year : ""}`;
   // console.log("findShipmentsByStatus url -> ", url);
 
   const res = await fetch(url, requestOptions);
@@ -105,9 +104,10 @@ async function findShipmentsIndicatorsByStatus(params) {
   const year = params.year ? `&year=${params.year}` : null;
 
   const url = `${baseUrl}/shipments/indicators/new?status=${params.status}${event ? event : ""}${analyst ? analyst : ""}${buyer ? buyer : ""}${year ? year : ""}`;
-
+  
   const res = await fetch(url, requestOptions);
   const data = await res.json();
+
   return data;
 }
 

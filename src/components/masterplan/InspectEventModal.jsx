@@ -193,6 +193,7 @@ const InspectEventModal = ({ opened, close, event }) => {
                   rowHeight={rowHeight}
                   layers={layers}
                   minItemWidth={250}
+                  advantageColor="yellow.4"
                 />
               </Group>
             ) : (

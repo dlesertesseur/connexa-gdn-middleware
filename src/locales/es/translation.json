@@ -704,8 +704,8 @@
     }
   },
   "label": {
-    "bad": "Embarque inconsistentes",
-    "good": "Embarques consistentes",
+    "bad": "Embarque con incidencia",
+    "good": "Embarques OK",
     "regular": "Regular",
     "shipments": "Embarques",
     "unselectedShipment":"No hay un emnarque seleccionado"

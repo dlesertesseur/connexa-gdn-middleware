@@ -30,6 +30,8 @@ const EventTimeline = ({
   layers,
   centered = true,
   offsetDays = 30,
+  advanceHeight = 20,
+  advantageColor="red"
 }) => {
   const targetRef = useRef();
   const itemRef = useRef();
@@ -63,6 +65,9 @@ const EventTimeline = ({
         const columns = createMonthsList(startYear, endYear, ret.daysByYearMonth);
         setObjCols(columns);
 
+        const w = ret.totalDays * relationPixeDay;
+        setTotalWidth(w);
+
         const arrPosX = [];
         const rows = data?.map((r, index) => createRows(r, index, arrPosX));
         setObjRows(rows);
@@ -74,9 +79,6 @@ const EventTimeline = ({
 
         const items = data?.map((r, index) => createItems(r, index));
         setObjItems(items);
-
-        const w = ret.totalDays * relationPixeDay;
-        setTotalWidth(w);
       } else {
         if (endYear === startYear) {
           setSizes([minItemWidth, "auto"]);
@@ -243,17 +245,37 @@ const EventTimeline = ({
   };
 
   const createRowsInParts = (r, index, arrPosX) => {
-    const parts = createParts(r.parts, arrPosX);
+    const parts = createParts(r.id, r.parts, arrPosX);
+    const advantage = calculateAdvantage(r.parts);
 
     const ret = (
       <Row key={r.id} id={r.id} order={index} selected={r.id === selectedRowId ? true : false} onClick={onRowSelected}>
-        {parts}
+        <Stack gap={0} h={rowHeight} w={"100%"}>
+          <Group gap={0} h={rowHeight - advanceHeight}>
+            {parts}
+          </Group>
+          <Group h={advanceHeight} w={"100%"}>
+            <Box
+              pos={"relative"}
+              bg={advantageColor}
+              left={advantage.posX}
+              w={advantage.blockW}
+              h={"100%"}
+            >
+              <Group h={"100%"} align="center" w={"100%"} justify="center">
+                <Text size="xs" fw={700}>
+                  {`${advantage.percentage}%`}
+                </Text>
+              </Group>
+            </Box>
+          </Group>
+        </Stack>
       </Row>
     );
     return ret;
   };
 
-  function createParts(parts, arrPosX) {
+  function createParts(id, parts, arrPosX) {
     const blocks = [];
     let posX = -1;
 
@@ -274,14 +296,43 @@ const EventTimeline = ({
         arrPosX?.push(posX);
       }
 
-      const ret = createPart(p, posX, blockW);
+      const ret = createPart(id, p, posX, blockW, index);
       blocks.push(ret);
     });
 
     return blocks;
   }
 
-  function createPart(r, posX, blockW) {
+  function calculateAdvantage(parts) {
+    let posX = -1;
+    let blockW = 0;
+    let advantagePercentage = 0;
+
+    parts.forEach((p, index) => {
+      const startDate = new Date(startYear, 0, 1);
+      const day1 = p.startDateTime < startDate.getTime() ? startDate.getTime() : p.startDateTime;
+
+      const diffInDays = diffBetweenDays(day1, p.endDateTime);
+
+      blockW += (diffInDays * relationPixeDay * p.percentage) / 100.0;
+      advantagePercentage += p.percentage;
+
+      if (posX < 0) {
+        if (p.startDateTime < startDate.getTime()) {
+          posX = 0;
+        } else {
+          posX = diffBetweenDays(startDate, p.startDateTime) * relationPixeDay;
+        }
+      }
+    });
+
+    const totalPercentage = parts.length * 100;
+    const percentage = (advantagePercentage * 100.0) / totalPercentage;
+
+    return { posX: posX, blockW: blockW, percentage: percentage };
+  }
+
+  function createPart___(r, posX, blockW) {
     const ret = (
       <Box py={2} pos={"relative"} h={rowHeight} w={blockW} left={posX}>
         <UnstyledButton
@@ -311,6 +362,34 @@ const EventTimeline = ({
             </Stack>
           </Group>
         </UnstyledButton>
+      </Box>
+    );
+
+    return ret;
+  }
+
+  function createPart(id, r, posX, blockW, index) {
+    const ret = (
+      <Box key={`${id}-${r.id}`} py={2} pos={"relative"} h={rowHeight - advanceHeight} w={blockW} left={posX}>
+        <Stack gap={0} h={"100%"}>
+          <UnstyledButton
+            onClick={() => {
+              onInspect ? onInspect(r) : null;
+            }}
+            h={"100%"}
+            w={"100%"}
+            bg={index % 2 ? "blue.5" : "blue.4"}
+            style={{ borderRadius: 0 }}
+          >
+            <Group gap={0} px={5} justify="center" h={"100%"} align="flex-start">
+              <Stack gap={0} align="center" mt={index * 12}>
+                <Text truncate="end" fw={600} size="xs" mr={"xs"} style={{ zIndex: 100 }}>
+                  {r.name}
+                </Text>
+              </Stack>
+            </Group>
+          </UnstyledButton>
+        </Stack>
       </Box>
     );
 
@@ -381,7 +460,7 @@ const EventTimeline = ({
           {r.values
             ? r.values.map((v) => {
                 const ret = (
-                  <Group wrap="nowrap" gap={5} px={3} justify="flex-start" align="center">
+                  <Group key={`${r.id}-${v.label}`} wrap="nowrap" gap={5} px={3} justify="flex-start" align="center">
                     <Text miw={"25%"} fw={700} size="xs" truncate="end">
                       {v.label}
                     </Text>
