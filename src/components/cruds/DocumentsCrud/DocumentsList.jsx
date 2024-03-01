@@ -100,10 +100,11 @@ const DocumentsList = () => {
         rowSelected={selectedRowId}
         buyer={hasBuyer(selectedRowId)}
         open={open}
-        // confirm={() => {
-        //   setConfirmation(true);
-        // }}
         onViewDetail={onViewDetail}
+        exportData={true}
+        data={documents}
+        fileName={"documents"}
+        sheetName={"documents"}
       />
       <DataTable
         data={documents}

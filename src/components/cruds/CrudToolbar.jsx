@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../context/AppContext";
 import { useState } from "react";
 import { useEffect } from "react";
-// import { MODULE_APPS_ROOT } from "../../data/config";
-// import { useAppContext } from "../../context/AppContext";
+import ExportXlsButton from "../ui/ExportXlsButton";
 
-const CrudToolbar = ({ rowSelected }) => {
+
+const CrudToolbar = ({ rowSelected, exportData=false, data, fileName, sheetName }) => {
   const { activeApp } = useAppContext();
   const [app, setApp] = useState(null);
 
@@ -46,10 +46,11 @@ const CrudToolbar = ({ rowSelected }) => {
         <Button size="xs" onClick={onDelete} disabled={onDelete && rowSelected ? false : true}>
           <Text size="xs">{t("general.button.delete")}</Text>
         </Button>
-        {/* <Button onClick={onBack} disabled={onBack === null ? true : false} size="xs">
-          <Text size="xs">{t("general.button.back")}</Text>
-        </Button> */}
+
+        {exportData ? <ExportXlsButton data={data} fileName={fileName} sheetName={sheetName ? sheetName : fileName}/> : null}
+
       </Group>
+      
     </Group>
   );
 };

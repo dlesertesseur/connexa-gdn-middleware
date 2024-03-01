@@ -56,7 +56,7 @@ const ShipmentPlannerList = () => {
 
   const columns = [
     { label: "", field: "hasPlan", type: "icon", width: 30, iconOn: <IconCalendarMonth size={16} />, iconOff: null },
-    { label: cols[col++], field: "referencia", align: "left", width: 120 },
+    { label: cols[col++], field: "referencia", align: "left", width: 230 },
     { label: cols[col++], field: "producto", align: "left", width: 200 },
     { label: cols[col++], field: "analista", align: "left", width: 200 },
     { label: cols[col++], field: "evento", align: "left", width: 200 },
@@ -66,12 +66,10 @@ const ShipmentPlannerList = () => {
     { label: cols[col++], field: "paisOrigen", align: "left", width: 200 },
     {
       label: cols[col++],
-      field: "valorDeEmbarque",
+      field: "valorDelEmbarque",
       align: "right",
       width: 150,
       default: 0,
-      type: "strToFloat",
-      format: "es-ES",
     },
     {
       label: cols[col++],

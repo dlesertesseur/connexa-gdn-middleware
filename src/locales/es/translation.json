@@ -99,6 +99,7 @@
       "account": "Informacion de usuario",
       "changePassword": "Cambiar clave",
       "assign": "Asignar",
+      "exportXls":"Exportar",
       "color": {
         "create": "blue",
         "update": "blue",
@@ -117,9 +118,13 @@
     },
     "message": {
       "changePassword": "La clave fue cambiada con éxito.\nPor favor ingrese nuevamente.",
-      "deleteRow": "¿Esta seguro de eliminar el registro?"
+      "deleteRow": "¿Esta seguro de eliminar el registro?",
+      "exportSuccess": "El archivo fue exportado correctamente"
     },
-    "title": { "error": "Error" }
+    "title": { 
+      "error": "Error",
+      "export":"Exportar información"
+    }
   },
 
   "menu": {

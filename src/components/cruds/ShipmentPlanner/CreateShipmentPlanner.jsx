@@ -95,7 +95,7 @@ const CreateShipmentPlanner = () => {
     const preparationStart = subtractDays(preparationEnd, values.preparationPeriod);
 
     const plan = {
-      shipmentCode: shipmentData.shipment.ordenDeCompra,
+      shipmentCode: shipmentData.shipment.referencia,
       eventId: values.event,
       salesStart: salesStart,
       salesEnd: salesEnd,
@@ -153,7 +153,7 @@ const CreateShipmentPlanner = () => {
             <Group align="flex-start" wrap="nowrap">
               <Fieldset legend={t("crud.createShipmentPlanner.label.shipmentInfo")} variant="filled">
                 <Stack align="flex-start" py={3} gap={"sm"}>
-                  <Label w={ms} title={t("crud.createShipmentPlanner.label.reference")} value={shipmentData?.shipment.ordenDeCompra} />
+                  <Label w={ms} title={t("crud.createShipmentPlanner.label.reference")} value={shipmentData?.shipment.referencia} />
                   <Label w={ms} title={t("crud.createShipmentPlanner.label.product")} value={shipmentData?.shipment.producto} />
                   <Label w={ms} title={t("crud.createShipmentPlanner.label.analyst")} value={shipmentData?.shipment.analista} />
                   <Label w={ms} title={t("crud.createShipmentPlanner.label.event")} value={shipmentData?.shipment.evento} />
