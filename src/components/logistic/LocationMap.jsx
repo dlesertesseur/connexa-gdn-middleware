@@ -30,7 +30,7 @@ const LocationMap = ({ h = 600 }) => {
       const i = shipmentsByStatus[index];
       const params = {
         token: user.token,
-        code: i.referencia,
+        name: i.medioDeTransporte,
       };
 
       try {
@@ -81,13 +81,15 @@ const LocationMap = ({ h = 600 }) => {
 
         {/* <TileLayer url="https://www.openstreetmap.in/indic-map/#{z}/{x}/{y}"/> */}
         
-        {vessels?.map((v) => (
-          <Marker key={v.id} position={[v.latitude, v.longitude]} icon={barcoIcon}>
+        {vessels?.map((v) => {
+          const ret = <Marker key={v.id} position={[v.latitude, v.longitude]} icon={barcoIcon}>
             <Popup closeButton={false}>
               <VesselCard data={v} />
             </Popup>
-          </Marker>
-        ))}
+          </Marker>;
+          return(ret);
+        }
+        )}
       </MapContainer>
     </Stack>
   );

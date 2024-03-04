@@ -10,7 +10,9 @@ async function findVesselByCode(params) {
     },
   };
 
-  const url = `${API_GDNAR}/vessels/${params.code}`;
+  //const url = `${API_GDNAR}/vessels/${params.code}`;
+  const url = `http://192.168.0.10:8085/api/solicitar/${params.name}`
+  
   console.log("findVesselByCode url ->", url);
 
   const res = await fetch(url, requestOptions);
