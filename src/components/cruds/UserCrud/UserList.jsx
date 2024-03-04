@@ -40,7 +40,7 @@ const UserList = () => {
 
   return (
     <Stack gap={"xs"}>
-      <CrudToolbar rowSelected={selectedUserId} exportData={true} data={users} fileName={"users"}/>
+      <CrudToolbar rowSelected={selectedUserId} exportData={true} columns={columns} data={users} fileName={"users"}/>
       <DataTable
         data={users}
         columns={columns}

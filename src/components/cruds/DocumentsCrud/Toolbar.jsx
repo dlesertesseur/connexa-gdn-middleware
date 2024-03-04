@@ -6,7 +6,7 @@ import { useAppContext } from "../../../context/AppContext";
 import { useEffect, useState } from "react";
 import ExportXlsButton from "../../ui/ExportXlsButton";
 
-const Toolbar = ({ rowSelected, onViewDetail, exportData=false, data, fileName, sheetName }) => {
+const Toolbar = ({ rowSelected, onViewDetail, exportData=false, columns, data, fileName, sheetName }) => {
   const { t } = useTranslation();
   const { activeApp } = useAppContext();
   const [app, setApp] = useState(null);
@@ -41,7 +41,7 @@ const Toolbar = ({ rowSelected, onViewDetail, exportData=false, data, fileName, 
         </Button>
 
         {exportData ? (
-          <ExportXlsButton data={data} fileName={fileName} sheetName={sheetName ? sheetName : fileName} />
+          <ExportXlsButton data={data} fileName={fileName} sheetName={sheetName ? sheetName : fileName} columns={columns}/>
         ) : null}
       </Group>
     </Group>

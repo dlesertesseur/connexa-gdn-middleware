@@ -103,6 +103,7 @@ const DocumentsList = () => {
         onViewDetail={onViewDetail}
         exportData={true}
         data={documents}
+        columns={columns}
         fileName={"documents"}
         sheetName={"documents"}
       />

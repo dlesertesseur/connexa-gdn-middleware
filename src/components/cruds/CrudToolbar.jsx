@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import ExportXlsButton from "../ui/ExportXlsButton";
 
 
-const CrudToolbar = ({ rowSelected, exportData=false, data, fileName, sheetName }) => {
+const CrudToolbar = ({ rowSelected, exportData=false, data, columns, fileName, sheetName }) => {
   const { activeApp } = useAppContext();
   const [app, setApp] = useState(null);
 
@@ -47,7 +47,7 @@ const CrudToolbar = ({ rowSelected, exportData=false, data, fileName, sheetName 
           <Text size="xs">{t("general.button.delete")}</Text>
         </Button>
 
-        {exportData ? <ExportXlsButton data={data} fileName={fileName} sheetName={sheetName ? sheetName : fileName}/> : null}
+        {exportData ? <ExportXlsButton data={data} columns={columns} fileName={fileName} sheetName={sheetName ? sheetName : fileName}/> : null}
 
       </Group>
       
